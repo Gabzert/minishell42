@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/06 16:32:14 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:03:50 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ void	free_pipes(int **fd, int i)
 		i--;
 	}
 	free(fd);
+}
+
+void	free_split(char **a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i])
+	{
+		free(a[i]);
+		i++;
+	}
+	free(a);
 }

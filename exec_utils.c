@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/06 16:30:55 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:56:11 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ void	take_input(char *eof, int *file)
 	int		fd;
 
 	len = ft_strlen(eof);
-	fd = open(".here_doc", O_WRONLY | O_CREAT, 0777);
+	fd = open(".heredoc", O_WRONLY | O_CREAT, 0777);
 	while (1)
 	{
-		write(1, "here_doc>", 9);
+		write(1, "heredoc>", 9);
 		str = get_next_line(0);
 		if (ft_strncmp(str, eof, len) == 0)
 			break ;
 		write(fd, str, ft_strlen(str));
 	}
 	close(fd);
-	*file = open(".here_doc", O_RDONLY);
+	*file = open(".heredoc", O_RDONLY);
 }
