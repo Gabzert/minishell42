@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 17:07:41 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/07 23:12:33 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute(char **input, char **env)
 
 char	**handle_redirect(char **input, t_flags f)
 {
-	char	**new;
+	// char	**new;
 	int		fd;
 
 	if (f.append_out == false && f.write_in == false
@@ -43,7 +43,7 @@ char	**handle_redirect(char **input, t_flags f)
 		close(fd);
 	}
 
-	return (new);
+	return (0);
 }
 
 void	analize_command(char *line, char **env, t_flags flags)
@@ -69,6 +69,13 @@ void	analize_command(char *line, char **env, t_flags flags)
 	}
 }
 
+// ----------- per il ctrl+c ----------
+void	sigint_handler()
+{
+	printf("\n");
+	printf("minishell~$ ");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
@@ -76,13 +83,26 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
+
+	//------------ ctrl+c -----------
+	signal(SIGINT, sigint_handler);
+	//------------ ctrl+\ -----------
+	signal(SIGQUIT, SIG_IGN);
+
 	using_history();
 	while (1)
 	{
 		cmd = readline("minishell~$ ");
+
+		//---------- ctrl+d -----------
+		//------ ritorna un EOF ------- 
 		if (cmd == NULL)
-			break ;
-		if (*cmd != '\0')
+		{
+			printf("\n");
+			free(cmd);
+			exit(EXIT_SUCCESS);
+		}
+		else if (*cmd != '\0')
 		{
 			flag_init(&flags);
 			flag_finder(cmd, &flags);
