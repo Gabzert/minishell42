@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/06 17:19:07 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:22:21 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 void	execute(char **input, char **env)
 {
 	char	*cmd;
+	int		pid;
 //	int		file;
 
-	cmd = find_cmd(input[0], env);
-	if (execve(cmd, input, env) == -1)
-		return ;
+	pid = fork();
+	if (pid == 0)
+	{
+		cmd = find_cmd(input[0], env);
+		if (execve(cmd, input, env) == -1)
+			return ;
+	}
+	waitpid(pid, NULL, 0);
 }
 
-void	analize_command(char *line, char **env)
+void	analize_command(char *line, char **env, t_flags flags)
 {
 	char	**inputs;
-	int		pid;
 
-	if (ft_strchr(line, '|'))
+
+	if (flags.pipe == true)
 	{
 		inputs = ft_split(line, '|');
 	//	use_pipex(inputs, env);
@@ -35,16 +41,14 @@ void	analize_command(char *line, char **env)
 	else
 	{
 		inputs = ft_split(line, ' ');
-		pid = fork();
-		if (pid == 0)
-			execute(inputs, env);
-		waitpid(pid, NULL, 0);
+		execute(inputs, env);
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
+	t_flags	flags;
 
 	(void) argc;
 	(void) argv;
@@ -56,7 +60,8 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		if (*cmd != '\0')
 		{
-			analize_command(cmd, env);
+			flag_finder(cmd, &flags);
+			analize_command(cmd, env, flags);
 			add_history(cmd);
 			free(cmd);
 		}
