@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 17:04:03 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:01:10 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <signal.h>
 
 typedef struct s_pipex
 {
