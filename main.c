@@ -16,34 +16,9 @@ void	execute(char **input, char **env)
 {
 	char	*cmd;
 
-//	int		file;
 	cmd = find_cmd(input[0], env);
 	if (execve(cmd, input, env) == -1)
 		return ;
-}
-
-char	**handle_redirect(char **input, t_flags f)
-{
-	char	**new;
-	int		fd;
-
-	if (f.append_out == false && f.write_in == false
-		&& f.re_in == false && f.re_out == false)
-		return (input);
-	if (f.re_in == true)
-	{
-		fd = open(input[1], O_RDONLY);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
-	else if (f.write_in == true)
-	{
-		take_input(input[1], &fd);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
-
-	return (new);
 }
 
 void	analize_command(char *line, char **env, t_flags flags)
@@ -54,7 +29,8 @@ void	analize_command(char *line, char **env, t_flags flags)
 	if (flags.pipe == true)
 	{
 		inputs = ft_split(line, '|');
-	//	use_pipex(inputs, env);
+		pipex(split_size(inputs), inputs, env, flags);
+		free_split(inputs);
 	}
 	else
 	{
@@ -64,6 +40,7 @@ void	analize_command(char *line, char **env, t_flags flags)
 			inputs = ft_split(line, ' ');
 			inputs = handle_redirect(inputs, flags);
 			execute(inputs, env);
+			free(inputs);
 		}
 		waitpid(pid, NULL, 0);
 	}

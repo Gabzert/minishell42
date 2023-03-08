@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+void	free_child(char **input, t_pipex *pipe)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		free(input[i]);
+		i++;
+	}
+	free(input);
+	free_pipes(pipe->fd, pipe->fd_count - 1);
+	exit(1);
+}
+
 void	close_pipes(int **fd, int i)
 {
 	while (i >= 0)

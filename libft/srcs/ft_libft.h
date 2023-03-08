@@ -70,4 +70,5 @@ int					ft_lstsize(t_list *lst);
 
 char				**ft_split_free(char *s, char c);
 int					ft_atoi_free(char *str);
+size_t				ft_strcpy(char *dest, const char *src)
 #endif

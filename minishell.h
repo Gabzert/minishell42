@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
-# include <readline/readline.h>
+# include <readline/readline.h> 
 # include <readline/history.h>
 # include <dirent.h>
 # include <fcntl.h>
@@ -30,7 +30,7 @@ typedef struct s_pipex
 	int	pid2;
 	int	pidn;
 	int	i;
-	int	here_doc;
+	int	redirect;
 }	t_pipex;
 
 typedef struct s_flags
@@ -46,13 +46,26 @@ typedef struct s_flags
 
 char	*find_path(char **env);
 char	*find_cmd(char *cmd, char **env);
-void	free_child(char **input, t_pipex *pipe);
 void	take_input(char *eof, int *file);
-void	close_pipes(int **fd, int i);
-void	free_pipes(int **fd, int i);
 int		split_size(char **split);
 void	flag_finder(char *input, t_flags *flags);
 void	flag_init(t_flags *f);
+
+/*
+**	FREE UTILS
+*/
+void	free_child(char **input, t_pipex *pipe);
+void	free_pipes(int **fd, int i);
+void	close_pipes(int **fd, int i);
 void	free_split(char **a);
 
+/*
+**	REDIRECT UTILS
+*/
+char	**handle_redirect(char **input, t_flags f);
+void	change_output(char **input, t_flags f);
+void	change_input(char **input, t_flags f);
+char	**extract_command(char **inputs, t_flags flags);
+
+void	pipex(int size, char **inputs, char **env, t_flags flag);
 #endif

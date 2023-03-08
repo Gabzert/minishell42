@@ -53,21 +53,6 @@ char	*find_cmd(char *cmd, char **env)
 	return (NULL);
 }
 
-void	free_child(char **input, t_pipex *pipe)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		free(input[i]);
-		i++;
-	}
-	free(input);
-	free_pipes(pipe->fd, pipe->fd_count - 1);
-	exit(1);
-}
-
 void	take_input(char *eof, int *file)
 {
 	char	*str;
