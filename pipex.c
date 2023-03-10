@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/06 17:34:20 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:46:33 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	run_child_first(t_pipex pipe, char *line, char **env, t_flags flag)
 {
-	char	**input
+	char	**input;
 	char	*cmd;
 
 	input = ft_split(line, ' ');
 	if (flag.re_in == true || flag.write_in == true)
 	{
 		change_input(input, flag);
-		input = extract_command(input, flag);
+		input = extract_command(input, flag, 2);
 	}
 	cmd = find_cmd(input[0], env);
 	if (cmd == NULL)
@@ -51,14 +51,14 @@ void	run_child_middle(t_pipex pipe, char **input, char **env)
 
 void	run_child_last(t_pipex pipe, char *line, char **env, t_flags flag)
 {
-	char	**input
+	char	**input;
 	char	*cmd;
 
 	input = ft_split(line, ' ');
-	if (flag.re_in == true || flag.write_in == true)
+	if (flag.re_out == true || flag.append_out == true)
 	{
 		change_output(input, flag);
-		input = extract_command(input, flag);
+		input = extract_command(input, flag, 2);
 	}
 	cmd = find_cmd(input[0], env);
 	if (cmd == NULL)
@@ -73,7 +73,7 @@ void	pipex(int size, char **inputs, char **env, t_flags flag)
 {
 	t_pipex	pipe;
 
-	pipex_init(&pipe, inputs, size);
+	pipex_init(&pipe, size);
 	pipe.pid1 = fork();
 	if (pipe.pid1 == 0)
 		run_child_first(pipe, inputs[0], env, flag);
@@ -92,7 +92,7 @@ void	pipex(int size, char **inputs, char **env, t_flags flag)
 	}
 	pipe.pid2 = fork();
 	if (pipe.pid2 == 0)
-		run_child_last(pipe, inputs[size], env, flag);
+		run_child_last(pipe, inputs[size - 1], env, flag);
 	free_pipes(pipe.fd, pipe.fd_count - 1);
 	waitpid(pipe.pidn, NULL, 0);
 	waitpid(pipe.pid2, NULL, 0);

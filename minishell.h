@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 19:01:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:49:13 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_pipex
 	int	pid2;
 	int	pidn;
 	int	i;
-	int	redirect;
 }	t_pipex;
 
 typedef struct s_flags
@@ -66,7 +65,8 @@ void	free_split(char **a);
 char	**handle_redirect(char **input, t_flags f);
 void	change_output(char **input, t_flags f);
 void	change_input(char **input, t_flags f);
-char	**extract_command(char **inputs, t_flags flags);
+char	**extract_command(char **inputs, t_flags flags, int diff);
 
 void	pipex(int size, char **inputs, char **env, t_flags flag);
+void	pipex_init(t_pipex *p, int size);
 #endif

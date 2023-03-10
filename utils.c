@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 12:15:12 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:54:24 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,32 @@ void	flag_init(t_flags *f)
 	f->re_in = false;
 	f->re_out = false;
 	f->write_in = false;
+}
+
+int	**create_pipe(int size)
+{
+	int	i;
+	int	**fd;
+
+	i = 0;
+	fd = (int **)malloc((size - 1) * sizeof(int *));
+	while (i < size)
+	{
+		fd[i] = (int *)malloc(2 * sizeof(int));
+		if (pipe(fd[i]) == -1)
+		{
+			free_pipes(fd, i);
+			return (NULL);
+		}
+		i++;
+	}
+	return (fd);
+}
+
+void	pipex_init(t_pipex *p, int size)
+{
+	p->i = 0;
+	p->pidn = -1;
+	p->fd_count = size;
+	p->fd = create_pipe(size);
 }

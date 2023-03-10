@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 23:12:33 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:40:31 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,11 @@ void	execute(char **input, char **env)
 
 	cmd = find_cmd(input[0], env);
 	if (execve(cmd, input, env) == -1)
-		return ;
-}
-
-char	**handle_redirect(char **input, t_flags f)
-{
-	// char	**new;
-	int		fd;
-
-	if (f.append_out == false && f.write_in == false
-		&& f.re_in == false && f.re_out == false)
-		return (input);
-	if (f.re_in == true)
 	{
-		fd = open(input[1], O_RDONLY);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
+		perror("Esecusione fallita");
+		free_split(input);
+		exit(0);
 	}
-	else if (f.write_in == true)
-	{
-		take_input(input[1], &fd);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
-
-	return (0);
 }
 
 void	analize_command(char *line, char **env, t_flags flags)
@@ -63,16 +43,17 @@ void	analize_command(char *line, char **env, t_flags flags)
 		{
 			inputs = ft_split(line, ' ');
 			inputs = handle_redirect(inputs, flags);
-			execute(inputs, env);
-			free(inputs);
+			if (inputs != NULL)
+				execute(inputs, env);
 		}
 		waitpid(pid, NULL, 0);
 	}
 }
 
 // ----------- per il ctrl+c ----------
-void	sigint_handler()
+void	sigint_handler(int prova)
 {
+	(void) prova;
 	printf("\n");
 	printf("minishell~$ ");
 }

@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_libft.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:35:25 by gfantech          #+#    #+#             */
-/*   Updated: 2022/10/05 17:35:27 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:34:21 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef FT_LIBFT_H
 # define FT_LIBFT_H
 
@@ -70,5 +71,6 @@ int					ft_lstsize(t_list *lst);
 
 char				**ft_split_free(char *s, char c);
 int					ft_atoi_free(char *str);
-size_t				ft_strcpy(char *dest, const char *src)
+size_t				ft_strcpy(char *dest, const char *src);
+
 #endif
