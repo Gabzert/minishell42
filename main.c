@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/10 16:40:31 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:29:50 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	analize_command(char *line, char **env, t_flags flags)
 		pid = fork();
 		if (pid == 0)
 		{
-			inputs = ft_split(line, ' ');
+			inputs = split_cmd(line, flags);
 			inputs = handle_redirect(inputs, flags);
 			if (inputs != NULL)
 				execute(inputs, env);
 		}
 		waitpid(pid, NULL, 0);
+		if (flags.write_in == true)
+			unlink(".heredoc");
 	}
 }
 
@@ -65,17 +67,14 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-
 	//------------ ctrl+c -----------
 	signal(SIGINT, sigint_handler);
 	//------------ ctrl+\ -----------
 	signal(SIGQUIT, SIG_IGN);
-
 	using_history();
 	while (1)
 	{
 		cmd = readline("minishell~$ ");
-
 		//---------- ctrl+d -----------
 		//------ ritorna un EOF ------- 
 		if (cmd == NULL)

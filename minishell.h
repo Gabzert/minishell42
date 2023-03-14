@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/10 14:49:13 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:52:41 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	take_input(char *eof, int *file);
 int		split_size(char **split);
 void	flag_finder(char *input, t_flags *flags);
 void	flag_init(t_flags *f);
+char	**split_cmd(char *line, t_flags fl);
 
 /*
 **	FREE UTILS
@@ -63,8 +64,8 @@ void	free_split(char **a);
 **	REDIRECT UTILS
 */
 char	**handle_redirect(char **input, t_flags f);
-void	change_output(char **input, t_flags f);
-void	change_input(char **input, t_flags f);
+int		change_output(char **input, t_flags f);
+int		change_input(char **input, t_flags f);
 char	**extract_command(char **inputs, t_flags flags, int diff);
 
 void	pipex(int size, char **inputs, char **env, t_flags flag);

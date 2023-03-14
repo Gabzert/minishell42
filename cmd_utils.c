@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/07 16:56:11 by gfantech         ###   ########.fr       */
+/*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
+/*   Updated: 2023/03/14 11:51:44 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	take_input(char *eof, int *file)
+{
+	char	*str;
+	int		len;
+	int		fd;
+
+	len = ft_strlen(eof);
+	fd = open(".heredoc", O_WRONLY | O_CREAT, 0777);
+	while (1)
+	{
+		write(1, "heredoc>", 9);
+		str = get_next_line(0);
+		if (ft_strncmp(str, eof, len) == 0)
+			break ;
+		write(fd, str, ft_strlen(str));
+	}
+	close(fd);
+	*file = open(".heredoc", O_RDONLY);
+}
 
 char	*find_path(char **env)
 {
@@ -51,24 +71,4 @@ char	*find_cmd(char *cmd, char **env)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
 	return (NULL);
-}
-
-void	take_input(char *eof, int *file)
-{
-	char	*str;
-	int		len;
-	int		fd;
-
-	len = ft_strlen(eof);
-	fd = open(".heredoc", O_WRONLY | O_CREAT, 0777);
-	while (1)
-	{
-		write(1, "heredoc>", 9);
-		str = get_next_line(0);
-		if (ft_strncmp(str, eof, len) == 0)
-			break ;
-		write(fd, str, ft_strlen(str));
-	}
-	close(fd);
-	*file = open(".heredoc", O_RDONLY);
 }

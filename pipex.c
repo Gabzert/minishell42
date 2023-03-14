@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/10 16:46:33 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:54:01 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	run_child_first(t_pipex pipe, char *line, char **env, t_flags flag)
 {
 	char	**input;
 	char	*cmd;
+	int		diff;
 
-	input = ft_split(line, ' ');
+	input = split_cmd(line, flag);
 	if (flag.re_in == true || flag.write_in == true)
 	{
-		change_input(input, flag);
-		input = extract_command(input, flag, 2);
+		diff = change_input(input, flag);
+		input = extract_command(input, flag, diff);
 	}
 	cmd = find_cmd(input[0], env);
 	if (cmd == NULL)
@@ -53,12 +54,13 @@ void	run_child_last(t_pipex pipe, char *line, char **env, t_flags flag)
 {
 	char	**input;
 	char	*cmd;
+	int		diff;
 
-	input = ft_split(line, ' ');
+	input = split_cmd(line, flag);
 	if (flag.re_out == true || flag.append_out == true)
 	{
-		change_output(input, flag);
-		input = extract_command(input, flag, 2);
+		diff = change_output(input, flag);
+		input = extract_command(input, flag, diff);
 	}
 	cmd = find_cmd(input[0], env);
 	if (cmd == NULL)
@@ -79,7 +81,7 @@ void	pipex(int size, char **inputs, char **env, t_flags flag)
 		run_child_first(pipe, inputs[0], env, flag);
 	waitpid(pipe.pid1, NULL, 0);
 	if (flag.write_in == true)
-		unlink(".here_doc");
+		unlink(".heredoc");
 	if (size > 2)
 	{
 		while (pipe.i < size - 2)
