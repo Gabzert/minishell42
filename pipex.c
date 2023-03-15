@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 11:54:01 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:41:47 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	pipex(int size, char **inputs, char **env, t_flags flag)
 		{
 			pipe.pidn = fork();
 			if (pipe.pidn == 0)
-				run_child_middle(pipe, ft_split(inputs[pipe.i], ' '), env);
+				run_child_middle(pipe, ft_split(inputs[pipe.i + 1], ' '), env);
 			pipe.i++;
 		}
 	}

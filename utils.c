@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/09 10:54:24 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:38:18 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	**create_pipe(int size)
 
 	i = 0;
 	fd = (int **)malloc((size - 1) * sizeof(int *));
-	while (i < size)
+	while (i < size - 1)
 	{
 		fd[i] = (int *)malloc(2 * sizeof(int));
 		if (pipe(fd[i]) == -1)
@@ -79,6 +79,6 @@ void	pipex_init(t_pipex *p, int size)
 {
 	p->i = 0;
 	p->pidn = -1;
-	p->fd_count = size;
+	p->fd_count = size - 1;
 	p->fd = create_pipe(size);
 }

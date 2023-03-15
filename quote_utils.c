@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 17:36:46 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/15 09:43:38 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,21 @@ static int	split_len(char *s, char c, char q)
 	return (ret);
 }
 
-int	read_quoted(char **line, char q)
+char	*read_quoted(char **line, char q)
 {
-	int	len;
+	char	*s;
+	int		l;
 
-	len = 0;
+	l = 0;
 	(*line)++;
 	while (**line && **line != q)
 	{
-		len++;
+		l++;
 		(*line)++;
 	}
-	return (len);
+	s = ft_substr(*line - l, 0, l);
+	(*line)++;
+	return (s);
 }
 
 static char	**quotes_splitter(char *line, char c, char q)
@@ -66,11 +69,13 @@ static char	**quotes_splitter(char *line, char c, char q)
 		{
 			len = 0;
 			if (*line == q)
-				len += read_quoted(&line, q);
+				ret[i++] = read_quoted(&line, q);
 			else
+			{
 				while (*line && *line != c && ++len)
 					line++;
-			ret[i++] = ft_substr(line - len, 0, len);
+				ret[i++] = ft_substr(line - len, 0, len);
+			}
 		}
 		else
 			line++;
