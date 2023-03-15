@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 16:29:50 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:32:55 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	g_exit;
+ 
 void	execute(char **input, char **env)
 {
 	char	*cmd;
@@ -56,8 +58,11 @@ void	analize_command(char *line, char **env, t_flags flags)
 void	sigint_handler(int prova)
 {
 	(void) prova;
-	printf("\n");
-	printf("minishell~$ ");
+	g_exit = 130;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 int	main(int argc, char **argv, char **env)
