@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 21:32:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:09:08 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	execute(char **input, char **env)
 {
 	char	*cmd;
 
-	cmd = find_cmd(input[0], env);
+	if (input == NULL)
+		return ;
+	if (access(input[0], X_OK) != 0)
+		cmd = find_cmd(input[0], env);
+	else
+		cmd = input[0];
 	if (execve(cmd, input, env) == -1)
 	{
 		perror("Esecusione fallita");
@@ -40,17 +45,19 @@ void	analize_command(char *line, char **env, t_flags flags)
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
+		inputs = split_cmd(line, flags);
+		if (is_builtin(inputs) == false)
 		{
-			inputs = split_cmd(line, flags);
-			inputs = handle_redirect(inputs, flags);
-			if (inputs != NULL)
+			pid = fork();
+			if (pid == 0)
+			{
+				inputs = handle_redirect(inputs, flags);
 				execute(inputs, env);
+			}
+			waitpid(pid, NULL, 0);
+			if (flags.write_in == true)
+				unlink(".heredoc");
 		}
-		waitpid(pid, NULL, 0);
-		if (flags.write_in == true)
-			unlink(".heredoc");
 	}
 }
 
@@ -72,16 +79,12 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	//------------ ctrl+c -----------
 	signal(SIGINT, sigint_handler);
-	//------------ ctrl+\ -----------
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	while (1)
 	{
 		cmd = readline("minishell~$ ");
-		//---------- ctrl+d -----------
-		//------ ritorna un EOF ------- 
 		if (cmd == NULL)
 		{
 			printf("\n");

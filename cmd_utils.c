@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 11:51:44 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:11:21 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,30 @@ char	*find_cmd(char *cmd, char **env)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
 	return (NULL);
+}
+
+bool	is_builtin(char **inputs)
+{
+	char	*str;
+
+	if (ft_strncmp(inputs[0], "cd", ft_strlen(inputs[0])) == 0)
+	{
+		getcwd(str, 0);
+		if (ft_strncmp(inputs[1], str, ft_strlen(inputs[0])) == 0)
+			chdir(inputs[1]);
+		else
+			//chdir(ft_strjoin(str, inputs[1]));
+	}
+	else if (ft_strncmp(inputs[0], "export", ft_strlen(inputs[0]) == 0))
+	{
+
+	}
+	else if (ft_strncmp(inputs[0], "unset", ft_strlen(inputs[0]) == 0))
+	{
+
+	}
+	else
+		return (false);
+	free_split(inputs);
+	return (true);
 }
