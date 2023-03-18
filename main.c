@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/14 21:32:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/16 23:13:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		cmd = readline("minishell~$ ");
+
+		//------- variable expansion ----
+		cmd = control_ex(cmd);
+		// printf("%s\n", cmd);
+		
 		//---------- ctrl+d -----------
 		//------ ritorna un EOF ------- 
 		if (cmd == NULL)
