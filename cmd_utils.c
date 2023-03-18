@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/17 14:11:21 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:55:23 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,25 +73,19 @@ char	*find_cmd(char *cmd, char **env)
 	return (NULL);
 }
 
-bool	is_builtin(char **inputs)
+bool	is_builtin(char **inputs, char **env)
 {
-	char	*str;
+	char	**new_env;
 
 	if (ft_strncmp(inputs[0], "cd", ft_strlen(inputs[0])) == 0)
-	{
-		getcwd(str, 0);
-		if (ft_strncmp(inputs[1], str, ft_strlen(inputs[0])) == 0)
-			chdir(inputs[1]);
-		else
-			//chdir(ft_strjoin(str, inputs[1]));
-	}
+		chdir(inputs[1]);
 	else if (ft_strncmp(inputs[0], "export", ft_strlen(inputs[0]) == 0))
 	{
-
+	//	va aggiunto all'array env la nuova variabile o modificata se esistente
 	}
 	else if (ft_strncmp(inputs[0], "unset", ft_strlen(inputs[0]) == 0))
 	{
-
+	// va tolta all-array env la variabile
 	}
 	else
 		return (false);

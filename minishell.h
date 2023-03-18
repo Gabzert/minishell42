@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/18 11:22:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:58:16 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**extract_command(char **inputs, t_flags flags, int diff);
 
 void	pipex(int size, char **inputs, char **env, t_flags flag);
 void	pipex_init(t_pipex *p, int size);
-bool	is_builtin(char **inputs);
+bool	is_builtin(char **inputs, char **env);
 
 //------------- variable_ex.c --------------
 char	*control_ex(char *str);

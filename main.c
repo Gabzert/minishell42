@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/18 11:22:20 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:57:25 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	analize_command(char *line, char **env, t_flags flags)
 	else
 	{
 		inputs = split_cmd(line, flags);
-		if (is_builtin(inputs) == false)
+		if (is_builtin(inputs, env) == false)
 		{
 			pid = fork();
 			if (pid == 0)
