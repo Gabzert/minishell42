@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/21 15:46:16 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/21 22:41:18 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,16 @@
  * * $ ' " $ $" '
  * * $ ' "$ $" '
  * * $ ' " $$ " '
+ * * $ $ "$$"
  * 
  * !casi che non devono essere gestiti
  * * $ "' $ $ "' -> quote
  * * $ "' $ $ "" -> dquote
  * * $ ' $ " $ " -> quote
  * * $ ' $ $ "   -> quote
+ * 
+ * Todo: funzione da creare:
+ * * funziona che stampa la env prendendo il variabile dal $
 */
 
 int	full_size(char *str)
@@ -259,11 +263,15 @@ char	*control_ex(char *str)
 				else if (str_split[i][j] == '\'')
 				{
 					case_2 = 1;
-					if (ft_strlen(str_split[i]) == 2 && str_split[i][j + 1] == '\"')
+					j++;
+					while (str_split[i][j] != '\'')
 					{
-						new_str = ft_strjoin(new_str, "\" ");
+						if (str_split[i][j] == '$')
+						{
+
+						}
+						new_str = ft_strjoin(new_str, str_split[i][j]);
 					}
-					// else if ()
 				}
 				j++;
 			}
