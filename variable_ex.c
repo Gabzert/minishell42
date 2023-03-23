@@ -270,7 +270,7 @@ char	*control_ex(char *str)
 						{
 
 						}
-						new_str = ft_strjoin(new_str, str_split[i][j]);
+						new_str = ft_strjoin(new_str, str_split[i] + j);
 					}
 				}
 				j++;

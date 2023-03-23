@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_libft.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:35:25 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/09 09:34:21 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:08:00 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int					ft_lstsize(t_list *lst);
 char				**ft_split_free(char *s, char c);
 int					ft_atoi_free(char *str);
 size_t				ft_strcpy(char *dest, const char *src);
+int					ft_strcmp(const char *s1, const char *s2);
 
 #endif

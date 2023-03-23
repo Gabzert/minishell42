@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/16 10:51:41 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:22:03 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ void	run_child_last(t_pipex pipe, char *line, char **env, t_flags flag)
 		free_child(input, &pipe);
 }
 
-void	pipex(int size, char **inputs, char **env, t_flags flag)
+void	pipex(int size, char **inputs, char ***env, t_flags flag)
 {
 	t_pipex	pipe;
 
 	pipex_init(&pipe, size);
 	pipe.pid1 = fork();
 	if (pipe.pid1 == 0)
-		run_child_first(pipe, inputs[0], env, flag);
+		run_child_first(pipe, inputs[0], *env, flag);
 	waitpid(pipe.pid1, NULL, 0);
 	if (flag.write_in == true)
 		unlink(".heredoc");
@@ -97,13 +97,13 @@ void	pipex(int size, char **inputs, char **env, t_flags flag)
 		{
 			pipe.pidn = fork();
 			if (pipe.pidn == 0)
-				run_child_middle(pipe, ft_split(inputs[pipe.i + 1], ' '), env);
+				run_child_middle(pipe, ft_split(inputs[pipe.i + 1], ' '), *env);
 			pipe.i++;
 		}
 	}
 	pipe.pid2 = fork();
 	if (pipe.pid2 == 0)
-		run_child_last(pipe, inputs[size - 1], env, flag);
+		run_child_last(pipe, inputs[size - 1], *env, flag);
 	free_pipes(pipe.fd, pipe.fd_count - 1);
 	waitpid(pipe.pidn, NULL, 0);
 	waitpid(pipe.pid2, NULL, 0);

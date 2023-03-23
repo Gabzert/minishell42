@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/21 23:11:06 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:07:41 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,26 @@ char	*find_cmd(char *cmd, char **env)
 	return (NULL);
 }
 
-bool	is_builtin(char **inputs, char **env)
+bool	is_builtin(char **inputs, char ***env)
 {
-	char	**new_env;
+	char	*buffer;
+	int		i;
 
-	if (ft_strncmp(inputs[0], "cd", ft_strlen(inputs[0])) == 0)
+	i = 0;
+	buffer = NULL;
+	if (ft_strcmp(inputs[0], "cd") == 0)
 		chdir(inputs[1]);
-	else if (ft_strncmp(inputs[0], "export", ft_strlen(inputs[0]) == 0))
+	else if (ft_strcmp(inputs[0], "pwd") == 0)
+		ft_printf("%s\n", getcwd(buffer, 0));
+	else if (ft_strcmp(inputs[0], "env") == 0)
 	{
-	//	va aggiunto all'array env la nuova variabile o modificata se esistente
+		while ((*env)[++i])
+			ft_printf("%s\n", (*env)[i]);
 	}
-	else if (ft_strncmp(inputs[0], "unset", ft_strlen(inputs[0]) == 0))
-	{
-	// va tolta all-array env la variabile
-	}
+	else if (ft_strcmp(inputs[0], "export") == 0)
+		export(inputs, env);
+	else if (ft_strcmp(inputs[0], "unset") == 0)
+		unset(inputs, env);
 	else
 		return (false);
 	free_split(inputs);
