@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/23 12:20:56 by gabriele         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:11:43 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,8 @@ void	export(char **inputs, char ***env);
 //------------- variable_ex.c --------------
 char	*control_ex(char *str);
 
+/* --------------------- variable_ex_helper.c --------------------- */
+char	*simple_v(char *var, char *new_str);
+char	*not_v(char *new_str, char *str);
+char	*split_dollar(char *new_str, char *str);
 #endif

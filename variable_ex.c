@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/24 08:27:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:58:39 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ char	*control_ex(char *str)
 	size_for_malloc = full_size(str);
 	str_split = ft_split(str, ' ');
 	new_str = (char *)malloc(sizeof(char) * size_for_malloc + 1);
+
+	//! -------------------------------------------------------------------------- */
+	//!                       add you first command and clean it                   */
+	//! -------------------------------------------------------------------------- */
 	while (str_split[i][j])
 	{
 		if (str_split[i][j] == '\'' || str_split[i][j] == '\"')
@@ -99,6 +103,10 @@ char	*control_ex(char *str)
 	new_str[y] = '\0';
 	i++;
 	j = 0;
+
+	//! -------------------------------------------------------------------------- */
+	//!                to chech for the " ' ' " and for the ' " " '                */
+	//! -------------------------------------------------------------------------- */
 	while (str_split[i])
 	{
 		if (ft_strnstr(str_split[i], "\"", 1))
@@ -107,6 +115,7 @@ char	*control_ex(char *str)
 			if (str_split[i] && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
 			{
 				case_3 = 1;
+				printf("this is my case\n");
 				break ;
 			}
 			else
@@ -153,6 +162,8 @@ char	*control_ex(char *str)
 					j--;
 					var[j] = '\0';
 					cmd = getenv(var);
+					if (str_split[i][0] == '\'')
+						new_str = ft_strjoin(new_str, "\1\'");
 					new_str = ft_strjoin(new_str, cmd);
 					new_str = ft_strjoin(new_str, "\'");
 					case_3 = 4;
@@ -259,6 +270,10 @@ char	*control_ex(char *str)
 			i++;
 		}
 	}
+
+	/* -------------------------------------------------------------------------- */
+	/*                             //! all other cases                            */
+	/* -------------------------------------------------------------------------- */
 	while (str_split[i])
 	{
 		if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])) && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
@@ -495,25 +510,23 @@ char	*control_ex(char *str)
 		}
 		else if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
 		{
-				printf("heelo1\n");
-			if (ft_strnstr(str_split[i], "\'", 1) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'') //! here
+			printf("heelo1\n");
+			if (ft_strnstr(str_split[i], "\'", 1) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
 			{
-				// printf("heelo2\n");
-				new_str = ft_strjoin(new_str, str_split[i]);
-				new_str = ft_strjoin(new_str, " ");
-				if (case_4 != 2)
-					case_4 = 1;
+				printf("heelo2\n");
+				new_str = not_v(new_str, str_split[i]);
+				// if (case_4 != 2) //! didnt find the case yet / maybe there is no need
+				// 	case_4 = 1;
 				
 			}
 			else if (ft_strnstr(str_split[i], "$", 2) && (ft_strnstr(str_split[i], "\'", 1) || str_split[i][ft_strlen(str_split[i]) - 1] == '\''))
 			{
-				// printf("heelo3\n");
-				new_str = ft_strjoin(new_str, str_split[i]);
-				new_str = ft_strjoin(new_str, " ");
+				printf("heelo3\n");
+				new_str = not_v(new_str, str_split[i]);
 			}
 			else
 			{
-				// printf("heelo4\n");
+				printf("heelo4\n");
 				i++;
 				new_str = ft_strjoin(new_str, "\1'");
 				while ((ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]))) == NULL)
@@ -525,9 +538,10 @@ char	*control_ex(char *str)
 		}
 		else if (ft_strnstr(str_split[i], "$", 1)) //! here it was an else if statment
 		{
-			printf("hello am here now\n");
+			printf("543\n");
 			if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])) && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
 			{
+				printf("546\n");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 3);
 				cmd = getenv(var);
 				if (cmd == NULL)
@@ -544,6 +558,7 @@ char	*control_ex(char *str)
 			}
 			else if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])))
 			{
+				printf("563\n");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 2);
 				cmd = getenv(var);
 				if (cmd == NULL)
@@ -559,23 +574,28 @@ char	*control_ex(char *str)
 			}
 			else if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
 			{
+				printf("579\n");
 				var = ft_substr(str_split[i], 0, ft_strlen(str_split[i]) - 1);
 				new_str = ft_strjoin(new_str, var);
 				new_str = ft_strjoin(new_str, " ");
 			}
 			else
 			{
+				printf("586\n");
 				if (case_4 == 1)
 				{
+					printf("589\n");
 					new_str = ft_strjoin(new_str, str_split[i]);
 					new_str = ft_strjoin(new_str, " ");
 					case_4 = 2;
 				}
 				else
 				{
+					printf("596\n");
 					var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]));
 					if (ft_strnstr(var, "$", ft_strlen(var)))
 					{
+						printf("600\n");
 						new_split = ft_split(var, '$');
 						while (new_split[j])
 						{
@@ -592,44 +612,19 @@ char	*control_ex(char *str)
 						j = 0;
 					}
 					else
-					{
-						cmd = getenv(var);
-						if (cmd == NULL)
-						{
-							printf("i have a problem with the cmd man help!!3\n");
-							new_str = ft_strjoin(new_str, " ");
-						}
-						else
-						{
-							new_str = ft_strjoin(new_str, cmd);
-							new_str = ft_strjoin(new_str, " ");
-						}
-					}
+						new_str = simple_v(var, new_str);
 				}
 			}
 		}
 		else if (ft_strnstr(str_split[i], "\"", 1) && ft_strnstr(str_split[i], "$", 2))
 		{
-			printf("500\n");
+			printf("616\n");
 			var = ft_strchr(str_split[i], '$');
 			if (ft_strnstr(var, "$", ft_strlen(var)))
 			{
+				printf("620");
 				str_split[i] = ft_strtrim(str_split[i], "\"");
-				new_split = ft_split(str_split[i], '$');
-				y = 0;
-				while (new_split[y])
-				{
-					var = new_split[y];
-					cmd = getenv(var);
-					if (cmd == NULL)
-					{
-						printf("i have a problem with the cmd man help!!41\n");
-						new_str = ft_strjoin(new_str, " ");
-					}
-					else
-						new_str = ft_strjoin(new_str, cmd);
-					y++;
-				}
+				new_str = split_dollar(new_str, str_split[i]);
 			}
 			else
 			{
@@ -679,10 +674,7 @@ char	*control_ex(char *str)
 			}
 		}
 		else if (str_split[i])
-		{
-			new_str = ft_strjoin(new_str, str_split[i]);
-			new_str = ft_strjoin(new_str, " ");
-		}
+			new_str = not_v(new_str, str_split[i]);
 		i++;
 	}
 	return (new_str);
@@ -691,17 +683,17 @@ char	*control_ex(char *str)
 
 /**
  * ?casi gestiti:
- * * $$         	✔
- * * $ $ $ $ $  	✔
- * * "$"        	✔
- * * $ "$" $    	✔
- * * $ "$ $" $  	✔
- * * $ " $ "    	✔
- * * $ " $ $ "  	✔
- * * '$'        	✔
- * * $ '$' $    	✔
- * * $ '$ $' $  	✔
- * * ' $ '      	✔
+ * * $$         	✔ echo $USER$USER
+ * * $ $ $ $ $  	✔ echo $USER $USER $USER $USER $USER
+ * * "$"        	✔ echo "$USER"
+ * * $ "$" $    	✔ echo $USER "$USER" $USER
+ * * $ "$ $" $  	✔ echo $USER "$USER $USER" $USER
+ * * $ " $ "    	✔ echo " $USER "
+ * * $ " $ $ "  	✔ echo " $USER $USER "
+ * * '$'        	✔ echo '$USER'
+ * * $ '$' $    	✔ echo $USER '$USER' $USER
+ * * $ '$ $' $  	✔ echo $USER '$USER $USER' $USER
+ * * ' $ '      	✔ //! error
  * * $ ' $ '    	✔
  * * $ ' $ $ '  	✔
  * * "'$'"      	✔
