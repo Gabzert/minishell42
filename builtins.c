@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/23 14:07:51 by gabriele         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:35:12 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	export(char **inputs, char ***env)
 	i = -1;
 	if (inputs[1])
 	{
-		new_env = malloc(split_size(*env) + 1 * sizeof(char **));
+		new_env = malloc((split_size(*env) + 1) * sizeof(char **));
 		while ((*env)[++i])
-		new_env[i] = ft_strdup((*env)[i]);
+			new_env[i] = ft_strdup((*env)[i]);
 		new_env[i] = ft_strdup(inputs[1]);
+		new_env[i + 1] = NULL;
 //		free(env);
 		*env = new_env;
 	}
@@ -52,6 +53,7 @@ void	unset(char **inputs, char ***env)
 		}
 		i++;
 	}
+	new_env[j] = NULL;
 //	free(env);
 	*env = new_env;
 }
