@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/24 08:12:12 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/24 08:27:59 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,7 +335,6 @@ char	*control_ex(char *str)
 								new_str = ft_strjoin(new_str, "\1\"");
 							i++;
 						}
-<<<<<<< HEAD
 						i--;
 						break ;
 					}
@@ -402,9 +401,6 @@ char	*control_ex(char *str)
 						}
 						i--;
 						break ;
-=======
-						new_str = ft_strjoin(new_str, str_split[i] + j);
->>>>>>> 2c58a8141dc52a705002201c7ebca5297f99fb09
 					}
 				}
 				j++;
