@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/21 23:11:06 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/22 07:02:03 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ char	*find_cmd(char *cmd, char **env)
 bool	is_builtin(char **inputs, char **env)
 {
 	char	**new_env;
+
+	if (new_env && env)
+	{
+		
+	}
 
 	if (ft_strncmp(inputs[0], "cd", ft_strlen(inputs[0])) == 0)
 		chdir(inputs[1]);
