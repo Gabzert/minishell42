@@ -335,6 +335,7 @@ char	*control_ex(char *str)
 								new_str = ft_strjoin(new_str, "\1\"");
 							i++;
 						}
+<<<<<<< HEAD
 						i--;
 						break ;
 					}
@@ -401,6 +402,9 @@ char	*control_ex(char *str)
 						}
 						i--;
 						break ;
+=======
+						new_str = ft_strjoin(new_str, str_split[i] + j);
+>>>>>>> 2c58a8141dc52a705002201c7ebca5297f99fb09
 					}
 				}
 				j++;

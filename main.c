@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/23 20:47:58 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/24 08:19:36 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	execute(char **input, char **env)
 	}
 }
 
-void	analize_command(char *line, char **env, t_flags flags)
+void	analize_command(char *line, char ***env, t_flags flags)
 {
 	char	**inputs;
 	int		pid;
@@ -52,7 +52,7 @@ void	analize_command(char *line, char **env, t_flags flags)
 			if (pid == 0)
 			{
 				inputs = handle_redirect(inputs, flags);
-				execute(inputs, env);
+				execute(inputs, *env);
 			}
 			waitpid(pid, NULL, 0);
 			if (flags.write_in == true)
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			flag_init(&flags);
 			flag_finder(cmd, &flags);
-			analize_command(cmd, env, flags);
+			analize_command(cmd, &env, flags);
 			add_history(cmd);
 			free(cmd);
 		}
