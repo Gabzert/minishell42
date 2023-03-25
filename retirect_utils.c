@@ -6,13 +6,13 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/14 12:22:42 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:26:45 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find(char **inputs, char *str, int *diff)
+void	find(char **inputs, t_help *next, int *diff)
 {
 	int	i;
 
@@ -38,16 +38,22 @@ int	change_input(char **input, t_flags f)
 {
 	int		fd;
 	int		diff;
+	t_help		next;
 
 	diff = 0;
-	if (f.re_in == true)
-		fd = open(find(input, "<", &diff), O_RDONLY);
-	else if (f.write_in == true)
-		take_input(find(input, "<<", &diff), &fd);
-	if (fd == -1)
+	find(input, &next, &diff);
+	while (next.str)
 	{
-		perror("errore lettura file");
-		exit (0);
+		if (next.found == "<")
+			fd = open(next.str, O_RDONLY);
+		else if (next.found == "<<")
+			take_input(next.str, &fd);
+		if (fd == -1)
+		{
+			perror("errore lettura file");
+			exit (0);
+		}
+		find(input, &next, &diff);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
