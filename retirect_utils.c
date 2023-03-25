@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/25 20:50:05 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:51:52 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	change_input(char **input, t_flags f)
 	diff = 0;
 	i = 0;
 	fd = 0;
-	while (inputs[i])
+	while (input[i])
 	{
 		if (fd != 0)
 			close(fd);
