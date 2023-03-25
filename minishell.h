@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/24 11:11:43 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/24 23:22:13 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,8 @@ char	*control_ex(char *str);
 char	*simple_v(char *var, char *new_str);
 char	*not_v(char *new_str, char *str);
 char	*split_dollar(char *new_str, char *str);
+char	*begin_and_end_with_quote(char *new_str, char *cmd);
+char	*begin_with_quote(char *new_str, char *var);
+char	*end_with_quote(char *new_str, char *str);
+char	*end_with_dquote(char *new_str, char *str);
 #endif
