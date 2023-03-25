@@ -6,52 +6,54 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/25 20:51:52 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/25 22:02:00 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find(char **inputs, int i, int *fd, int *diff)
+void	find(char **inputs, t_help *next, int *diff)
 {
-	if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0 || ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
+	int	i;
+
+	i = 0;
+	while (inputs[i])
 	{
-		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0)
-			*fd = open(inputs[i + 1], O_RDONLY);
-		else if (ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
-			take_input(inputs[i + 1], fd);
-		*diff += 2;
+		if (ft_strncmp(inputs[i], str, ft_strlen(inputs[i])) == 0)
+		{
+			*diff += 2;
+			return (inputs[i + 1]);
+		}
+		if (ft_strnstr(inputs[i], str, ft_strlen(inputs[i])))
+		{
+			*diff += 1;
+			return (inputs[i] + 1);
+		}
+		i++;
 	}
-	else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i])) || ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
-	{
-		if (ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
-			take_input(inputs[i] + 2, fd);
-		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i])))
-			*fd = open(inputs[i] + 1, O_RDONLY);
-		*diff += 1;
-	}
+	return (NULL);
 }
 
 int	change_input(char **input, t_flags f)
 {
 	int		fd;
 	int		diff;
-	int		i;
+	t_help		next;
 
 	diff = 0;
-	i = 0;
-	fd = 0;
-	while (input[i])
+	find(input, &next, &diff);
+	while (next.str)
 	{
-		if (fd != 0)
-			close(fd);
-		find(input, i, &fd, &diff);
-		i++;
-	}
-	if (fd == -1)
-	{
-		perror("errore lettura file");
-		exit (0);
+		if (next.found == "<")
+			fd = open(next.str, O_RDONLY);
+		else if (next.found == "<<")
+			take_input(next.str, &fd);
+		if (fd == -1)
+		{
+			perror("errore lettura file");
+			exit (0);
+		}
+		find(input, &next, &diff);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
