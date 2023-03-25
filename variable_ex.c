@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/25 10:19:39 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:48:28 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,17 @@ char	*control_ex(char *str)
 	i = 1;
 	if (case_3 == 1)
 	{
-		printf("140\n");
+		printf("\033[0;32m");
+		printf("143\n");
+		printf("\033[0m");
 		while (str_split[i])
 		{
-			// printf("%s\n", str_split[i]);
 			if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])) && (!(ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))))
 			{
-				// printf("am i here now \n");
+				printf("\033[0;32m");
+				printf("150\n");
+				printf("-------\n");
+				printf("\033[0m");
 				new_str = ft_strjoin(new_str, "\1'");
 				new_str = ft_strjoin(new_str, " ");
 			}
@@ -157,10 +161,13 @@ char	*control_ex(char *str)
 					case_3 = 6;
 				var = ft_strchr(str_split[i], '$');
 				var++;
-				printf("%s\n", var);
 				j = ft_strlen(var);
 				if (var[j - 1] == '\'')
 				{
+					printf("\033[0;32m");
+					printf("168\n");
+					printf("----------\n");
+					printf("\033[0m");
 					j--;
 					var[j] = '\0';
 					cmd = getenv(var);
@@ -178,6 +185,10 @@ char	*control_ex(char *str)
 				}
 				if (case_3 != 4 && case_3 != 3 && case_3 != 6)
 				{
+					printf("\033[0;32m");
+					printf("183\n");
+					printf("----------\n");
+					printf("\033[0m");
 					cmd = getenv(var);
 					if (cmd == NULL)
 					{
@@ -192,13 +203,19 @@ char	*control_ex(char *str)
 				}
 				else if (case_3 == 3)
 				{
+					printf("\033[0;32m");
+					printf("200\n");
+					printf("-------\n");
+					printf("\033[0m");
 					new_str = begin_with_quote(new_str, var);
 					case_3 = 0;
 				}
 				else if (case_3 == 6)
 				{
-					printf("helloma\n");
-					printf("%s\n", cmd);
+					printf("\033[0;32m");
+					printf("209\n");
+					printf("-------\n");
+					printf("\033[0m");
 					cmd = getenv(var);
 					if (!cmd)
 					{
@@ -206,7 +223,6 @@ char	*control_ex(char *str)
 					}
 					else
 					{
-						// new_str = ft_strjoin(new_str, "\1'");
 						new_str = ft_strjoin(new_str, cmd);
 						new_str = ft_strjoin(new_str, "' ");
 						case_3 = 0;
@@ -221,7 +237,7 @@ char	*control_ex(char *str)
 	{
 		while (str_split[i] && (!((ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i]))) || (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]))))))
 		{
-			printf("hihi\n");
+			printf("hihi good good\n");
 			if (ft_strnstr(str_split[i], "$", 1))
 			{
 				var = ft_strchr(str_split[i], '$');
@@ -258,7 +274,7 @@ char	*control_ex(char *str)
 				j = ft_strlen(var);
 				if (var[j - 1] == '\"')
 				{
-					printf("i dont go inside herer\n");
+					printf("i dont go inside herer good good\n");
 					j--;
 					var[j] = '\0';
 					if (str_split[i][0] == '\"')
@@ -274,8 +290,7 @@ char	*control_ex(char *str)
 					var[j] = '\0';
 				}
 				if (case_3 == 3)
-				{
-					printf("no actually here\n");
+				{ //? ok
 					new_str = ft_strjoin(new_str, "\1\"");
 					new_str = ft_strjoin(new_str, var);
 					new_str = ft_strjoin(new_str, " ");
@@ -283,7 +298,7 @@ char	*control_ex(char *str)
 				}
 				else if (case_3 != 2)
 				{
-					printf(" i wen there\n");
+					printf(" i wen theregood good\n");
 					new_str = ft_strjoin(new_str, var);
 					new_str = ft_strjoin(new_str, " ");
 				}
@@ -350,7 +365,10 @@ char	*control_ex(char *str)
 				{
 					if (str_split[i][j + 1] != '"')
 					{
-						printf("282\n");
+						printf("\033[0;32m");
+						printf("371\n");
+						printf("-------\n");
+						printf("\033[0m");
 						y = j;
 						y++;
 						while (str_split[i][y] != '"')
@@ -376,8 +394,10 @@ char	*control_ex(char *str)
 					case_2 = 1;
 					j++;
 					if (str_split[i][j] == '\"' && str_split[i][j - 1] != '\'' && strlen(str_split[i]) == 2)
-					{
-						printf("308\n");
+					{ //! maybe cancelable
+						printf("\033[0;31m");
+						printf("5\n");
+						printf("\033[0m");
 						new_str = ft_strjoin(new_str, "\1\"");
 						new_str = ft_strjoin(new_str, " ");
 						i++;
@@ -388,17 +408,25 @@ char	*control_ex(char *str)
 								var = ft_strchr(str_split[i], '$');
 								// var++;
 								if (ft_strnstr(var, "$", 1))
-								{
-									printf("295\n");
+								{ //! maybe cancelable
+									printf("\033[0;31m");
+									printf("4\n");
+									printf("\033[0m");
 									//! it means you have more than one variable and no spaces
 								}
 								if (var[ft_strlen(var) - 2] == '\'' || var[ft_strlen(var) - 2] == '\"')
-								{
+								{ //! maybe cancelable
+									printf("\033[0;31m");
+									printf("3\n");
+									printf("\033[0m");
 									var[ft_strlen(var) - 2] = '\0';
 									case_5 = 1;
 								}
 								else if (var[ft_strlen(var) - 1] == '\'' || var[ft_strlen(var) - 1] == '\"')
-								{
+								{ //! maybe cancelable
+									printf("\033[0;31m");
+									printf("2\n");
+									printf("\033[0m");
 									var[ft_strlen(var) - 1] = '\0';
 									case_5 = 1;
 								}
@@ -409,8 +437,10 @@ char	*control_ex(char *str)
 								new_str = ft_strjoin(new_str, " ");
 							}
 							if (ft_strnstr(str_split[i], "\"\'", 2))
-							{
-								printf("340\n");
+							{ //! maybe cancelable
+								printf("\033[0;31m");
+								printf("1\n");
+								printf("\033[0m");
 								new_str = ft_strjoin(new_str, "\1\"");
 							}
 							i++;
@@ -437,44 +467,60 @@ char	*control_ex(char *str)
 							var[ft_strlen(var) - 1] = '\0';
 							case_5 = 1;
 						}
-						printf("364\n");
+						printf("\033[0;32m");
+						printf("457\n");
+						printf("-------\n");
+						printf("\033[0m");
 						new_str = ft_strjoin(new_str, "\1\"");
 						new_str = ft_strjoin(new_str, var);
 						if (str_split[i] && case_5 == 1)
 						{
-							printf("369\n");
+							printf("\033[0;32m");
+							printf("465\n");
+							printf("-------\n");
+							printf("\033[0m");
 							new_str = ft_strjoin(new_str, "\"");
 						}
 						i++;
 						if (str_split[i] && ft_strnstr(str_split[i], "\"", 1) && ft_strnstr(str_split[i], "\'", 2))
 						{
-							printf("371\n");
+							printf("\033[0;32m");
+							printf("477\n");
+							printf("-------\n");
+							printf("\033[0m");
 							new_str = ft_strjoin(new_str, " ");
 							new_str = ft_strjoin(new_str, "\1\"");
 						}
 						if (str_split[i])
 						{
-							printf("hi405\n");
+							printf("\033[0;32m");
+							printf("486\n");
+							printf("\033[0m");
 							while (str_split[i]) //! hey
 							{
-								printf("am i herer now 405\n");
 								if (ft_strnstr(str_split[i], "$", 1))
 								{
-									printf("378\n");
+									printf("\033[0;32m");
+									printf("493\n");
+									printf("-------------\n");
+									printf("\033[0m");
 									var = ft_strchr(str_split[i], '$');
 									// var++;
 									if (ft_strnstr(var, "$", 1))
 									{
-										printf("295\n");
-										//! it means you have more than one variable and no spaces
+										//! it means you have more than one variable and no spaces i think i can cancel it
 									}
 									if (var[ft_strlen(var) - 2] == '\'' || var[ft_strlen(var) - 2] == '\"')
 									{
+										//? ok
 										var[ft_strlen(var) - 2] = '\0';
 										case_5 = 1;
 									}
 									else if (var[ft_strlen(var) - 1] == '\'' || var[ft_strlen(var) - 1] == '\"')
-									{
+									{ //! maybe cancelable
+										printf("\033[0;31m");
+										printf("i\n");
+										printf("\033[0m");
 										var[ft_strlen(var) - 1] = '\0';
 										case_5 = 1;
 									}
@@ -505,7 +551,9 @@ char	*control_ex(char *str)
 			j = 0;
 			if (str_split[i] && case_1 && ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))
 			{ //! START -------------------------------
-				printf("hi\n");
+				printf("\033[0;32m");
+				printf("509\n");
+				printf("\033[0m");
 				var = ft_strchr(str_split[i], '$');
 				var++;
 				j = ft_strlen(var);
@@ -516,9 +564,8 @@ char	*control_ex(char *str)
 					var[j] = '\0';
 					case_1 = 2;
 				}
-				printf("%s123\n", var);
 				if (ft_strnstr(var, "\'", ft_strlen(var)))
-				{
+				{ //? okok
 					new_split = ft_split(var, '\'');
 					y = 0;
 					while (new_split[y])
@@ -539,7 +586,6 @@ char	*control_ex(char *str)
 					done = 1;
 				}
 				cmd = getenv(var);
-				// printf("%s\n", cmd);
 				if (cmd == NULL)
 				{
 					printf("i have a problem with the cmd man help!! case_1\n");
@@ -547,6 +593,10 @@ char	*control_ex(char *str)
 				}
 				else if (case_1 == 1)
 				{
+					printf("\033[0;32m");
+					printf("565\n");
+					printf("-------------\n");
+					printf("\033[0m");
 					new_str = ft_strjoin(new_str, "\1'");
 					new_str = ft_strjoin(new_str, cmd);
 					new_str = ft_strjoin(new_str, " ");
@@ -554,16 +604,20 @@ char	*control_ex(char *str)
 					help_me_man = 1;
 				}
 				else if (case_1 == 2 && help_me_man == 1)
-				{
-					printf("347\n");
+				{ //! maybe cancelable
+					printf("\033[0;31m");
+					printf("g\n");
+					printf("\033[0m");
 					new_str = ft_strjoin(new_str, cmd);
 					new_str = ft_strjoin(new_str, "\' ");
 					case_1 = 1;
 
 				}
 				else if (case_2 == 1)
-				{
-					printf("yes yes am here\n");
+				{ //! maybe cancelable
+					printf("\033[0;31m");
+					printf("f\n");
+					printf("\033[0m");
 					//! you need this condition when you need a ' at the end of your join
 					var = ft_strchr(str_split[i], '$');
 					var++;
@@ -577,22 +631,35 @@ char	*control_ex(char *str)
 					new_str = ft_strjoin(new_str, "\'");
 				}
 				else
+				{
+					printf("\033[0;32m");
+					printf("584\n");
+					printf("--------\n");
+					printf("\033[0m");
 					new_str = begin_and_end_with_quote(new_str, cmd);
+				}
 				j = 0;
 			} //! END --------------------------------
 			else if (str_split[i] && case_2 != 1 && done != 1)
-			{
-				printf("heelo\n£");
+			{ //! maybe cancelable
+				printf("\033[0;31m");
+				printf("f\n");
+				printf("\033[0m");
 				new_str = ft_strjoin(new_str, "\1'");
 				new_str = ft_strjoin(new_str, " ");
 			}
 		}
 		else if (str_split[i] && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
 		{
-			printf("heelo1\n");
+			printf("\033[0;32m");
+			printf("593\n");
+			printf("\033[0m");
 			if (ft_strnstr(str_split[i], "\'", 1) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
 			{
-				printf("heelo2\n");
+				printf("\033[0;32m");
+				printf("598\n");
+				printf("-------\n");
+				printf("\033[0m");
 				new_str = not_v(new_str, str_split[i]);
 				
 				if (str_split[i][0] == '\'' && ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
@@ -605,7 +672,10 @@ char	*control_ex(char *str)
 			}
 			else if (ft_strnstr(str_split[i], "$", 2) && (ft_strnstr(str_split[i], "\'", 1) || str_split[i][ft_strlen(str_split[i]) - 1] == '\''))
 			{
-				printf("heelo3\n");
+				printf("\033[0;32m");
+				printf("614\n");
+				printf("-------\n");
+				printf("\033[0m");
 				new_str = not_v(new_str, str_split[i]);
 				// if (case_4 == 0)
 				// 	case_4 = 1;
@@ -613,8 +683,10 @@ char	*control_ex(char *str)
 				// 	case_4 = 0;
 			}
 			else
-			{
-				printf("heelo4\n");
+			{ //! maybe cancelable
+				printf("\033[0;31m");
+				printf("7\n");
+				printf("\033[0m");
 				i++;
 				new_str = ft_strjoin(new_str, "\1'");
 				while ((ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]))) == NULL)
@@ -626,10 +698,14 @@ char	*control_ex(char *str)
 		}
 		else if (str_split[i] && ft_strnstr(str_split[i], "$", 1)) //! here it was an else if statment
 		{
-			printf("526\n");
+			printf("\033[0;32m");
+			printf("630\n");
+			printf("\033[0m");
 			if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])) && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-			{
-				printf("529\n");
+			{ //! maybe cancelable
+				printf("\033[0;31m");
+				printf("d\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 3);
 				cmd = getenv(var);
 				if (cmd == NULL)
@@ -646,7 +722,9 @@ char	*control_ex(char *str)
 			}
 			else if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])))
 			{
-				printf("563\n");
+				printf("\033[0;32m");
+				printf("652\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 2);
 				cmd = getenv(var);
 				if (cmd == NULL)
@@ -661,43 +739,50 @@ char	*control_ex(char *str)
 				}
 			}
 			else if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-			{
-				printf("579\n");
+			{ //! maybe cancelable
+				printf("\033[0;31m");
+				printf("c\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 0, ft_strlen(str_split[i]) - 1);
 				new_str = ft_strjoin(new_str, var);
 				new_str = ft_strjoin(new_str, " ");
 			}
 			else
 			{
+				printf("\033[0;32m");
 				printf("569\n");
-				// printf("1:%d\n2:%d\n3:%d\n4:%d\n5:%d\n", case_1, case_2, case_3, case_4, case_5);
+				printf("--------\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]));
-				printf("4:%d\nqdq:%d\n", case_4, case_qdq);
 				if (case_4 == 1 || case_qdq == 1)
 					new_str = not_v(new_str, str_split[i]);
 				else
-				{
-					printf("then i got into here\n");
 					new_str = simple_v(var, new_str);
-					printf("%s\n", new_str);
-				}
 			}
 		
 		}
 		else if (str_split[i] && ft_strnstr(str_split[i], "\"", 1) && ft_strnstr(str_split[i], "$", 2))
 		{
-			printf("616\n");
+			printf("\033[0;32m");
+			printf(">688\n");
+			printf("\033[0m");
 			var = ft_strchr(str_split[i], '$');
+			var++; //! modified
 			if (ft_strnstr(var, "$", ft_strlen(var)))
 			{
-				printf("620");
+				printf("\033[0;32m");
+				printf("694\n");
+				printf("------\n");
+				printf("\033[0m");
 				str_split[i] = ft_strtrim(str_split[i], "\"");
 				new_str = split_dollar(new_str, str_split[i]);
 			}
 			else
 			{
-				free(var);
-				var = NULL;
+				printf("\033[0;32m");
+				printf("704\n");
+				printf("------\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 2, ft_strlen(str_split[i]) - 2);
 				if (var[strlen(var) - 1] == '"')
 					var[strlen(var) - 1] = '\0';
@@ -712,41 +797,34 @@ char	*control_ex(char *str)
 					new_str = ft_strjoin(new_str, cmd);
 					new_str = ft_strjoin(new_str, " ");
 				}
-				cmd = getenv(var);
-				if (cmd == NULL)
-				{
-					printf("i have a problem with the cmd man help!!4\n");
-					new_str = ft_strjoin(new_str, " ");
-				}
-				else
-				{
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, " ");
-				}
 			}
 		}
 		else if (str_split[i] && ft_strnstr(str_split[i], "\'", 1) && ft_strnstr(str_split[i], "$", 2))
-		{
-			printf("518\n");
+		{ //! all red may be cancelable
+			printf("\033[0;31m");
+			printf("730\n");
+			printf("\033[0m");
 			if (str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
 			{
+				printf("\033[0;31m");
+				printf("i never go here a\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 2);
 				new_str = ft_strjoin(new_str, var);
 				new_str = ft_strjoin(new_str, " ");
 			}
 			else
 			{
+				printf("\033[0;31m");
+				printf("i never go here b\n");
+				printf("\033[0m");
 				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 1);
 				new_str = ft_strjoin(new_str, var);
 				new_str = ft_strjoin(new_str, " ");
 			}
 		}
 		else if (str_split[i])
-		{
-			printf("case_4:%d", case_4);
-			printf("am i here mano\n");
 			new_str = not_v(new_str, str_split[i]);
-		}
 		if (str_split[i] == NULL)
 			break ;
 		i++;
@@ -761,7 +839,7 @@ char	*control_ex(char *str)
  * * $ $ $ $ $  	✔ echo $USER $USER $USER $USER $USER
  * * "$"        	✔ echo "$USER"
  * * $ "$" $    	✔ echo $USER "$USER" $USER
- * * $ "$ $" $  	✔ echo $USER "$USER $USER" $USER
+ * * $ "$ $" $  	✔ echo $USER "$USER $USER" $USER //
  * * $ " $ "    	✔ echo " $USER "
  * * $ " $ $ "  	✔ echo " $USER $USER "
  * * '$'        	✔ echo '$USER'

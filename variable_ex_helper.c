@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 10:12:16 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/25 08:53:12 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:43:58 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*simple_v(char *var, char *new_str)
 
 char	*not_v(char *new_str, char *str)
 {
-	printf("helper_36\n");
 	new_str = ft_strjoin(new_str, str);
 	new_str = ft_strjoin(new_str, " ");
 	return (new_str);
@@ -110,7 +109,6 @@ char	*end_with_quote(char *new_str, char *str)
 	str = ft_strtrim(str, "\'\"");
 	var = ft_strchr(str, '$');
 	var++;
-	printf("%s\n", var);
 	cmd = getenv(var);
 	if (cmd == NULL)
 	{
@@ -123,7 +121,6 @@ char	*end_with_quote(char *new_str, char *str)
 		new_str = ft_strjoin(new_str, cmd);
 		new_str = ft_strjoin(new_str, "'");
 	}
-	printf("final:%s\n", new_str);
 	return (new_str);
 }
 
