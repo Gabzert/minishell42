@@ -6,522 +6,104 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/25 22:01:37 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:46:59 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	full_size(char *str)
-{ //! create a struct
-	int i;
-	int j;
-	int	size_cmd;
-	int		size_full;
-	char	*cmd;
-	char	*var;
-
-	i = 0;
-	j = 0;
-	size_cmd = 0;
-	size_full = 0;
-	size_full = ft_strlen(str);
-	while (str[i])
+void	helper_4(t_x *x)
+{
+	while (x->str_split[x->i][x->j])
 	{
-		if (str[i] == '$')
-		{
-			j = i + 1;
-			while (str[j] && (!(str[j] >= 9 && str[j] <= 13)))
-				j++;
-			var = ft_substr(str, i + 1, j - i);
-			size_full -= ft_strlen(var) + 1;
-			cmd = getenv(var);
-			if (cmd)
-				size_cmd += ft_strlen(cmd);
-			else
-				size_full += ft_strlen(var) + 1;
-			i = j - 1;
-		}
-		i++;
+		helper_1(x);
+		if (x->bk == 1)
+			break ;
+		identify(x);
+		if (x->str_split[x->i][x->j] == '\"' && x->case_2 != 1)
+			helper_2(x);
+		else if (x->str_split[x->i][x->j] == '\'')
+			helper_3(x);
+		if (x->str_split[x->i] == NULL)
+			x->bk = 2;
+		if (x->bk == 1 || x->bk == 2)
+			break ;
+		x->j++;
 	}
-	size_cmd += size_full;
-	return (size_cmd + 2);
+}
+
+void	helper_5(t_x *x)
+{
+	helper_4(x);
+	if (x->bk == 1)
+		x->bk = 0;
+	if (x->bk == 2)
+		return ;
+	x->j = 0;
+	if (x->str_split[x->i] && x->case_1
+		&& ft_strnstr(x->str_split[x->i], "$", ft_strlen(x->str_split[x->i])))
+	{
+		clear_case_1_and_dollar(x);
+		if (ft_strnstr(x->var, "\'", ft_strlen(x->var)))
+		{
+			case_1_and_dollar_and_quote(x);
+			x->bk = 1;
+			return ;
+		}
+		add_cmd_with_fq_or_with_flq(x);
+	}
+}
+
+void	helper_6(t_x *x)
+{
+	if (ft_strnstr(x->str_split[x->i], "\"", ft_strlen(x->str_split[x->i]))
+		&& ft_strnstr(x->str_split[x->i], "\'", ft_strlen(x->str_split[x->i])))
+	{
+		helper_5(x);
+		if (x->bk == 2)
+			return ;
+		if (x->bk == 1)
+			return ;
+	}
+	else if (x->str_split[x->i]
+		&& ft_strnstr(x->str_split[x->i], "\'", ft_strlen(x->str_split[x->i])))
+		helper_q_c(x);
+	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "$", 1))
+		helper_d(x);
+	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "\"", 1)
+		&& ft_strnstr(x->str_split[x->i], "$", 2))
+		helper_dq_d(x);
+	else if (x->str_split[x->i])
+		x->new_str = not_v(x->new_str, x->str_split[x->i]);
 }
 
 char	*control_ex(char *str)
 {
-	int		size_for_malloc;
-	int		i; //? index
-	int		j; //? index
-	int		y; //? helper index
-	int		case_1; //? the case where we have "''"
-	int		case_2; //? the case where we have '""'
-	int		case_3; //? 
-	int		case_4; //? know am after a '
-	int		case_5; //? where you have this struct '"$USER"'
-	int		case_qdq;
-	int		start;
-	char	*var; // variable to be expanded
-	char	*cmd; // hold the value of the variable expanded
-	char	*new_str; // final string to be returned
-	char	**str_split;
-	char	**new_split;
+	t_x	*x;
 
-	i = 0;
-	j = 0;
-	y = 0;
-	case_1 = 0;
-	case_2 = 0;
-	case_3 = 0;
-	case_4 = 0;
-	case_5 = 0;
-	case_qdq = 0;
-	start = 0;
-	size_for_malloc = full_size(str);
-	str_split = ft_split(str, ' ');
-	new_str = (char *)malloc(sizeof(char) * size_for_malloc + 1);
-
-	//! -------------------------------------------------------------------------- */
-	//!                       add you first command and clean it                   */
-	//! -------------------------------------------------------------------------- */
-	while (str_split[i][j])
+	x = (t_x *)malloc(sizeof(t_x));
+	init(x);
+	x->size_for_malloc = full_size(str);
+	x->str_split = ft_split(str, ' ');
+	x->new_str = (char *)malloc(sizeof(char) * (x->size_for_malloc + 1));
+	add_command(x);
+	check_for_dq_and_qd(x);
+	x->i = 1;
+	if (x->case_3 == 1)
+		case_31_helper(x);
+	else if (x->case_1 == 1)
+		case_11_helper(x);
+	while (x->str_split[x->i])
 	{
-		if (str_split[i][j] == '\'' || str_split[i][j] == '\"')
-			j++;
-		new_str[y] = str_split[i][j];
-		j++;
-		y++;
-	}
-	new_str[y] = ' ';
-	y++;
-	new_str[y] = '\0';
-	i++;
-	j = 0;
-
-	//! -------------------------------------------------------------------------- */
-	//!                to chech for the " ' ' " and for the ' " " '                */
-	//! -------------------------------------------------------------------------- */
-	while (str_split[i])
-	{
-		if (ft_strnstr(str_split[i], "\"", 1))
-		{
-			i++;
-			if (str_split[i] && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-			{
-				case_3 = 1;
-				break ;
-			}
-			else
-				i--;
-		}
-		else if (ft_strnstr(str_split[i], "\'", 1) && ft_strlen(str_split[i]) == 1)
-		{
-			i++;
-			if (str_split[i] && ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])))
-			{
-				case_1 = 1;
-				break ;
-			}
-			else
-				i--;
-		}
-		i++;
-	}
-	i = 1;
-	if (case_3 == 1)
-	{//?ok
-		while (str_split[i])
-		{
-			if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])) && (!(ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))))
-			{//?ok
-				new_str = ft_strjoin(new_str, "\1'");
-				new_str = ft_strjoin(new_str, " ");
-			}
-			else if (ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))
-			{
-				if (ft_strnstr(str_split[i], "\'", 1) || ft_strnstr(str_split[i], "\'", 2))
-					case_3 = 3;
-				else if (ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])) && (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]) - 1) || ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]) - 2)))
-					case_3 = 6;
-				var = ft_strchr(str_split[i], '$');
-				var++;
-				j = ft_strlen(var);
-				if (var[j - 1] == '\'')
-				{//?ok
-					j--;
-					var[j] = '\0';
-					cmd = getenv(var);
-					if (str_split[i][0] == '\'')
-						new_str = ft_strjoin(new_str, "\1\'");
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, "\'");
-					case_3 = 4;
-				}
-				else if (!(var[j - 1] >= 'A' && var[j - 1] <= 'Z'))
-				{
-					while((!(var[j - 1] >= 'A' && var[j - 1] <= 'Z')))
-						j--;
-					var[j] = '\0';
-				}
-				if (case_3 != 4 && case_3 != 3 && case_3 != 6)
-				{//?ok
-					cmd = getenv(var);
-					if (cmd == NULL)
-					{
-						printf("i have a problem with the cmd man help!! case_1\n");
-						new_str = ft_strjoin(new_str, " ");
-					}
-					else
-					{
-						new_str = ft_strjoin(new_str, cmd);
-						new_str = ft_strjoin(new_str, " ");
-					}
-				}
-				else if (case_3 == 3)
-				{//?ok
-					new_str = begin_with_quote(new_str, var);
-					case_3 = 0;
-				}
-				else if (case_3 == 6)
-				{//?ok
-					cmd = getenv(var);
-					if (!cmd)
-					{
-						printf("blabalbla\n");
-					}
-					else
-					{
-						new_str = ft_strjoin(new_str, cmd);
-						new_str = ft_strjoin(new_str, "' ");
-						case_3 = 0;
-					}
-
-				}
-			}
-			i++;
-		}
-	}
-	else if (case_1 == 1)
-	{
-		while (str_split[i] && (!((ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i]))) || (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i]))))))
-		{//?ok
-			if (ft_strnstr(str_split[i], "$", 1))
-			{
-				var = ft_strchr(str_split[i], '$');
-				var++;
-				cmd = getenv(var);
-				if (!cmd)
-				{
-					printf("272");
-				}
-				else
-				{
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, " ");
-				}
-			}
-			i++;
-		}
-		
-		while (str_split[i])
-		{
-			if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])) && (!(ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))))
-			{//?ok
-				new_str = ft_strjoin(new_str, "\1\"");
-				new_str = ft_strjoin(new_str, " ");
-			}
-			else if (ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))
-			{//?ok
-				if (ft_strnstr(str_split[i], "\"", 1) || ft_strnstr(str_split[i], "\"", 2))
-					case_3 = 3;
-				var = ft_strchr(str_split[i], '$');
-				j = ft_strlen(var);
-				if (var[j - 1] == '\"')
-				{//?ok
-					j--;
-					var[j] = '\0';
-					if (str_split[i][0] == '\"')
-						new_str = ft_strjoin(new_str, "\1\"");
-					new_str = ft_strjoin(new_str, var);
-					new_str = ft_strjoin(new_str, "\"");
-					case_3 = 2;
-				}
-				else if (!(var[j - 1] >= 'A' && var[j - 1] <= 'Z'))
-				{
-					while((!(var[j - 1] >= 'A' && var[j - 1] <= 'Z')))
-						j--;
-					var[j] = '\0';
-				}
-				if (case_3 == 3)
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1\"");
-					new_str = ft_strjoin(new_str, var);
-					new_str = ft_strjoin(new_str, " ");
-					case_3 = 0;
-				}
-				else if (case_3 != 2)
-				{//?ok
-					new_str = ft_strjoin(new_str, var);
-					new_str = ft_strjoin(new_str, " ");
-				}
-			}
-			i++;
-		}
-	}
-
-	/* -------------------------------------------------------------------------- */
-	/*                             //! all other cases                            */
-	/* -------------------------------------------------------------------------- */
-	while (str_split[i])
-	{
-		if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])) && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-		{
-			while (str_split[i][j])
-			{
-				if (str_split[i][j] == '$' && str_split[i][ft_strlen(str_split[i]) - 2] == '\'' && str_split[i][ft_strlen(str_split[i]) - 1] == '\"')
-				{//?ok
-					new_str = end_with_quote(new_str, str_split[i]);
-					i++;
-					break ;
-				}
-				else if (str_split[i][j] == '$' && str_split[i][ft_strlen(str_split[i]) - 2] == '\"' && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
-				{//?ok
-					new_str = end_with_dquote(new_str, str_split[i]);
-					i++;
-					break ;
-				}
-				if (start == 0 && ft_strlen(str_split[i]) == 2 && str_split[i][j] == '\"' && str_split[i][j + 1] == '\'')
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1\' ");
-					start = 1;
-				}
-				else if (start == 1 && ft_strlen(str_split[i]) == 2 && str_split[i][j] == '\'' && str_split[i][j + 1] == '\"')
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1\' ");
-					start = 0;
-				}
-				else if (start == 0 && ft_strlen(str_split[i]) == 2 && str_split[i][j] == '\'' && str_split[i][j + 1] == '\"')
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1\" ");
-					start = 1;
-					case_qdq = 1;
-				}
-				else if (start == 1 && ft_strlen(str_split[i]) == 2 && str_split[i][j] == '\"' && str_split[i][j + 1] == '\'')
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1\" ");
-					start = 0;
-					case_qdq = 0;
-				}
-				if (str_split[i][j] == '\"' && case_2 != 1)
-				{//?ok
-					if (ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-						case_1 = 1;
-					break ;
-				}
-				else if (str_split[i][j] == '\'')
-				{
-					if (str_split[i][j + 1] != '"')
-					{//?ok
-						y = j;
-						y++;
-						while (str_split[i][y] != '"')
-							y++;
-						var = ft_substr(str_split[i], j + 1, y - j);
-						new_str = ft_strjoin(new_str, var);
-						y++;
-						j = y;
-						while (str_split[i][y] != '"')
-							y++;
-						var = ft_substr(str_split[i], j, y - j);
-						new_str = ft_strjoin(new_str, var);
-						new_str = ft_strjoin(new_str, "\"");
-						break ;
-					}
-					case_2 = 1;
-					j++;
-					if ((str_split[i][j] == '\"' && strlen(str_split[i]) > 2))
-					{//?ok
-						while (str_split[i][j] != '$')
-							j++;
-						var = ft_strchr(str_split[i], '$');
-						if (var[ft_strlen(var) - 2] == '\'' || var[ft_strlen(var) - 2] == '\"')
-						{
-							var[ft_strlen(var) - 2] = '\0';
-							case_5 = 1;
-						}
-						else if (var[ft_strlen(var) - 1] == '\'' || var[ft_strlen(var) - 1] == '\"')
-						{
-							var[ft_strlen(var) - 1] = '\0';
-							case_5 = 1;
-						}
-						new_str = ft_strjoin(new_str, "\1\"");
-						new_str = ft_strjoin(new_str, var);
-						if (str_split[i] && case_5 == 1)
-							new_str = ft_strjoin(new_str, "\""); //?ok
-						i++;
-						if (str_split[i] && ft_strnstr(str_split[i], "\"", 1) && ft_strnstr(str_split[i], "\'", 2))
-						{//?ok
-							new_str = ft_strjoin(new_str, " ");
-							new_str = ft_strjoin(new_str, "\1\"");
-						}
-						if (str_split[i])
-						{//?ok
-							while (str_split[i])
-							{
-								if (ft_strnstr(str_split[i], "$", 1))
-								{//?ok
-									var = ft_strchr(str_split[i], '$');
-									if (var[ft_strlen(var) - 2] == '\'' || var[ft_strlen(var) - 2] == '\"')
-									{//? ok
-										var[ft_strlen(var) - 2] = '\0';
-										case_5 = 1;
-									}
-									new_str = ft_strjoin(new_str, " ");
-									new_str = ft_strjoin(new_str, var);
-									if (case_5 == 1)
-										new_str = ft_strjoin(new_str, "\1\"");
-									new_str = ft_strjoin(new_str, " ");
-								}
-								i++;
-							}
-							i--;
-							break ;
-						}
-						if (str_split[i] == NULL)
-							return (new_str);
-					}
-				}
-				j++;
-			}
-			j = 0;
-			if (str_split[i] && case_1 && ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])))
-			{//?ok
-				var = ft_strchr(str_split[i], '$');
-				var++;
-				j = ft_strlen(var);
-				if (!(var[j - 1] >= 'A' && var[j - 1] <= 'Z'))
-				{//?ok
-					while((!(var[j - 1] >= 'A' && var[j - 1] <= 'Z')))
-						j--;
-					var[j] = '\0';
-					case_1 = 2;
-				}
-				if (ft_strnstr(var, "\'", ft_strlen(var)))
-				{//?ok
-					new_split = ft_split(var, '\'');
-					y = 0;
-					while (new_split[y])
-					{
-						if (ft_strnstr(new_split[y], "$", 1))
-						{
-							var = new_split[y];
-							var++;
-						}
-						else
-							var = new_split[y];
-						cmd = getenv(var);
-						new_str = ft_strjoin(new_str, cmd);
-						new_str = ft_strjoin(new_str, "\'");
-						y++;
-					}
-					break ;
-				}
-				cmd = getenv(var);
-				if (cmd == NULL)
-				{
-					printf("i have a problem with the cmd man help!! case_1\n");
-					new_str = ft_strjoin(new_str, " ");
-				}
-				else if (case_1 == 1)
-				{//?ok
-					new_str = ft_strjoin(new_str, "\1'");
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, " ");
-					start = 1;
-				}
-				else
-					new_str = begin_and_end_with_quote(new_str, cmd);//?ok
-				j = 0;
-			}
-		}
-		else if (str_split[i] && ft_strnstr(str_split[i], "\'", ft_strlen(str_split[i])))
-		{//?ok
-			if (ft_strnstr(str_split[i], "\'", 1) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
-			{//?ok
-				new_str = not_v(new_str, str_split[i]);
-				if (str_split[i][0] == '\'' && ft_strnstr(str_split[i], "$", ft_strlen(str_split[i])) && str_split[i][ft_strlen(str_split[i]) - 1] == '\'')
-					case_4 = 0;
-				else if (case_4 == 0)
-					case_4 = 1;
-				else if (case_4 == 1)
-					case_4 = 0;
-			}
-			else if (ft_strnstr(str_split[i], "$", 2) && (ft_strnstr(str_split[i], "\'", 1) || str_split[i][ft_strlen(str_split[i]) - 1] == '\''))
-				new_str = not_v(new_str, str_split[i]);//?ok
-		}
-		else if (str_split[i] && ft_strnstr(str_split[i], "$", 1)) //! here it was an else if statment
-		{//?ok
-			if (ft_strnstr(str_split[i], "\"", ft_strlen(str_split[i])))
-			{//?ok
-				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]) - 2);
-				cmd = getenv(var);
-				if (cmd == NULL)
-				{
-					printf("i have a problem with the cmd man help!!2\n");
-					new_str = ft_strjoin(new_str, " ");
-				}
-				else
-				{
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, " ");
-				}
-			}
-			else
-			{//?ok
-				var = ft_substr(str_split[i], 1, ft_strlen(str_split[i]));
-				if (case_4 == 1 || case_qdq == 1)
-					new_str = not_v(new_str, str_split[i]);
-				else
-					new_str = simple_v(var, new_str);
-			}
-		
-		}
-		else if (str_split[i] && ft_strnstr(str_split[i], "\"", 1) && ft_strnstr(str_split[i], "$", 2))
-		{//?ok
-			var = ft_strchr(str_split[i], '$');
-			var++;
-			if (ft_strnstr(var, "$", ft_strlen(var)))
-			{//? ok
-				str_split[i] = ft_strtrim(str_split[i], "\"");
-				new_str = split_dollar(new_str, str_split[i]);
-			}
-			else
-			{//? OK
-				var = ft_substr(str_split[i], 2, ft_strlen(str_split[i]) - 2);
-				if (var[strlen(var) - 1] == '"')
-					var[strlen(var) - 1] = '\0';
-				cmd = getenv(var);
-				if (cmd == NULL)
-				{
-					printf("i have a problem with the cmd man help!!4\n");
-					new_str = ft_strjoin(new_str, " ");
-				}
-				else
-				{
-					new_str = ft_strjoin(new_str, cmd);
-					new_str = ft_strjoin(new_str, " ");
-				}
-			}
-		}
-		else if (str_split[i])
-			new_str = not_v(new_str, str_split[i]);
-		if (str_split[i] == NULL)
+		helper_6(x);
+		if (x->bk == 2)
+			return (x->new_str);
+		if (x->bk == 1 || x->str_split[x->i] == NULL)
 			break ;
-		i++;
+		x->i++;
 	}
-	return (new_str);
+	return (x->new_str);
 }
-
 
 /**
  * ?casi gestiti:
