@@ -6,11 +6,36 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/24 10:35:12 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/27 11:58:50 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	echo(char **inputs)
+{
+	int	i;
+
+	i = 1;
+	while (inputs[i])
+	{
+		ft_printf("%s ", inputs[i]);
+		i++;
+	}
+	ft_printf("\n");
+}
+
+void	l_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_printf("%s\n", env[i]);
+		i++;
+	}
+}
 
 void	export(char **inputs, char ***env)
 {

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/24 12:10:17 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/27 11:52:35 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,16 @@ char	*find_cmd(char *cmd, char **env)
 bool	is_builtin(char **inputs, char ***env)
 {
 	char	*buffer;
-	int		i;
 
-	i = 0;
 	buffer = NULL;
 	if (ft_strcmp(inputs[0], "cd") == 0)
 		chdir(inputs[1]);
 	else if (ft_strcmp(inputs[0], "pwd") == 0)
 		ft_printf("%s\n", getcwd(buffer, 0));
+	else if (ft_strcmp(inputs[0], "echo") == 0)
+		echo(inputs);
 	else if (ft_strcmp(inputs[0], "env") == 0)
-	{
-		while ((*env)[++i])
-			ft_printf("%s\n", (*env)[i]);
-	}
+		l_env(*env);
 	else if (ft_strcmp(inputs[0], "export") == 0)
 		export(inputs, env);
 	else if (ft_strcmp(inputs[0], "unset") == 0)

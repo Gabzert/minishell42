@@ -3,82 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   retirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/27 09:57:20 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 11:55:55 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find(char **inputs, t_help *next, int *diff)
+void	find_input(char **inputs, int i, int *fd, int *diff)
 {
-	int	i;
-
-	i = 0;
-	while (inputs[i])
+	if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
+		|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
 	{
-		if (ft_strncmp(inputs[i], str, ft_strlen(inputs[i])) == 0)
-		{
-			*diff += 2;
-			return (inputs[i + 1]);
-		}
-		if (ft_strnstr(inputs[i], str, ft_strlen(inputs[i])))
-		{
-			*diff += 1;
-			return (inputs[i] + 1);
-		}
-		i++;
+		if (*fd != 0)
+			close(*fd);
+		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0)
+			*fd = open(inputs[i + 1], O_RDONLY);
+		else if (ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
+			take_input(inputs[i + 1], fd);
+		*diff += 2;
 	}
-	return (NULL);
+	else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i]))
+		|| ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
+	{
+		if (*fd != 0)
+			close(*fd);
+		if (ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
+			take_input(inputs[i] + 2, fd);
+		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i])))
+			*fd = open(inputs[i] + 1, O_RDONLY);
+		*diff += 1;
+	}
 }
 
-int	change_input(char **input, t_flags f)
+void	find_output(char **inputs, int i, int *fd, int *diff)
+{
+	if (ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
+		|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
+	{
+		if (*fd != 0)
+			close(*fd);
+		if (ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0)
+			*fd = open(inputs[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
+			*fd = open(inputs[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		*diff += 2;
+	}
+	else if (ft_strnstr(inputs[i], ">", ft_strlen(inputs[i]))
+		|| ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
+	{
+		if (*fd != 0)
+			close(*fd);
+		if (ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
+			*fd = open(inputs[i] + 2, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (ft_strnstr(inputs[i], ">", ft_strlen(inputs[i])))
+			*fd = open(inputs[i] + 1, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		*diff += 1;
+	}
+}
+
+void	change_inout(char **input, int *diff, int i_o)
 {
 	int		fd;
-	int		diff;
-	t_help		next;
+	int		i;
 
-	diff = 0;
-	find(input, &next, &diff);
-	while (next.str)
+	i = 0;
+	fd = 0;
+	while (input[i])
 	{
-		if (next.found == "<")
-			fd = open(next.str, O_RDONLY);
-		else if (next.found == "<<")
-			take_input(next.str, &fd);
-		if (fd == -1)
-		{
-			perror("errore lettura file");
-			exit (0);
-		}
-		find(input, &next, &diff);
+		if (i_o == IN)
+			find_input(input, i, &fd, diff);
+		else
+			find_output(input, i, &fd, diff);
+		i++;
 	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	return (diff);
-}
-
-int	change_output(char **input, t_flags f)
-{
-	int	fd;
-	int	diff;
-
-	diff = 0;
-	if (f.re_out == true)
-		fd = open(find(input, ">", &diff), O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (f.append_out == true)
-		fd = open(find(input, ">>", &diff), O_WRONLY
-				| O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		perror("errore lettura file");
 		exit (0);
 	}
-	dup2(fd, STDOUT_FILENO);
+	if (i_o == IN)
+		dup2(fd, STDIN_FILENO);
+	else
+		dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (diff);
 }
 
 char	**extract_command(char **inputs, t_flags flags, int diff)
@@ -118,8 +128,8 @@ char	**handle_redirect(char **input, t_flags f)
 		&& f.re_in == false && f.re_out == false)
 		return (input);
 	if (f.re_in == true || f.write_in == true)
-		diff += change_input(input, f);
+		change_inout(input, &diff, IN);
 	if (f.re_out == true || f.append_out == true)
-		diff += change_output(input, f);
+		change_inout(input, &diff, OUT);
 	return (extract_command(input, f, diff));
 }

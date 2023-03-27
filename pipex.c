@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/23 12:22:03 by gabriele         ###   ########.fr       */
+/*   Updated: 2023/03/27 09:36:10 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	run_child_first(t_pipex pipe, char *line, char **env, t_flags flag)
 	input = split_cmd(line, flag);
 	if (flag.re_in == true || flag.write_in == true)
 	{
-		diff = change_input(input, flag);
+		change_inout(input, &diff, IN);
 		input = extract_command(input, flag, diff);
 	}
 	if (access(input[0], X_OK) != 0)
@@ -65,7 +65,7 @@ void	run_child_last(t_pipex pipe, char *line, char **env, t_flags flag)
 	input = split_cmd(line, flag);
 	if (flag.re_out == true || flag.append_out == true)
 	{
-		diff = change_output(input, flag);
+		change_inout(input, &diff, OUT);
 		input = extract_command(input, flag, diff);
 	}
 	if (access(input[0], X_OK) != 0)
