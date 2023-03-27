@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:40:14 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 08:57:25 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:05:51 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	case_1_and_dollar_and_quote(t_x *x)
 		else
 			x->var = x->new_split[x->y];
 		x->cmd = getenv(x->var);
+		if (!x->cmd)
+			free(x->cmd);
 		x->new_str = ft_strjoin(x->new_str, x->cmd);
 		x->new_str = ft_strjoin(x->new_str, "\'");
 		x->y++;

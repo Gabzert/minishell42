@@ -6,13 +6,13 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/26 10:47:36 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:29:38 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit;
+int	exit_s;
  
 void	execute(char **input, char **env)
 {
@@ -65,7 +65,7 @@ void	analize_command(char *line, char ***env, t_flags flags)
 void	sigint_handler(int prova)
 {
 	(void) prova;
-	g_exit = 130;
+	exit_s = 130;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

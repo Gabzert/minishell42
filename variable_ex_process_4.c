@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:37:57 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 08:57:11 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:05:18 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,7 @@ void	add_cmd_with_fq_or_with_flq(t_x *x)
 {
 	x->cmd = getenv(x->var);
 	if (x->cmd == NULL)
-	{
-		printf("i have a problem with the cmd man help!! x->case_1\n");
-		x->new_str = ft_strjoin(x->new_str, " ");
-	}
+		free(x->cmd);
 	else if (x->case_1 == 1)
 	{
 		x->new_str = ft_strjoin(x->new_str, "\1'");

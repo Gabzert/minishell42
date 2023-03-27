@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:24:46 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/26 23:32:12 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:03:27 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ void	add_cmd_q_c3(t_x *x)
 {
 	x->cmd = getenv(x->var);
 	if (!x->cmd)
-	{
-		printf("blabalbla\n");
-	}
+		free(x->cmd);
 	else
 	{
 		x->new_str = ft_strjoin(x->new_str, x->cmd);

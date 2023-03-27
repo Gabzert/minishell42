@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:33:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/26 23:34:53 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:04:51 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	remove_last_q_add_q(t_x *x)
 	x->j--;
 	x->var[x->j] = '\0';
 	x->cmd = getenv(x->var);
+	if (!x->cmd)
+		free(x->cmd);
 	if (x->str_split[x->i][0] == '\'')
 		x->new_str = ft_strjoin(x->new_str, "\1\'");
 	x->new_str = ft_strjoin(x->new_str, x->cmd);
@@ -70,9 +72,7 @@ void	case_1_helper(t_x *x)
 	x->var++;
 	x->cmd = getenv(x->var);
 	if (!x->cmd)
-	{
-		printf("272");
-	}
+		free(x->cmd);
 	else
 	{
 		x->new_str = ft_strjoin(x->new_str, x->cmd);
