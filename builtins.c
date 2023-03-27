@@ -6,11 +6,46 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/24 10:35:12 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:42:20 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	echo(char **inputs)
+{
+	int		i;
+	bool	supp_nl;
+
+	i = 1;
+	supp_nl = false;
+	if (inputs[i] != NULL && ft_strcmp(inputs[i], "-n") == 0)
+	{
+		supp_nl = true;
+		i++;
+	}
+	while (inputs[i] != NULL)
+	{
+		printf("%s ", inputs[i]);
+		i++;
+	}
+	if (!supp_nl)
+	{
+		printf("\n");
+	}
+}
+
+void	l_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_printf("%s\n", env[i]);
+		i++;
+	}
+}
 
 void	export(char **inputs, char ***env)
 {

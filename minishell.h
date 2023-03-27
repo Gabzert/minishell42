@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/27 10:27:27 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:41:54 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <signal.h>
+
+# define IN 1
+# define OUT 0
 
 extern int	exit_s;
 
@@ -98,8 +101,7 @@ void	free_split(char **a);
 **	REDIRECT UTILS
 */
 char	**handle_redirect(char **input, t_flags f);
-int		change_output(char **input, t_flags f);
-int		change_input(char **input, t_flags f);
+void	change_inout(char **input, int *diff, int i_o);
 char	**extract_command(char **inputs, t_flags flags, int diff);
 
 void	pipex(int size, char **inputs, char ***env, t_flags flag);
@@ -109,6 +111,8 @@ void	pipex_init(t_pipex *p, int size);
 **	BUILTINS
 */
 bool	is_builtin(char **inputs, char ***env);
+void	echo(char **inputs);
+void	l_env(char **env);
 void	unset(char **inputs, char ***env);
 void	export(char **inputs, char ***env);
 
