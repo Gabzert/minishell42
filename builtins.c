@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/27 11:58:50 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:42:20 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 void	echo(char **inputs)
 {
-	int	i;
+	int		i;
+	bool	supp_nl;
 
 	i = 1;
-	while (inputs[i])
+	supp_nl = false;
+	if (inputs[i] != NULL && ft_strcmp(inputs[i], "-n") == 0)
 	{
-		ft_printf("%s ", inputs[i]);
+		supp_nl = true;
 		i++;
 	}
-	ft_printf("\n");
+	while (inputs[i] != NULL)
+	{
+		printf("%s ", inputs[i]);
+		i++;
+	}
+	if (!supp_nl)
+	{
+		printf("\n");
+	}
 }
 
 void	l_env(char **env)

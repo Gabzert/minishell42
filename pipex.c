@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/27 09:36:10 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:54:15 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,17 @@ void	run_child_first(t_pipex pipe, char *line, char **env, t_flags flag)
 {
 	char	**input;
 	char	*cmd;
-	int		diff;
 
 	input = split_cmd(line, flag);
-	if (flag.re_in == true || flag.write_in == true)
-	{
-		change_inout(input, &diff, IN);
-		input = extract_command(input, flag, diff);
-	}
+	input = handle_redirect(input, flag);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], env);
 	else
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	dup2(pipe.fd[pipe.i][1], 1);
+	if (!ft_strchr(line, '>'))
+		dup2(pipe.fd[pipe.i][1], 1);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, env) == -1)
 	{
@@ -39,18 +35,23 @@ void	run_child_first(t_pipex pipe, char *line, char **env, t_flags flag)
 	}
 }
 
-void	run_child_middle(t_pipex pipe, char **input, char **env)
+void	run_child_middle(t_pipex pipe, char *line, char **env, t_flags flag)
 {
+	char	**input;
 	char	*cmd;
 
+	input = split_cmd(line, flag);
+	input = handle_redirect(input, flag);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], env);
 	else
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	dup2(pipe.fd[pipe.i][0], 0);
-	dup2(pipe.fd[pipe.i + 1][1], 1);
+	if (!ft_strchr(line, '<'))
+		dup2(pipe.fd[pipe.i][0], 0);
+	if (!ft_strchr(line, '>'))
+		dup2(pipe.fd[pipe.i + 1][1], 1);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, env) == -1)
 		free_child(input, &pipe);
@@ -60,21 +61,17 @@ void	run_child_last(t_pipex pipe, char *line, char **env, t_flags flag)
 {
 	char	**input;
 	char	*cmd;
-	int		diff;
 
 	input = split_cmd(line, flag);
-	if (flag.re_out == true || flag.append_out == true)
-	{
-		change_inout(input, &diff, OUT);
-		input = extract_command(input, flag, diff);
-	}
+	input = handle_redirect(input, flag);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], env);
 	else
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	dup2(pipe.fd[pipe.i][0], 0);
+	if (!ft_strchr(line, '<'))
+		dup2(pipe.fd[pipe.i][0], 0);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, env) == -1)
 		free_child(input, &pipe);
@@ -97,7 +94,7 @@ void	pipex(int size, char **inputs, char ***env, t_flags flag)
 		{
 			pipe.pidn = fork();
 			if (pipe.pidn == 0)
-				run_child_middle(pipe, ft_split(inputs[pipe.i + 1], ' '), *env);
+				run_child_middle(pipe, inputs[pipe.i + 1], *env, flag);
 			pipe.i++;
 		}
 	}
