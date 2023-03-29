@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 13:52:37 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:22:56 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void	echo(char **inputs);
 void	l_env(char **env);
 void	unset(char **inputs, char ***env);
 void	export(char **inputs, char ***env);
+
+/* --------------------------------- main.c --------------------------------- */
+void	analize_command(char *line, char ***env, t_flags flags);
 
 /* ------------------------------ main_helper.c ----------------------------- */
 void	main_helper(t_x *x, char **env, t_flags flags);
