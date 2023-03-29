@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/26 23:46:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:26:58 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,8 @@ void	helper_6(t_x *x)
 		x->new_str = not_v(x->new_str, x->str_split[x->i]);
 }
 
-char	*control_ex(char *str)
+char	*control_ex(t_x *x, char *str)
 {
-	t_x	*x;
-
-	x = (t_x *)malloc(sizeof(t_x));
 	init(x);
 	x->size_for_malloc = full_size(str);
 	x->str_split = ft_split(str, ' ');
@@ -159,7 +156,7 @@ char	*control_ex(char *str)
  * * "$'$'"       	✔ echo "$USER'$USER'"
  * 
  * TODO: da gestire
- * 
+ * * echo ""$USER""
  * !casi che non devono essere gestiti
  * * $ "' $ $ "' -> quote
  * * $ "' $ $ "" -> dquote

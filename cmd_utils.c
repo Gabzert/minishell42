@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/27 18:42:44 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:27:57 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,16 @@ char	*find_cmd(char *cmd, char **env)
 bool	is_builtin(char **inputs, char ***env)
 {
 	char	*buffer;
+	int		n;
 
 	buffer = NULL;
+	n = 0;
 	if (ft_strcmp(inputs[0], "cd") == 0)
-		chdir(inputs[1]);
+	{
+		n = chdir(inputs[1]);
+		if (n < 0)
+			printf("minishell: cd: %s: No such file or directory\n", inputs[1]);
+	}
 	else if (ft_strcmp(inputs[0], "pwd") == 0)
 		ft_printf("%s\n", getcwd(buffer, 0));
 	else if (ft_strcmp(inputs[0], "echo") == 0)
@@ -94,6 +100,8 @@ bool	is_builtin(char **inputs, char ***env)
 		exit(0);
 	else
 		return (false);
+	if (n < 0)
+		exit_s = 1;
 	free_split(inputs);
 	return (true);
 }

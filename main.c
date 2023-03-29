@@ -6,14 +6,14 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/27 10:29:38 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:04:51 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	exit_s;
- 
+
 void	execute(char **input, char **env)
 {
 	char	*cmd;
@@ -26,9 +26,11 @@ void	execute(char **input, char **env)
 		cmd = input[0];
 	if (execve(cmd, input, env) == -1)
 	{
-		perror("Esecusione fallita");
+		if (!(ft_strnstr(input[0], "$?", 2)))
+			perror("Esecusione fallita");
 		free_split(input);
-		exit(0);
+		exit_s = 127;
+		exit(exit_s);
 	}
 }
 
@@ -36,6 +38,7 @@ void	analize_command(char *line, char ***env, t_flags flags)
 {
 	char	**inputs;
 	int		pid;
+	int		status;
 
 	if (flags.pipe == true)
 	{
@@ -54,7 +57,16 @@ void	analize_command(char *line, char ***env, t_flags flags)
 				inputs = handle_redirect(inputs, flags);
 				execute(inputs, *env);
 			}
-			waitpid(pid, NULL, 0);
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+			{
+				if (status == 512)
+					exit_s = 2;
+				else if (status == 32512 && ft_strnstr(line, "./", 2))
+					exit_s = 126;
+				else if (status == 32512)
+					exit_s = 127;
+			}
 			if (flags.write_in == true)
 				unlink(".heredoc");
 		}
@@ -76,7 +88,11 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	t_flags	flags;
+	t_x	*x;
 
+	x = (t_x *)malloc(sizeof(t_x));
+	if (!x)
+		return (0);
 	(void) argc;
 	(void) argv;
 	signal(SIGINT, sigint_handler);
@@ -85,13 +101,8 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		cmd = readline("minishell~$ ");
-
-		//------- variable expansion ----
-		cmd = control_ex(cmd);
-		// printf("%s\n", cmd);
-		
-		//---------- ctrl+d -----------
-		//------ ritorna un EOF ------- 
+		cmd = exit_status(cmd);
+		cmd = control_ex(x, cmd);
 		if (cmd == NULL)
 		{
 			printf("\n");

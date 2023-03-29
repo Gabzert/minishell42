@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:47:34 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/26 23:50:18 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:24:31 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,7 @@ char	*simple_v(char *var, char *new_str)
 	{
 		cmd = getenv(var);
 		if (cmd == NULL)
-		{
-			printf("simple_v\n");
 			free(cmd);
-			free(new_str);
-		}
 		else
 		{
 			new_str = ft_strjoin(new_str, cmd);

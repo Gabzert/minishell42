@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/27 18:41:54 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:25:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,11 @@ void	l_env(char **env);
 void	unset(char **inputs, char ***env);
 void	export(char **inputs, char ***env);
 
-//------------- variable_ex.c --------------
-char	*control_ex(char *str);
+/* ------------------------------ exit_status.c ----------------------------- */
+char	*exit_status(char *str);
+
+/* ------------------------------ variable_ex.c ----------------------------- */
+char	*control_ex(t_x *x, char *str);
 
 /* --------------------- variable_ex_helper.c --------------------- */
 char	*begin_and_end_with_quote(char *new_str, char *cmd);
