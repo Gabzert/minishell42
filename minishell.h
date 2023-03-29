@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 14:22:56 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:22:45 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@
 # define IN 1
 # define OUT 0
 
-extern int	g_exit;
+typedef struct s_sig
+{
+	int		g_exit;
+	bool	cmd_run;
+}	t_sig;
+
+extern t_sig sig;
 
 typedef struct s_pipex
 {

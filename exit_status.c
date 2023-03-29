@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:53 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:19:28 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 char	*exit_status(char *str)
 {
 	if (ft_strnstr(str, "$?", 2) && ft_strlen(str) == 2)
-		printf("%d: command not found\n", g_exit);
+		printf("%d: command not found\n", sig.g_exit);
 	else if (ft_strnstr(str, "echo $?", 7))
-		printf("%d", g_exit);
-	g_exit = 0;
+		printf("%d", sig.g_exit);
+	sig.g_exit = 0;
 	return (str);
 }

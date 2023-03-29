@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 13:49:22 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:19:42 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit;
+t_sig	sig;
 
 void	execute(char **input, char **env)
 {
-	char	*cmd;
+	char				*cmd;
 
 	if (input == NULL)
 		return ;
@@ -29,8 +29,8 @@ void	execute(char **input, char **env)
 		if (!(ft_strnstr(input[0], "$?", 2)))
 			perror("Esecusione fallita");
 		free_split(input);
-		g_exit = 127;
-		exit(g_exit);
+		sig.g_exit = 127;
+		exit(sig.g_exit);
 	}
 }
 
@@ -49,11 +49,11 @@ static void	analize_help(char **inputs, char *line, char ***env, t_flags flags)
 	if (WIFEXITED(status))
 	{
 		if (status == 512)
-			g_exit = 2;
+			sig.g_exit = 2;
 		else if (status == 32512 && ft_strnstr(line, "./", 2))
-			g_exit = 126;
+			sig.g_exit = 126;
 		else if (status == 32512)
-			g_exit = 127;
+			sig.g_exit = 127;
 	}
 	if (flags.write_in == true)
 		unlink(".heredoc");
@@ -81,11 +81,13 @@ void	analize_command(char *line, char ***env, t_flags flags)
 void	sigint_handler(int prova)
 {
 	(void) prova;
-	g_exit = 130;
+	sig.g_exit = 130;
 	write(STDOUT_FILENO, "\n", 1);
+	rl_clear_history();
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
+	if (sig.cmd_run == false)
+		rl_redisplay();
 }
 
 int	main(int argc, char **argv, char **env)

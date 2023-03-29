@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:35 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:20:05 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	echo(char **inputs)
 	if (inputs[i] != NULL && ft_strcmp(inputs[i], "-n") == 0)
 	{
 		supp_nl = true;
-		g_exit = 0;
+		sig.g_exit = 0;
 		i++;
 	}
 	while (inputs[i] != NULL)
 	{
 		printf("%s ", inputs[i]);
-		g_exit = 0;
+		sig.g_exit = 0;
 		i++;
 	}
 	if (!supp_nl)

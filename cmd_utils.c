@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:45 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:20:14 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ bool	is_builtin(char **inputs, char ***env)
 	else
 		return (false);
 	if (n < 0)
-		g_exit = 1;
+		sig.g_exit = 1;
 	free_split(inputs);
 	return (true);
 }
