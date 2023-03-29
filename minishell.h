@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/28 12:25:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:52:37 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define IN 1
 # define OUT 0
 
-extern int	exit_s;
+extern int	g_exit;
 
 typedef struct s_pipex
 {
@@ -63,20 +63,20 @@ typedef struct s_size
 typedef struct s_x
 {
 	int		size_for_malloc;
-	int		i; //? index
-	int		j; //? index
-	int		y; //? helper index
-	int		case_1; //? the case where we have "''"
-	int		case_2; //? the case where we have '""'
-	int		case_3; //? 
-	int		case_4; //? know am after a '
-	int		case_5; //? where you have this struct '"$USER"'
+	int		i;
+	int		j;
+	int		y;
+	int		case_1;
+	int		case_2;
+	int		case_3;
+	int		case_4;
+	int		case_5;
 	int		case_qdq;
 	int		start;
 	int		bk;
-	char	*var; // variable to be expanded
-	char	*cmd; // hold the value of the variable expanded
-	char	*new_str; // final string to be returned
+	char	*var;
+	char	*cmd;
+	char	*new_str;
 	char	**str_split;
 	char	**new_split;
 }	t_x;
@@ -116,6 +116,9 @@ void	l_env(char **env);
 void	unset(char **inputs, char ***env);
 void	export(char **inputs, char ***env);
 
+/* ------------------------------ main_helper.c ----------------------------- */
+void	main_helper(t_x *x, char **env, t_flags flags);
+
 /* ------------------------------ exit_status.c ----------------------------- */
 char	*exit_status(char *str);
 
@@ -134,9 +137,6 @@ int		full_size(char *str);
 char	*simple_v(char *var, char *new_str);
 char	*not_v(char *new_str, char *str);
 char	*split_dollar(char *new_str, char *str);
-
-
-
 
 /* ------------------------- variable_ex_process_1.c ------------------------ */
 void	add_command(t_x *x);

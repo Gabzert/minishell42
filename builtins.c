@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/28 16:11:07 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:38:35 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	echo(char **inputs)
 	if (inputs[i] != NULL && ft_strcmp(inputs[i], "-n") == 0)
 	{
 		supp_nl = true;
-		exit_s = 0;
+		g_exit = 0;
 		i++;
 	}
 	while (inputs[i] != NULL)
 	{
 		printf("%s ", inputs[i]);
-		exit_s = 0;
+		g_exit = 0;
 		i++;
 	}
 	if (!supp_nl)
@@ -62,7 +62,6 @@ void	export(char **inputs, char ***env)
 			new_env[i] = ft_strdup((*env)[i]);
 		new_env[i] = ft_strdup(inputs[1]);
 		new_env[i + 1] = NULL;
-//		free(env);
 		*env = new_env;
 	}
 	else
@@ -91,6 +90,5 @@ void	unset(char **inputs, char ***env)
 		i++;
 	}
 	new_env[j] = NULL;
-//	free(env);
 	*env = new_env;
 }
