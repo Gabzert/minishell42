@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   retirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/29 13:50:41 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:29:18 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	change_inout(char **input, int *diff, int i_o)
 	close(fd);
 }
 
-char	**extract_command(char **inputs, t_flags flags, int diff)
+char	**extract_command(char **inputs, int diff)
 {
 	int		i;
 	int		j;
@@ -101,13 +101,7 @@ char	**extract_command(char **inputs, t_flags flags, int diff)
 	i = -1;
 	j = 0;
 	c_size = split_size(inputs) - diff;
-	if (flags.re_in == true || flags.write_in == true)
-	{
-		if (ft_strncmp(inputs[0], "<", ft_strlen(inputs[0])) == 0)
-			j = 2;
-		else
-			j = 1;
-	}
+	j = locate_cmd(inputs);
 	new = malloc ((c_size + 1) * sizeof(char *));
 	while (++i < c_size)
 	{
@@ -131,5 +125,5 @@ char	**handle_redirect(char **input, t_flags f)
 		change_inout(input, &diff, IN);
 	if (f.re_out == true || f.append_out == true)
 		change_inout(input, &diff, OUT);
-	return (extract_command(input, f, diff));
+	return (extract_command(input, diff));
 }

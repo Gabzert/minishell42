@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 16:22:45 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:29:15 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void	free_split(char **a);
 */
 char	**handle_redirect(char **input, t_flags f);
 void	change_inout(char **input, int *diff, int i_o);
-char	**extract_command(char **inputs, t_flags flags, int diff);
+char	**extract_command(char **inputs, int diff);
+int		locate_cmd(char **inputs);
 
 void	pipex(int size, char **inputs, char ***env, t_flags flag);
 void	pipex_init(t_pipex *p, int size);
@@ -126,7 +127,7 @@ void	export(char **inputs, char ***env);
 void	analize_command(char *line, char ***env, t_flags flags);
 
 /* ------------------------------ main_helper.c ----------------------------- */
-void	main_helper(t_x *x, char **env, t_flags flags);
+void	main_helper(t_x *x, char ***env, t_flags flags);
 
 /* ------------------------------ exit_status.c ----------------------------- */
 char	*exit_status(char *str);

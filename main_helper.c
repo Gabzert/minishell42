@@ -6,13 +6,13 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:49:04 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/29 16:28:20 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:43:20 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	main_helper(t_x *x, char **env, t_flags flags)
+void	main_helper(t_x *x, char ***env, t_flags flags)
 {
 	char	*cmd;
 

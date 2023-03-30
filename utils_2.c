@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_status.c                                      :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/29 16:19:28 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:29:51 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,27 @@ char	*exit_status(char *str)
 		printf("%d", sig.g_exit);
 	sig.g_exit = 0;
 	return (str);
+}
+
+int	locate_cmd(char **inputs)
+{
+	int	i;
+
+	i = 0;
+	while (inputs[i])
+	{
+		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
+			i += 2;
+		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i]))
+			|| ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])) 
+			|| ft_strnstr(inputs[i], ">", ft_strlen(inputs[i]))
+			|| ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
+			i++;
+		else
+			return (i);
+	}
+	return (i);
 }

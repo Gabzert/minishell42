@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 16:19:42 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:43:24 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	while (1)
-		main_helper(x, env, flags);
+		main_helper(x, &env, flags);
 	return (0);
 }
