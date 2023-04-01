@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:40:14 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:03:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:45:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	case_1_and_dollar_and_quote(t_x *x)
 {
 	char	*new;
+
 	x->new_split = ft_split(x->var, '\'');
 	x->y = 0;
 	while (x->new_split[x->y])

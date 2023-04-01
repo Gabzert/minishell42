@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:11:37 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:25:47 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ bool	is_builtin(char **inputs, char ***env, t_x *x)
 	}
 	else
 		return (false);
+	free_split(inputs);
 	return (true);
 }

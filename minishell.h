@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:13:39 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:44:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@
 # define IN 1
 # define OUT 0
 
-extern int	g_exit;
+typedef struct s_sig
+{
+	int		g_exit;
+	bool	cmd_run;
+}	t_sig;
+
+extern t_sig	g_sig;
 
 typedef struct s_pipex
 {

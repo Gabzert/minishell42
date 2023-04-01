@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:42:56 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:13:30 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:48:06 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	is_builtin_helper_1(char **inputs)
 	else
 		n = is_builtin_helper(inputs[1], n);
 	if (n < 0)
-		g_exit = 1;
+		g_sig.g_exit = 1;
 }
 
 void	pwd_helper(void)
