@@ -6,21 +6,20 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 10:12:16 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 10:03:53 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:03:41 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*begin_and_end_with_quote(char *new_str, char *cmd)
+void	begin_and_end_with_quote(char *cmd, t_x *x)
 {
-	new_str = ft_strjoin(new_str, "\1'");
-	new_str = ft_strjoin(new_str, cmd);
-	new_str = ft_strjoin(new_str, "'");
-	return (new_str);
+	new_join(x, "\1'");
+	new_join(x, cmd);
+	new_join(x, "'");
 }
 
-char	*begin_with_quote(char *new_str, char *var)
+void	begin_with_quote(t_x *x, char *var)
 {
 	char	*cmd;
 
@@ -29,39 +28,40 @@ char	*begin_with_quote(char *new_str, char *var)
 		free(cmd);
 	else
 	{
-		new_str = ft_strjoin(new_str, "\1'");
-		new_str = ft_strjoin(new_str, cmd);
-		new_str = ft_strjoin(new_str, " ");
+		new_join(x, "\1'");
+		new_join(x, cmd);
+		new_join(x, " ");
 	}
-	return (new_str);
 }
 
-char	*end_with_quote(char *new_str, char *str)
+void	end_with_quote(t_x *x, char *str)
 {
 	char	*var;
+	char	*new;
 	char	*cmd;
 
-	str = ft_strtrim(str, "\'\"");
-	var = ft_strchr(str, '$');
+	new = ft_strtrim(str, "\'\"");
+	var = ft_strchr(new, '$');
 	var++;
 	cmd = getenv(var);
 	if (cmd == NULL)
 		free(cmd);
 	else
 	{
-		new_str = ft_strjoin(new_str, cmd);
-		new_str = ft_strjoin(new_str, "'");
+		new_join(x, cmd);
+		new_join(x, "'");
 	}
-	return (new_str);
+	free(new);
 }
 
-char	*end_with_dquote(char *new_str, char *str)
+void	end_with_dquote(t_x *x, char *str)
 {
 	char	*var;
+	char	*new;
 
-	str = ft_strtrim(str, "\'\"");
-	var = ft_strchr(str, '$');
-	new_str = ft_strjoin(new_str, var);
-	new_str = ft_strjoin(new_str, "\"");
-	return (new_str);
+	new = ft_strtrim(str, "\'\"");
+	var = ft_strchr(new, '$');
+	new_join(x, var);
+	new_join(x, "\"");
+	free(new);
 }

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:40:14 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 10:05:51 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:03:26 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	case_1_and_dollar_and_quote(t_x *x)
 {
+	char	*new;
 	x->new_split = ft_split(x->var, '\'');
 	x->y = 0;
 	while (x->new_split[x->y])
@@ -21,15 +22,16 @@ void	case_1_and_dollar_and_quote(t_x *x)
 		if (ft_strnstr(x->new_split[x->y], "$", 1))
 		{
 			x->var = x->new_split[x->y];
-			x->var++;
+			new = ft_substr(x->var, 1, ft_strlen(x->var));
 		}
 		else
-			x->var = x->new_split[x->y];
-		x->cmd = getenv(x->var);
-		if (!x->cmd)
-			free(x->cmd);
-		x->new_str = ft_strjoin(x->new_str, x->cmd);
-		x->new_str = ft_strjoin(x->new_str, "\'");
+			new = x->new_split[x->y];
+		if (getenv(new))
+		{
+			new_join(x, getenv(new));
+			new_join(x, "\'");
+		}
+		free(new);
 		x->y++;
 	}
 }
@@ -57,32 +59,39 @@ void	dq_with_var(t_x *x)
 		x->var[ft_strlen(x->var) - 2] = '\0';
 		x->case_5 = 1;
 	}
-	x->new_str = ft_strjoin(x->new_str, " ");
-	x->new_str = ft_strjoin(x->new_str, x->var);
+	new_join(x, " ");
+	new_join(x, x->var);
 	if (x->case_5 == 1)
-		x->new_str = ft_strjoin(x->new_str, "\1\"");
-	x->new_str = ft_strjoin(x->new_str, " ");
+		new_join(x, "\1\"");
+	new_join(x, " ");
+	new_join(x, " ");
 }
 
 void	quote(t_x *x)
 {
 	x->y = x->j;
 	x->y++;
-	while (x->str_split[x->i][x->y] != '"')
-		x->y++;
-	x->var = ft_substr(x->str_split[x->i], x->j + 1, x->y - x->j);
-	x->new_str = ft_strjoin(x->new_str, x->var);
-	x->y++;
-	x->j = x->y;
-	while (x->str_split[x->i][x->y] != '"')
-		x->y++;
-	x->var = ft_substr(x->str_split[x->i], x->j, x->y - x->j);
-	x->new_str = ft_strjoin(x->new_str, x->var);
-	x->new_str = ft_strjoin(x->new_str, "\"");
+	if (ft_strlen(x->str_split[x->i]) > 2)
+	{
+		while (x->str_split[x->i][x->y] && x->str_split[x->i][x->y] != '"')
+			x->y++;
+		x->var = ft_substr(x->str_split[x->i], x->j + 1, x->y - x->j);
+		new_join(x, x->var);
+		free(x->var);
+		if (x->str_split[x->i][x->y] && x->str_split[x->i][x->y + 1])
+			x->y++;
+		x->j = x->y;
+		while (x->str_split[x->i][x->y] && x->str_split[x->i][x->y] != '"')
+			x->y++;
+		x->var = ft_substr(x->str_split[x->i], x->j, x->y - x->j);
+		new_join(x, x->var);
+		new_join(x, "\"");
+		free(x->var);
+	}
 }
 
 void	identify_start_dq_q(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, "\1\' ");
+	new_join(x, "\1\' ");
 	x->start = 1;
 }

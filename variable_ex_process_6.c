@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:42:46 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 08:57:36 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:35:07 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	identify_end_dq_q(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, "\1\' ");
+	new_join(x, "\1\' ");
 	x->start = 0;
 }
 
 void	identify_start_q_dq(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, "\1\" ");
+	new_join(x, "\1\" ");
 	x->start = 1;
 	x->case_qdq = 1;
 }
 
 void	identify_end_q_dq(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, "\1\" ");
+	new_join(x, "\1\" ");
 	x->start = 0;
 	x->case_qdq = 0;
 }

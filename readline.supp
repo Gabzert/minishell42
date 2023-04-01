@@ -21,5 +21,14 @@
    Memcheck:Leak
    ...
    ...
+   fun:readline_internal_teardown
+   fun:readline
+}
+
+{
+   readline
+   Memcheck:Leak
+   ...
+   ...
    fun:add_history
 }

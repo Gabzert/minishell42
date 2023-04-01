@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:47:34 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/28 15:24:31 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:13:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ void	init(t_x *x)
 	x->case_4 = 0;
 	x->case_5 = 0;
 	x->case_qdq = 0;
+	x->case_q = 0;
 	x->start = 0;
+	x->var = NULL;
+	x->cmd = NULL;
+	x->str_split = NULL;
+	x->new_str = NULL;
+	x->new_split = NULL;
 }
 
 int	full_size(char *str)
@@ -38,52 +44,81 @@ int	full_size(char *str)
 	{
 		if (str[size.i] == '$')
 		{
-			size.j = size.i + 1;
-			while (str[size.j] && (!(str[size.j] >= 9 && str[size.j] <= 13)))
-				size.j++;
+			size.j = full_size_helper(str, size.i, size.j);
 			size.var = ft_substr(str, size.i + 1, size.j - size.i);
 			size.size_full -= ft_strlen(size.var) + 1;
-			size.cmd = getenv(size.var);
-			if (size.cmd)
-				size.size_cmd += ft_strlen(size.cmd);
+			if (getenv(size.var))
+				size.size_cmd += ft_strlen(getenv(size.var));
 			else
 				size.size_full += ft_strlen(size.var) + 1;
 			size.i = size.j - 1;
+			size.j = 0;
+			free(size.var);
 		}
-		size.i++;
+		if ((!(str[size.i] || str[size.i + 1])))
+			break ;
 	}
 	size.size_cmd += size.size_full;
 	return (size.size_cmd + 2);
 }
 
-char	*simple_v(char *var, char *new_str)
+void	simple_v(char *var, t_x *x)
 {
-	char	*cmd;
+	char	*new;
 
 	if (ft_strnstr(var, "$", ft_strlen(var)))
-		new_str = split_dollar(new_str, var);
-	else
 	{
-		cmd = getenv(var);
-		if (cmd == NULL)
-			free(cmd);
+		new = ft_strtrim(var, "\"$");
+		if (ft_strnstr(new, "$", ft_strlen(new)))
+			split_dollar(new, x);
 		else
 		{
-			new_str = ft_strjoin(new_str, cmd);
-			new_str = ft_strjoin(new_str, " ");
+			if (getenv(new))
+			{
+				new_join(x, getenv(new));
+				new_join(x, " ");
+			}
+		}
+		free(new);
+	}
+	else
+	{
+		if (getenv(var))
+		{
+			new_join(x, getenv(var));
+			new_join(x, " ");
 		}
 	}
-	return (new_str);
 }
 
-char	*not_v(char *new_str, char *str)
+void	not_v(char *str, t_x *x)
 {
-	new_str = ft_strjoin(new_str, str);
-	new_str = ft_strjoin(new_str, " ");
-	return (new_str);
+	char	*new;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			j++;
+		i++;
+	}
+	if (j == 4)
+	{
+		new = ft_strtrim(str, "'");
+		simple_v(new, x);
+		free(new);
+		return ;
+	}
+	if (ft_strlen(str) != 1)
+		not_v_helper(str, x);
+	else if (str[0] == '~')
+		new_join(x, "~");
 }
 
-char	*split_dollar(char *new_str, char *str)
+void	split_dollar(char *str, t_x *x)
 {
 	char	**new_split;
 	char	*var;
@@ -103,8 +138,8 @@ char	*split_dollar(char *new_str, char *str)
 			free(var);
 		}
 		else
-			new_str = ft_strjoin(new_str, cmd);
+			new_join(x, cmd);
 		i++;
 	}
-	return (new_str);
+	free_split(new_split);
 }

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:53 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:10:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,27 @@ char	*exit_status(char *str)
 		printf("%d", g_exit);
 	g_exit = 0;
 	return (str);
+}
+
+int	locate_cmd(char **inputs)
+{
+	int	i;
+
+	i = 0;
+	while (inputs[i])
+	{
+		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
+			|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
+			i += 2;
+		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i]))
+			|| ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i]))
+			|| ft_strnstr(inputs[i], ">", ft_strlen(inputs[i]))
+			|| ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
+			i++;
+		else
+			return (i);
+	}
+	return (i);
 }

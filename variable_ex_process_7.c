@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:44:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 08:57:50 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:03:25 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	case_11_helper(t_x *x)
 		if (ft_strnstr(x->str_split[x->i], "\"", len)
 			&& (!(ft_strnstr(x->str_split[x->i], "$", len))))
 		{
-			x->new_str = ft_strjoin(x->new_str, "\1\"");
-			x->new_str = ft_strjoin(x->new_str, " ");
+			new_join(x, "\1\"");
+			new_join(x, " ");
 		}
 		else if (ft_strnstr(x->str_split[x->i], "$", len))
 			case_1_helper_0(x);
@@ -61,7 +61,7 @@ void	helper_1(t_x *x)
 		&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 2] == '\''
 			&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 1] == '\"')
 	{
-		x->new_str = end_with_quote(x->new_str, x->str_split[x->i]);
+		end_with_quote(x, x->str_split[x->i]);
 		x->i++;
 		x->bk = 1;
 	}
@@ -69,7 +69,7 @@ void	helper_1(t_x *x)
 		&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 2] == '\"'
 			&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 1] == '\'')
 	{
-		x->new_str = end_with_dquote(x->new_str, x->str_split[x->i]);
+		end_with_dquote(x, x->str_split[x->i]);
 		x->i++;
 		x->bk = 1;
 	}

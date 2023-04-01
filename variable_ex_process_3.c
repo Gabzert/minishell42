@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:36:02 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/26 23:36:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:05:41 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	add_var(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, x->var);
-	x->new_str = ft_strjoin(x->new_str, " ");
+	new_join(x, x->var);
+	new_join(x, " ");
 }
 
 void	add_q_var_c3(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, "\1\"");
-	x->new_str = ft_strjoin(x->new_str, x->var);
-	x->new_str = ft_strjoin(x->new_str, " ");
+	new_join(x, "\1\"");
+	new_join(x, x->var);
+	new_join(x, " ");
 	x->case_3 = 0;
 }
 
@@ -31,9 +31,9 @@ void	remove_lase_dq_add_dq(t_x *x)
 	x->j--;
 	x->var[x->j] = '\0';
 	if (x->str_split[x->i][0] == '\"')
-		x->new_str = ft_strjoin(x->new_str, "\1\"");
-	x->new_str = ft_strjoin(x->new_str, x->var);
-	x->new_str = ft_strjoin(x->new_str, "\"");
+		new_join(x, "\1\"");
+	new_join(x, x->var);
+	new_join(x, "\"");
 	x->case_3 = 2;
 }
 
@@ -56,6 +56,6 @@ void	case_1_helper_0(t_x *x)
 
 void	helper_dq_2(t_x *x)
 {
-	x->new_str = ft_strjoin(x->new_str, " ");
-	x->new_str = ft_strjoin(x->new_str, "\1\"");
+	new_join(x, " ");
+	new_join(x, "\1\"");
 }

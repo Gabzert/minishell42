@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:55:45 by gfantech          #+#    #+#             */
-/*   Updated: 2022/05/24 10:55:51 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:49:01 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_libft.h"
 
 static size_t	ft_toklen(const char *s, char c)

@@ -40,16 +40,16 @@ all: ${NAME}
 
 ${OBJDIR}%.o: ${SRCDIR}%.c
 	@mkdir -p obj
-	$(CC) $(CFLAGS) -c $< -o $@ -I${INCS}
+	$(CC) -g $(CFLAGS) -c $< -o $@ -I${INCS}
 
 ${OBJDIR}%.o: ${B_DIR}%.c
 	@mkdir -p obj
-	$(CC) $(CFLAGS) -c $< -o $@ -I${INCS}
+	$(CC) -g $(CFLAGS) -c $< -o $@ -I${INCS}
 
 ${NAME}: ${OBJS}
 	make all -C libft
 	cp libft/libft.a ${CURDIR}
-	${CC} ${OBJS} ${CFLAGS} -lreadline -o ${NAME}  libft.a
+	${CC} -g ${OBJS} ${CFLAGS} -lreadline -o ${NAME}  libft.a
 	${RM} -f libft.a
 	echo "${GREEN}OK"
 

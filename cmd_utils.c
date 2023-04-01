@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:45 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:11:37 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,25 +73,34 @@ char	*find_cmd(char *cmd, char **env)
 	return (NULL);
 }
 
-static int	is_builtin_helper(char *str, int n)
+int	is_builtin_helper(char *str, int n)
 {
+	char	*user;
+	char	*path;
+	char	*fin;
+
+	if (ft_strnstr(str, "~", ft_strlen(str)) && ft_strlen(str) == 1)
+	{
+		user = getenv("USER");
+		path = ft_strdup("/home/");
+		fin = ft_strjoin(path, user);
+		n = chdir(fin);
+		free(path);
+		free(fin);
+	}
+	else
 	n = chdir(str);
 	if (n < 0)
 		printf("minishell: cd: %s: No such file or directory\n", str);
 	return (n);
 }
 
-bool	is_builtin(char **inputs, char ***env)
+bool	is_builtin(char **inputs, char ***env, t_x *x)
 {
-	char	*buffer;
-	int		n;
-
-	buffer = NULL;
-	n = 0;
 	if (ft_strcmp(inputs[0], "cd") == 0)
-		n = is_builtin_helper(inputs[1], n);
+		is_builtin_helper_1(inputs);
 	else if (ft_strcmp(inputs[0], "pwd") == 0)
-		ft_printf("%s\n", getcwd(buffer, 0));
+		pwd_helper();
 	else if (ft_strcmp(inputs[0], "echo") == 0)
 		echo(inputs);
 	else if (ft_strcmp(inputs[0], "env") == 0)
@@ -101,11 +110,12 @@ bool	is_builtin(char **inputs, char ***env)
 	else if (ft_strcmp(inputs[0], "unset") == 0)
 		unset(inputs, env);
 	else if (ft_strcmp(inputs[0], "exit") == 0)
+	{
+		free_split(inputs);
+		free(x);
 		exit(0);
+	}
 	else
 		return (false);
-	if (n < 0)
-		g_exit = 1;
-	free_split(inputs);
 	return (true);
 }

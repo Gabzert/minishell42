@@ -6,11 +6,29 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:24:46 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 10:03:27 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:05:04 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	new_join(t_x *x, char *str)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (x->new_str[i] != '\0')
+		i++;
+	while (str[j] != '\0')
+	{
+		x->new_str[i] = str[j];
+		i++;
+		j++;
+	}
+	x->new_str[i] = '\0';
+}
 
 void	add_command(t_x *x)
 {
@@ -46,17 +64,19 @@ void	check_for_dq_and_qd_helper(t_x *x)
 
 void	check_for_dq_and_qd(t_x *x)
 {
-	int	len;
-
 	while (x->str_split[x->i])
 	{
+		x->len = ft_strlen(x->str_split[x->i]);
+		if (ft_strnstr(x->str_split[x->i], "\"", x->len)
+			&& (!(ft_strnstr(x->str_split[x->i], "\'", x->len))))
+			x->case_q = 1;
 		if (ft_strnstr(x->str_split[x->i], "\"", 1))
 		{
 			x->i++;
 			if (x->str_split[x->i])
-				len = ft_strlen(x->str_split[x->i]);
+				x->len = ft_strlen(x->str_split[x->i]);
 			if (x->str_split[x->i]
-				&& ft_strnstr(x->str_split[x->i], "\'", len))
+				&& ft_strnstr(x->str_split[x->i], "\'", x->len))
 				x->case_3 = 1;
 			else
 				x->i--;
@@ -70,12 +90,6 @@ void	check_for_dq_and_qd(t_x *x)
 	}
 }
 
-void	add_q_s(t_x *x)
-{
-	x->new_str = ft_strjoin(x->new_str, "\1'");
-	x->new_str = ft_strjoin(x->new_str, " ");
-}
-
 void	add_cmd_q_c3(t_x *x)
 {
 	x->cmd = getenv(x->var);
@@ -83,8 +97,8 @@ void	add_cmd_q_c3(t_x *x)
 		free(x->cmd);
 	else
 	{
-		x->new_str = ft_strjoin(x->new_str, x->cmd);
-		x->new_str = ft_strjoin(x->new_str, "' ");
+		new_join(x, x->cmd);
+		new_join(x, "' ");
 		x->case_3 = 0;
 	}
 }

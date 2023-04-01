@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 14:22:56 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:13:39 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ typedef struct s_size
 	int		j;
 	int		size_cmd;
 	int		size_full;
-	char	*cmd;
 	char	*var;
 }	t_size;
 
 typedef struct s_x
 {
+	int		len;
 	int		size_for_malloc;
 	int		i;
 	int		j;
@@ -72,6 +72,7 @@ typedef struct s_x
 	int		case_4;
 	int		case_5;
 	int		case_qdq;
+	int		case_q;
 	int		start;
 	int		bk;
 	char	*var;
@@ -96,13 +97,15 @@ void	free_child(char **input, t_pipex *pipe);
 void	free_pipes(int **fd, int i);
 void	close_pipes(int **fd, int i);
 void	free_split(char **a);
+void	free_struct(t_x *x);
 
 /*
 **	REDIRECT UTILS
 */
 char	**handle_redirect(char **input, t_flags f);
 void	change_inout(char **input, int *diff, int i_o);
-char	**extract_command(char **inputs, t_flags flags, int diff);
+char	**extract_command(char **inputs, int diff);
+int		locate_cmd(char **inputs);
 
 void	pipex(int size, char **inputs, char ***env, t_flags flag);
 void	pipex_init(t_pipex *p, int size);
@@ -110,17 +113,25 @@ void	pipex_init(t_pipex *p, int size);
 /*
 **	BUILTINS
 */
-bool	is_builtin(char **inputs, char ***env);
+int		is_builtin_helper(char *str, int n);
+bool	is_builtin(char **inputs, char ***env, t_x *x);
 void	echo(char **inputs);
 void	l_env(char **env);
 void	unset(char **inputs, char ***env);
 void	export(char **inputs, char ***env);
 
+/* --------------------------- cmd_utils_helper.c --------------------------- */
+void	is_builtin_helper_1(char **inputs);
+void	pwd_helper(void);
+int		full_size_helper(char *str, int i, int j);
+void	not_v_helper(char *str, t_x *x);
+void	add_q_s(t_x *x);
+
 /* --------------------------------- main.c --------------------------------- */
-void	analize_command(char *line, char ***env, t_flags flags);
+void	analize_command(char *line, char ***env, t_flags flags, t_x *x);
 
 /* ------------------------------ main_helper.c ----------------------------- */
-void	main_helper(t_x *x, char **env, t_flags flags);
+void	main_helper(t_x *x, char ***env, t_flags flags);
 
 /* ------------------------------ exit_status.c ----------------------------- */
 char	*exit_status(char *str);
@@ -129,23 +140,23 @@ char	*exit_status(char *str);
 char	*control_ex(t_x *x, char *str);
 
 /* --------------------- variable_ex_helper.c --------------------- */
-char	*begin_and_end_with_quote(char *new_str, char *cmd);
-char	*begin_with_quote(char *new_str, char *var);
-char	*end_with_quote(char *new_str, char *str);
-char	*end_with_dquote(char *new_str, char *str);
+void	begin_and_end_with_quote(char *cmd, t_x *x);
+void	begin_with_quote(t_x *x, char *var);
+void	end_with_quote(t_x *x, char *str);
+void	end_with_dquote(t_x *x, char *str);
 
 /* --------------------- variable_ex_helper_1.c --------------------- */
 void	init(t_x *x);
 int		full_size(char *str);
-char	*simple_v(char *var, char *new_str);
-char	*not_v(char *new_str, char *str);
-char	*split_dollar(char *new_str, char *str);
+void	simple_v(char *var, t_x *x);
+void	not_v(char *str, t_x *x);
+void	split_dollar(char *str, t_x *x);
 
 /* ------------------------- variable_ex_process_1.c ------------------------ */
+void	new_join(t_x *x, char *str);
 void	add_command(t_x *x);
 void	check_for_dq_and_qd_helper(t_x *x);
 void	check_for_dq_and_qd(t_x *x);
-void	add_q_s(t_x *x);
 void	add_cmd_q_c3(t_x *x);
 
 /* ------------------------- variable_ex_process_2.c ------------------------ */

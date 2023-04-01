@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:35 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:14:33 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	export(char **inputs, char ***env)
 		new_env[i] = ft_strdup(inputs[1]);
 		new_env[i + 1] = NULL;
 		*env = new_env;
+		free_split(new_env);
 	}
 	else
 	{
@@ -91,4 +92,5 @@ void	unset(char **inputs, char ***env)
 	}
 	new_env[j] = NULL;
 	*env = new_env;
+	free_split(new_env);
 }

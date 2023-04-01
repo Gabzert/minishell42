@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:33:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/27 10:04:51 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:45:55 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	begin_w_q_c3(t_x *x)
 {
-	x->new_str = begin_with_quote(x->new_str, x->var);
+	begin_with_quote(x, x->var);
 	x->case_3 = 0;
 }
 
@@ -33,15 +33,15 @@ void	remove_last_q_add_q(t_x *x)
 	if (!x->cmd)
 		free(x->cmd);
 	if (x->str_split[x->i][0] == '\'')
-		x->new_str = ft_strjoin(x->new_str, "\1\'");
-	x->new_str = ft_strjoin(x->new_str, x->cmd);
-	x->new_str = ft_strjoin(x->new_str, "\'");
+		new_join(x, "\1\'");
+	new_join(x, x->cmd);
+	new_join(x, "\'");
 	x->case_3 = 4;
 }
 
 void	case_3_helper(t_x *x)
 {
-	int	len;
+	int		len;
 
 	len = ft_strlen(x->str_split[x->i]);
 	if (ft_strnstr(x->str_split[x->i], "\'", 1)
@@ -59,7 +59,7 @@ void	case_3_helper(t_x *x)
 	else if (!(x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z'))
 		clean_var(x);
 	if (x->case_3 != 4 && x->case_3 != 3 && x->case_3 != 6)
-		x->new_str = simple_v(x->var, x->new_str);
+		simple_v(x->var, x);
 	else if (x->case_3 == 3)
 		begin_w_q_c3(x);
 	else if (x->case_3 == 6)
@@ -75,7 +75,7 @@ void	case_1_helper(t_x *x)
 		free(x->cmd);
 	else
 	{
-		x->new_str = ft_strjoin(x->new_str, x->cmd);
-		x->new_str = ft_strjoin(x->new_str, " ");
+		new_join(x, x->cmd);
+		new_join(x, " ");
 	}
 }

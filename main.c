@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 13:49:22 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:06:40 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ static void	analize_help(char **inputs, char *line, char ***env, t_flags flags)
 		unlink(".heredoc");
 }
 
-void	analize_command(char *line, char ***env, t_flags flags)
+void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 {
 	char	**inputs;
 
+	inputs = NULL;
 	if (flags.pipe == true)
 	{
 		inputs = ft_split(line, '|');
@@ -72,8 +73,9 @@ void	analize_command(char *line, char ***env, t_flags flags)
 	else
 	{
 		inputs = split_cmd(line, flags);
-		if (is_builtin(inputs, env) == false)
+		if (is_builtin(inputs, env, x) == false)
 			analize_help(inputs, line, env, flags);
+		free_split(inputs);
 	}
 }
 
@@ -102,6 +104,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	while (1)
-		main_helper(x, env, flags);
+		main_helper(x, &env, flags);
 	return (0);
 }

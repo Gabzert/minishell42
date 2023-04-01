@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/03/28 12:26:58 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:08:24 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ void	helper_6(t_x *x)
 	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "\"", 1)
 		&& ft_strnstr(x->str_split[x->i], "$", 2))
 		helper_dq_d(x);
+	else if (x->case_q == 1)
+		simple_v(x->str_split[x->i], x);
 	else if (x->str_split[x->i])
-		x->new_str = not_v(x->new_str, x->str_split[x->i]);
+		not_v(x->str_split[x->i], x);
 }
 
 char	*control_ex(t_x *x, char *str)
@@ -82,7 +84,7 @@ char	*control_ex(t_x *x, char *str)
 	init(x);
 	x->size_for_malloc = full_size(str);
 	x->str_split = ft_split(str, ' ');
-	x->new_str = (char *)malloc(sizeof(char) * (x->size_for_malloc + 1));
+	x->new_str = (char *)malloc(sizeof(char) * (x->size_for_malloc + 1000));
 	add_command(x);
 	check_for_dq_and_qd(x);
 	x->i = 1;
