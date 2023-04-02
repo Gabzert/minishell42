@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/01 14:48:51 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:17:41 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	export(char **inputs, char ***env)
 			new_env[i] = ft_strdup((*env)[i]);
 		new_env[i] = ft_strdup(inputs[1]);
 		new_env[i + 1] = NULL;
+		free_split(*env);
 		*env = new_env;
-		free_split(new_env);
 	}
 	else
 	{
@@ -91,6 +91,6 @@ void	unset(char **inputs, char ***env)
 		i++;
 	}
 	new_env[j] = NULL;
+	free_split(*env);
 	*env = new_env;
-	free_split(new_env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gabriele <gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:55:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:23:12 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,19 @@ void	sigint_handler(int prova)
 		rl_redisplay();
 }
 
+// non so se lasciare cosi con new_env
+// è la soluzione più immediata, ne discuteremo poi
 int	main(int argc, char **argv, char **env)
 {
 	t_flags	flags;
 	t_x		*x;
+	char	**new_env;
+	int		i;
 
+	new_env = malloc(sizeof(char *) * split_size(env));
+	i = -1;
+	while (env[++i])
+		new_env[i] = ft_strdup(env[i]);
 	x = (t_x *)malloc(sizeof(t_x));
 	if (!x)
 		return (0);
@@ -104,6 +112,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	while (1)
-		main_helper(x, &env, flags);
+		main_helper(x, &new_env, flags);
+	free_split(new_env);
 	return (0);
 }
