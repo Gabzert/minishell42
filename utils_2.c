@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:47:27 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/03 08:53:34 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ int	locate_cmd(char **inputs)
 			return (i);
 	}
 	return (i);
+}
+
+void	envcpy(char **env, t_x **x)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	(*x)->envp = ft_calloc(sizeof(char *), (i + 1));
+	i = -1;
+	while (env[++i])
+		(*x)->envp[i] = ft_strdup(env[i]);
 }

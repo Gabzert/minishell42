@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:55:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/03 08:53:33 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	main(int argc, char **argv, char **env)
 	x = (t_x *)malloc(sizeof(t_x));
 	if (!x)
 		return (0);
+	envcpy(env, &x);
 	(void) argc;
 	(void) argv;
 	signal(SIGINT, sigint_handler);

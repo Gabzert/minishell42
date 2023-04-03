@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:44:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/03 08:53:24 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_x
 	char	*new_str;
 	char	**str_split;
 	char	**new_split;
+	char	**envp;
 }	t_x;
 
 char	*find_path(char **env);
@@ -103,7 +104,6 @@ void	free_child(char **input, t_pipex *pipe);
 void	free_pipes(int **fd, int i);
 void	close_pipes(int **fd, int i);
 void	free_split(char **a);
-void	free_struct(t_x *x);
 
 /*
 **	REDIRECT UTILS
@@ -123,8 +123,8 @@ int		is_builtin_helper(char *str, int n);
 bool	is_builtin(char **inputs, char ***env, t_x *x);
 void	echo(char **inputs);
 void	l_env(char **env);
-void	unset(char **inputs, char ***env);
-void	export(char **inputs, char ***env);
+void	export(char **inputs, char ***env, t_x **x);
+void	unset(char **inputs, t_x **x);
 
 /* --------------------------- cmd_utils_helper.c --------------------------- */
 void	is_builtin_helper_1(char **inputs);
@@ -132,6 +132,8 @@ void	pwd_helper(void);
 int		full_size_helper(char *str, int i, int j);
 void	not_v_helper(char *str, t_x *x);
 void	add_q_s(t_x *x);
+
+void	envcpy(char **env, t_x **x);
 
 /* --------------------------------- main.c --------------------------------- */
 void	analize_command(char *line, char ***env, t_flags flags, t_x *x);

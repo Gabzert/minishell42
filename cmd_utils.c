@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/01 14:25:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:46:04 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ bool	is_builtin(char **inputs, char ***env, t_x *x)
 	else if (ft_strcmp(inputs[0], "env") == 0)
 		l_env(*env);
 	else if (ft_strcmp(inputs[0], "export") == 0)
-		export(inputs, env);
+		export(inputs, env, &x);
 	else if (ft_strcmp(inputs[0], "unset") == 0)
-		unset(inputs, env);
+		unset(inputs, &x);
 	else if (ft_strcmp(inputs[0], "exit") == 0)
 	{
 		free_split(inputs);

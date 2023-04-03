@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/01 14:48:51 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/03 08:52:31 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	l_env(char **env)
 	}
 }
 
-void	export(char **inputs, char ***env)
+void	export(char **inputs, char ***env, t_x **x)
 {
 	char	**new_env;
 	int		i;
@@ -57,40 +57,46 @@ void	export(char **inputs, char ***env)
 	i = -1;
 	if (inputs[1])
 	{
-		new_env = malloc((split_size(*env) + 1) * sizeof(char **));
-		while ((*env)[++i])
-			new_env[i] = ft_strdup((*env)[i]);
+		new_env = malloc((split_size(*env) + 2) * sizeof(char *));
+		while ((*x)->envp[++i])
+			new_env[i] = (*x)->envp[i];
 		new_env[i] = ft_strdup(inputs[1]);
 		new_env[i + 1] = NULL;
-		*env = new_env;
-		free_split(new_env);
+		free((*x)->envp);
+		(*x)->envp = new_env;
 	}
 	else
 	{
-		while ((*env)[++i])
-			ft_printf("declare -x %s\n", (*env)[i]);
+		while ((*x)->envp[++i])
+			ft_printf("declare -x %s\n", (*x)->envp[i]);
 	}
 }
 
-void	unset(char **inputs, char ***env)
+void	unset(char **inputs, t_x **x)
 {
 	char	**new_env;
 	int		i;
 	int		j;
+	int		sp;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	new_env = malloc(split_size(*env) - 1 * sizeof(char **));
-	while ((*env)[i])
-	{
-		if (ft_strcmp((*env)[i], inputs[0]) != 0)
-		{
-			new_env[j] = ft_strdup((*env)[i]);
-			j++;
-		}
+	if (!inputs[1])
+		return ;
+	while ((*x)->envp[++i])
+		if (!ft_strncmp((*x)->envp[i], inputs[1], ft_strlen(inputs[1])))
+			break ;
+	sp = i;
+	if (!(*x)->envp[i])
+		return ;
+	while ((*x)->envp[i])
 		i++;
-	}
-	new_env[j] = NULL;
-	*env = new_env;
-	free_split(new_env);
+	new_env = ft_calloc(sizeof(char *), i);
+	i = -1;
+	while ((*x)->envp[++i])
+		if (i != sp)
+			new_env[j++] = (*x)->envp[i];
+	free((*x)->envp[sp]);
+	free((*x)->envp);
+	(*x)->envp = new_env;
 }
