@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:47:34 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:13:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/04 12:38:03 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ void	not_v(char *str, t_x *x)
 		free(new);
 		return ;
 	}
-	if (ft_strlen(str) != 1)
-		not_v_helper(str, x);
-	else if (str[0] == '~')
+	if (str[0] == '~' && ft_strlen(str) == 1)
 		new_join(x, "~");
+	else
+		not_v_helper(str, x);
 }
 
 void	split_dollar(char *str, t_x *x)
