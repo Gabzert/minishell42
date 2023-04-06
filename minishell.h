@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/06 15:05:18 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:38:20 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_flags
 	bool	pipe;
 	bool	quote;
 	bool	d_quote;
+	int		stdin;
+	int		stdout;
 }	t_flags;
 
 typedef struct s_size
@@ -120,11 +122,13 @@ void	pipex_init(t_pipex *p, int size);
 **	BUILTINS
 */
 int		is_builtin_helper(char *str, int n);
-bool	is_builtin(char **inputs, char ***env, t_x *x);
+bool	is_builtin(char **inputs, char ***env, t_x *x, t_flags flag);
 void	echo(char **inputs);
 void	l_env(char **env);
 void	export(char **inputs, char ***env, t_x **x);
 void	unset(char **inputs, t_x **x);
+void	reset_io(int fdin, int fdout);
+bool	is_any(char **inputs);
 
 /* --------------------------- cmd_utils_helper.c --------------------------- */
 void	is_builtin_helper_1(char **inputs);
