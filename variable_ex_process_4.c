@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:37:57 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:02:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:56:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	helper_dq_d(t_x *x)
 			x->var[strlen(x->var) - 1] = '\0';
 		simple_v(x->var, x);
 		free(x->var);
+		x->var = NULL;
 	}
 }
 
@@ -70,7 +71,8 @@ void	helper_d(t_x *x)
 		len = ft_strlen(x->str_split[x->i]);
 		x->var = ft_substr(x->str_split[x->i], 1, len - 2);
 		simple_v(x->var, x);
-		free (x->var);
+		free(x->var);
+		x->var = NULL;
 	}
 	else
 	{
@@ -82,6 +84,7 @@ void	helper_d(t_x *x)
 			x->var = ft_substr(x->str_split[x->i], 1, len);
 			simple_v(x->var, x);
 			free(x->var);
+			x->var = NULL;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/04 12:03:04 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:42:24 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ bool	is_builtin(char **inputs, char ***env, t_x *x)
 	else if (ft_strcmp(inputs[0], "exit") == 0)
 	{
 		free_split(inputs);
-		free(x);
+		free_x(&x);
 		exit(0);
 	}
 	else

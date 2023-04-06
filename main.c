@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/04 12:44:19 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:03:35 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,23 @@
 
 t_sig	g_sig;
 
-void	execute(char **input, char **env)
+void	execute(char **input, char **env, t_x *x)
 {
 	char				*cmd;
 
 	if (input == NULL)
 		return ;
 	if (access(input[0], X_OK) != 0)
+	{
 		cmd = find_cmd(input[0], env);
+		if (cmd == NULL)
+		{
+			free_split(input);
+			free_x_1(&x);
+			g_sig.g_exit = 127;
+			exit(g_sig.g_exit);
+		}
+	}
 	else
 		cmd = input[0];
 	if (execve(cmd, input, env) == -1)
@@ -34,7 +43,7 @@ void	execute(char **input, char **env)
 	}
 }
 
-static void	analize_help(char **inputs, char *line, char ***env, t_flags flags)
+static void	analize_help(char **inputs, char ***env, t_flags flags, t_x *x)
 {
 	int	pid;
 	int	status;
@@ -43,14 +52,14 @@ static void	analize_help(char **inputs, char *line, char ***env, t_flags flags)
 	if (pid == 0)
 	{
 		inputs = handle_redirect(inputs, flags);
-		execute(inputs, *env);
+		execute(inputs, *env, x);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
 		if (status == 512)
 			g_sig.g_exit = 2;
-		else if (status == 32512 && ft_strnstr(line, "./", 2))
+		else if (status == 32512 && ft_strnstr(inputs[0], "./", 2))
 			g_sig.g_exit = 126;
 		else if (status == 32512)
 			g_sig.g_exit = 127;
@@ -75,7 +84,12 @@ void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 		inputs = split_cmd(line, flags);
 		if (is_builtin(inputs, env, x) == false)
 		{
-			analize_help(inputs, line, env, flags);
+			if (ft_strncmp(line, "$? ", 3) == 0)
+			{
+				free_split(inputs);
+				return ;
+			}
+			analize_help(inputs, env, flags, x);
 			free_split(inputs);
 		}
 	}
@@ -101,6 +115,7 @@ int	main(int argc, char **argv, char **env)
 	x = (t_x *)malloc(sizeof(t_x));
 	if (!x)
 		return (0);
+	init(x);
 	envcpy(env, &x);
 	(void) argc;
 	(void) argv;

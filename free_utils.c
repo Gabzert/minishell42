@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/31 11:47:33 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 12:16:43 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void	free_split(char **a)
 	while (a[i])
 	{
 		free(a[i]);
+		a[i] = NULL;
 		i++;
 	}
 	free(a);
+	a = NULL;
 }

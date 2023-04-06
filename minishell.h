@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/03 08:53:24 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:05:18 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ void	envcpy(char **env, t_x **x);
 void	analize_command(char *line, char ***env, t_flags flags, t_x *x);
 
 /* ------------------------------ main_helper.c ----------------------------- */
+void	free_x_1(t_x **x);
+void	free_x(t_x **x);
+void	main_helper_1(t_x **x);
 void	main_helper(t_x *x, char ***env, t_flags flags);
 
 /* ------------------------------ exit_status.c ----------------------------- */
