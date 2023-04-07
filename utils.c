@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/03/29 16:21:43 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:03:35 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	flag_init(t_flags *f)
 	f->re_in = false;
 	f->re_out = false;
 	f->write_in = false;
+	f->stdin = dup(STDIN_FILENO);
+	f->stdout = dup(STDOUT_FILENO);
 }
 
 int	**create_pipe(int size)

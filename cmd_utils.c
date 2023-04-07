@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/06 09:42:24 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:36:15 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,16 @@ int	is_builtin_helper(char *str, int n)
 		free(fin);
 	}
 	else
-	n = chdir(str);
+		n = chdir(str);
 	if (n < 0)
 		printf("minishell: cd: %s: No such file or directory\n", str);
 	return (n);
 }
 
-bool	is_builtin(char **inputs, char ***env, t_x *x)
+bool	is_builtin(char **inputs, char ***env, t_x *x, t_flags flag)
 {
+	if (is_any(inputs) == true)
+		inputs = handle_redirect(inputs, flag);
 	if (ft_strcmp(inputs[0], "cd") == 0)
 		is_builtin_helper_1(inputs);
 	else if (ft_strcmp(inputs[0], "pwd") == 0)
@@ -118,5 +120,6 @@ bool	is_builtin(char **inputs, char ***env, t_x *x)
 	else
 		return (false);
 	free_split(inputs);
+	reset_io(flag.stdin, flag.stdout);
 	return (true);
 }

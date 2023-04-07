@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/04 12:07:03 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:34:28 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,22 @@ void	envcpy(char **env, t_x **x)
 	i = -1;
 	while (env[++i])
 		(*x)->envp[i] = ft_strdup(env[i]);
+}
+
+bool	is_any(char **inputs)
+{
+	if (ft_strcmp(inputs[0], "cd") == 0 || ft_strcmp(inputs[0], "pwd") == 0
+		|| ft_strcmp(inputs[0], "echo") == 0 || ft_strcmp(inputs[0], "env") == 0
+		|| ft_strcmp(inputs[0], "export") == 0
+		|| ft_strcmp(inputs[0], "unset") == 0
+		|| ft_strcmp(inputs[0], "exit") == 0)
+		return (true);
+	else
+		return (false);
+}
+
+void	reset_io(int fdin, int fdout)
+{
+	dup2(fdin, STDIN_FILENO);
+	dup2(fdout, STDOUT_FILENO);
 }
