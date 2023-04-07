@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:47:34 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/04 12:38:03 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:24:19 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init(t_x *x)
 	x->case_4 = 0;
 	x->case_5 = 0;
 	x->case_qdq = 0;
+	x->case_f_q = 0;
 	x->case_q = 0;
 	x->start = 0;
 	x->var = NULL;
@@ -73,21 +74,20 @@ void	simple_v(char *var, t_x *x)
 			split_dollar(new, x);
 		else
 		{
-			if (getenv(new))
-			{
-				new_join(x, getenv(new));
-				new_join(x, " ");
-			}
+			if (simple_v_helper(new, x) == 0)
+				return ;
 		}
 		free(new);
 	}
 	else
 	{
 		if (getenv(var))
-		{
 			new_join(x, getenv(var));
-			new_join(x, " ");
-		}
+		else if (var[0] == '\"' && ft_strlen(var) == 1)
+			return ;
+		else
+			new_join(x, var);
+		new_join(x, " ");
 	}
 }
 
@@ -122,24 +122,23 @@ void	split_dollar(char *str, t_x *x)
 {
 	char	**new_split;
 	char	*var;
-	char	*cmd;
 	int		i;
 
 	i = 0;
 	new_split = ft_split(str, '$');
 	while (new_split[i])
 	{
-		var = new_split[i];
-		cmd = getenv(var);
-		if (cmd == NULL)
+		var = ft_strtrim(new_split[i], "\"$");
+		if (getenv(var))
+			new_join(x, getenv(var));
+		else
 		{
 			printf("split_dollar\n");
-			free(cmd);
 			free(var);
 		}
-		else
-			new_join(x, cmd);
+		free(var);
 		i++;
 	}
 	free_split(new_split);
+	new_split = NULL;
 }

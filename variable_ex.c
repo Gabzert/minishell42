@@ -6,11 +6,26 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/06 12:11:21 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:26:06 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	simple_v_helper(char *new, t_x *x)
+{
+	if (getenv(new))
+	{
+		new_join(x, getenv(new));
+		new_join(x, " ");
+	}
+	else
+	{
+		free(new);
+		return (0);
+	}
+	return (1);
+}
 
 void	helper_4(t_x *x)
 {
@@ -72,7 +87,7 @@ void	helper_6(t_x *x)
 		helper_d(x);
 	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "\"", 1)
 		&& ft_strnstr(x->str_split[x->i], "$", 2))
-		helper_dq_d(x);
+		simple_v(x->str_split[x->i], x);
 	else if (x->case_q == 1)
 		simple_v(x->str_split[x->i], x);
 	else if (x->str_split[x->i])
@@ -103,65 +118,3 @@ char	*control_ex(t_x *x, char *str)
 	}
 	return (x->new_str);
 }
-
-/**
- * ?casi gestiti:
- * * $$         	✔ echo $USER$USER
- * * $ $ $ $ $  	✔ echo $USER $USER $USER $USER $USER
- * * "$"        	✔ echo "$USER"
- * * $ "$" $    	✔ echo $USER "$USER" $USER
- * * $ "$ $" $  	✔ echo $USER "$USER $USER" $USER //
- * * $ " $ "    	✔ echo " $USER "
- * * $ " $ $ "  	✔ echo " $USER $USER "
- * * '$'        	✔ echo '$USER'
- * * $ '$' $    	✔ echo $USER '$USER' $USER
- * * $ '$ $' $  	✔ echo $USER '$USER $USER' $USER
- * * ' $ '      	✔ echo ' $USER '
- * * $ ' $ '    	✔ echo $USER ' $USER '
- * * $ ' $ ' $  	✔ echo $USER ' $USER ' $USER
- * * $ ' $ $ '  	✔ echo $USER ' $USER $USER '
- * * "'$'"      	✔ echo "'$USER'"
- * * $ "'$'"    	✔ echo $USER "'$USER'"
- * * $ "'$ $'" $	✔ echo $USER "'$USER $USER'" $USER
- * * $ "' $ '"  	✔ echo $USER "' $USER '"
- * * $ "' $'"   	✔ echo $USER "' $USER'"
- * * $ "'$ '"   	✔ echo $USER "'$USER '"
- * * $ "' $ $ '" 	✔ echo "' $USER $USER '"
- * * $ "' $ $'"  	✔ echo "' $USER $USER'"
- * * $ "'$ $ '"  	✔ echo "'$USER $USER '"
- * * $ " ' $ ' " 	✔ echo $USER " ' $USER ' "
- * * $ " ' $' "  	✔ echo $USER " ' $USER' "
- * * $ " '$ ' "  	✔ echo $USER " '$USER ' "
- * * $ " ' $  $ ' "	✔ echo $USER " ' $USER $USER ' "
- * * $ " ' $  $' "	✔ echo $USER " ' $USER $USER' "
- * * $ " '$  $ ' "	✔ echo $USER " '$USER $USER ' "
- * * " $ "        	✔ echo " $USER "
- * * '"$"'        	✔ echo '"$USER"'
- * * $ '"$"'      	✔ echo $USER '"$USER"'
- * * $ '" $ "'    	✔ echo $USER '" $USER "'
- * * $ '"$ "'     	✔ echo $USER '"$USER "'
- * * $ '" $"'     	✔ echo $USER '" $USER"'
- * * $ '" $ $ "'  	✔ echo $USER '" $USER $USER "'
- * * $ '" $ $"'   	✔ echo $USER '" $USER $USER"'
- * * $ '"$ $"'    	✔ echo $USER '"$USER $USER"'
- * * $ '" $$ "'   	✔ echo $USER '" $USER$USER "'
- * * $ ' "$" '    	✔ echo $USER ' "$USER" '
- * * $ ' "$ " '   	✔ echo $USER ' "$USER " '
- * * $ ' " $" '   	✔ echo $USER ' " $USER" '
- * * $ ' " $ $ " '	✔ echo $USER ' " $USER $USER " '
- * * $ ' " $ $" ' 	✔ echo $USER ' " $USER $USER" '
- * * $ ' "$ $" '  	✔ echo $USER ' "$USER $USER" '
- * * $ ' "$ $ " ' 	✔ echo $USER ' "$USER $USER " '
- * * $ ' " $$ " ' 	✔ echo $USER ' " $USER$USER " '
- * * $ $ "$$"     	✔ echo $USER ' "$USER$USER" '
- * * '$"$"'       	✔ echo '$USER"$USER"'
- * * "$'$'"       	✔ echo "$USER'$USER'"
- * 
- * TODO: da gestire
- * * echo ""$USER""
- * !casi che non devono essere gestiti
- * * $ "' $ $ "' -> quote
- * * $ "' $ $ "" -> dquote
- * * $ ' $ " $ " -> quote
- * * $ ' $ $ "   -> quote
-*/

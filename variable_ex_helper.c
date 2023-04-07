@@ -6,11 +6,23 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 10:12:16 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 14:03:41 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:27:55 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_for_dq_and_qd_helper_2(t_x *x)
+{
+	x->i++;
+	if (x->str_split[x->i])
+		x->len = ft_strlen(x->str_split[x->i]);
+	if (x->str_split[x->i]
+		&& ft_strnstr(x->str_split[x->i], "\'", x->len))
+		x->case_3 = 1;
+	else
+		x->i--;
+}
 
 void	begin_and_end_with_quote(char *cmd, t_x *x)
 {

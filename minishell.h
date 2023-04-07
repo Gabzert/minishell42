@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/06 15:05:18 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:28:01 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_x
 	int		case_5;
 	int		case_qdq;
 	int		case_q;
+	int		case_f_q;
 	int		start;
 	int		bk;
 	char	*var;
@@ -148,9 +149,14 @@ void	main_helper(t_x *x, char ***env, t_flags flags);
 char	*exit_status(char *str);
 
 /* ------------------------------ variable_ex.c ----------------------------- */
+int		simple_v_helper(char *new, t_x *x);
+void	helper_4(t_x *x);
+void	helper_5(t_x *x);
+void	helper_6(t_x *x);
 char	*control_ex(t_x *x, char *str);
 
 /* --------------------- variable_ex_helper.c --------------------- */
+void	check_for_dq_and_qd_helper_2(t_x *x);
 void	begin_and_end_with_quote(char *cmd, t_x *x);
 void	begin_with_quote(t_x *x, char *var);
 void	end_with_quote(t_x *x, char *str);

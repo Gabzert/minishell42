@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:33:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/01 13:45:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:23:02 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	begin_w_q_c3(t_x *x)
 
 void	clean_var(t_x *x)
 {
-	while ((!(x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z')))
+	while ((!((x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z')
+				|| (x->var[x->j - 1] >= 'a' && x->var[x->j - 1] <= 'z'))))
 		x->j--;
 	x->var[x->j] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:37:57 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/06 11:56:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:17:05 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,14 @@ void	helper_dq_d(t_x *x)
 
 void	helper_d(t_x *x)
 {
-	int	len;
-
 	if (ft_strnstr(x->str_split[x->i], "\"", ft_strlen(x->str_split[x->i])))
-	{
-		len = ft_strlen(x->str_split[x->i]);
-		x->var = ft_substr(x->str_split[x->i], 1, len - 2);
-		simple_v(x->var, x);
-		free(x->var);
-		x->var = NULL;
-	}
+		simple_v(x->str_split[x->i], x);
 	else
 	{
-		len = ft_strlen(x->str_split[x->i]);
 		if (x->case_4 == 1 || x->case_qdq == 1)
 			not_v(x->str_split[x->i], x);
 		else
-		{
-			x->var = ft_substr(x->str_split[x->i], 1, len);
-			simple_v(x->var, x);
-			free(x->var);
-			x->var = NULL;
-		}
+			simple_v(x->str_split[x->i], x);
 	}
 }
 
