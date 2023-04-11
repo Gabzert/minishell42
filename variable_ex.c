@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/07 14:26:06 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:43:41 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*control_ex(t_x *x, char *str)
 	x->i = 1;
 	if (x->case_3 == 1)
 		case_31_helper(x);
-	else if (x->case_1 == 1)
+	else if (x->case_1 == 1 && x->case_q != 1)
 		case_11_helper(x);
 	while (x->str_split[x->i])
 	{
