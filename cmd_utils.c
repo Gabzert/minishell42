@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/06 15:36:15 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/11 09:43:15 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	is_builtin_helper(char *str, int n)
 	return (n);
 }
 
-bool	is_builtin(char **inputs, char ***env, t_x *x, t_flags flag)
+bool	is_builtin(char **inputs, t_x *x, t_flags flag)
 {
 	if (is_any(inputs) == true)
 		inputs = handle_redirect(inputs, flag);
@@ -106,9 +106,9 @@ bool	is_builtin(char **inputs, char ***env, t_x *x, t_flags flag)
 	else if (ft_strcmp(inputs[0], "echo") == 0)
 		echo(inputs);
 	else if (ft_strcmp(inputs[0], "env") == 0)
-		l_env(*env);
+		l_env(x->envp);
 	else if (ft_strcmp(inputs[0], "export") == 0)
-		export(inputs, env, &x);
+		export(inputs, &x);
 	else if (ft_strcmp(inputs[0], "unset") == 0)
 		unset(inputs, &x);
 	else if (ft_strcmp(inputs[0], "exit") == 0)

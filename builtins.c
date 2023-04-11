@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/04 12:02:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:31:35 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,34 @@ void	l_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_printf("%s\n", env[i]);
+		if (strchr(env[i], '='))
+			ft_printf("%s\n", env[i]);
 		i++;
 	}
 }
 
-void	export(char **inputs, char ***env, t_x **x)
+static bool	find_in_split(char ***arr, char *str)
+{
+	char	**input;
+	int		i;
+
+	i = -1;
+	input = ft_split(str, '=');
+	while ((*arr)[++i])
+	{
+		if (ft_strncmp((*arr)[i], input[0], ft_strlen(input[0])) == 0)
+		{
+			free((*arr)[i]);
+			(*arr)[i] = ft_strdup(str);
+			free_split(input);
+			return (true);
+		}
+	}
+	free_split(input);
+	return (false);
+}
+
+void	export(char **inputs, t_x **x)
 {
 	char	**new_env;
 	int		i;
@@ -57,13 +79,16 @@ void	export(char **inputs, char ***env, t_x **x)
 	i = -1;
 	if (inputs[1])
 	{
-		new_env = malloc((split_size(*env) + 2) * sizeof(char *));
-		while ((*x)->envp[++i])
-			new_env[i] = (*x)->envp[i];
-		new_env[i] = ft_strdup(inputs[1]);
-		new_env[i + 1] = NULL;
-		free((*x)->envp);
-		(*x)->envp = new_env;
+		if (find_in_split(&(*x)->envp, inputs[1]) == false)
+		{
+			new_env = malloc((split_size((*x)->envp) + 2) * sizeof(char *));
+			while ((*x)->envp[++i])
+				new_env[i] = (*x)->envp[i];
+			new_env[i] = ft_strdup(inputs[1]);
+			new_env[i + 1] = NULL;
+			free((*x)->envp);
+			(*x)->envp = new_env;
+		}
 	}
 	else
 	{

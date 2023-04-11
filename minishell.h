@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/07 14:38:17 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/11 09:45:05 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,10 @@ void	pipex_init(t_pipex *p, int size);
 **	BUILTINS
 */
 int		is_builtin_helper(char *str, int n);
-bool	is_builtin(char **inputs, char ***env, t_x *x, t_flags flag);
+bool	is_builtin(char **inputs, t_x *x, t_flags flag);
 void	echo(char **inputs);
 void	l_env(char **env);
-void	export(char **inputs, char ***env, t_x **x);
+void	export(char **inputs, t_x **x);
 void	unset(char **inputs, t_x **x);
 void	reset_io(int fdin, int fdout);
 bool	is_any(char **inputs);
