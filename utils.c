@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/06 15:03:35 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:21:54 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	flag_finder(char *input, t_flags *flags)
 			flags->re_out = true;
 		if (*input == '|')
 			flags->pipe = true;
-		if (*input == 39 && ft_strchr(input + 1, 39))
-			flags->quote = true;
-		if (*input == 34 && ft_strchr(input + 1, 34))
-			flags->d_quote = true;
 		input++;
 	}
 }
