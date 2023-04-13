@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:24:46 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/07 14:28:17 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 23:17:17 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	new_join(t_x *x, char *str)
 
 void	add_command(t_x *x)
 {
+	char	*new;
+
+	if (ft_strnstr(x->str_split[x->i], "$", ft_strlen(x->str_split[x->i])))
+	{
+		new = ft_strchr(x->str_split[x->i], '$');
+		new++;
+		free(x->new_str);
+		x->new_str = ft_strdup(getenv(new));
+		x->i++;
+		return ;
+	}
 	while (x->str_split[x->i][x->j])
 	{
 		if (x->str_split[x->i][x->j] == '\''
@@ -51,10 +62,24 @@ void	add_command(t_x *x)
 void	check_for_dq_and_qd_helper(t_x *x)
 {
 	int	len;
+	int	j;
 
 	x->i++;
+	j = x->i;
 	if (x->str_split[x->i])
-		len = ft_strlen(x->str_split[x->i]);
+	{
+		while (x->str_split[j])
+		{
+			len = ft_strlen(x->str_split[j]);
+			if (ft_strnstr(x->str_split[j], "\"", len))
+			{
+				x->case_1 = 1;
+				x->i--;
+				return ;
+			}
+			j++;
+		}
+	}
 	if (x->str_split[x->i]
 		&& ft_strnstr(x->str_split[x->i], "\"", len))
 		x->case_1 = 1;
@@ -80,8 +105,7 @@ void	check_for_dq_and_qd(t_x *x)
 		}
 		if (ft_strnstr(x->str_split[x->i], "\"", 1))
 			check_for_dq_and_qd_helper_2(x);
-		else if (ft_strnstr(x->str_split[x->i], "\'", 1)
-			&& ft_strlen(x->str_split[x->i]) == 1)
+		else if (ft_strnstr(x->str_split[x->i], "\'", 1))
 			check_for_dq_and_qd_helper(x);
 		else if (ft_strnstr(x->str_split[x->i], "\'", 1))
 			x->case_f_q = 1;

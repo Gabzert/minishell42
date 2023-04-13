@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:33:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/07 14:23:02 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:13:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,21 @@ void	begin_w_q_c3(t_x *x)
 
 void	clean_var(t_x *x)
 {
-	while ((!((x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z')
-				|| (x->var[x->j - 1] >= 'a' && x->var[x->j - 1] <= 'z'))))
-		x->j--;
-	x->var[x->j] = '\0';
+	if (x->case_1 == 1)
+	{
+		while ((!((x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z')
+					|| (x->var[x->j - 1] >= 'a' && x->var[x->j - 1] <= 'z')))
+			&& x->var[x->j - 1] != '\"')
+			x->j--;
+		x->var[x->j] = '\0';
+	}
+	else
+	{
+		while ((!((x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z')
+					|| (x->var[x->j - 1] >= 'a' && x->var[x->j - 1] <= 'z'))))
+			x->j--;
+		x->var[x->j] = '\0';
+	}
 }
 
 void	remove_last_q_add_q(t_x *x)
@@ -32,7 +43,12 @@ void	remove_last_q_add_q(t_x *x)
 	x->var[x->j] = '\0';
 	x->cmd = getenv(x->var);
 	if (!x->cmd)
+	{
 		free(x->cmd);
+		x->var[x->j] = '\'';
+		x->var[x->j + 1] = '\0';
+		return ;
+	}
 	if (x->str_split[x->i][0] == '\'')
 		new_join(x, "\1\'");
 	new_join(x, x->cmd);
@@ -60,12 +76,40 @@ void	case_3_helper(t_x *x)
 	else if (!(x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z'))
 		clean_var(x);
 	if (x->case_3 != 4 && x->case_3 != 3 && x->case_3 != 6)
-		simple_v(x->var, x);
+		simple_v(x->str_split[x->i], x);
 	else if (x->case_3 == 3)
 		begin_w_q_c3(x);
 	else if (x->case_3 == 6)
 		add_cmd_q_c3(x);
 }
+
+	// int		len;
+
+	// len = ft_strlen(x->str_split[x->i]);
+	// if (ft_strnstr(x->str_split[x->i], "\'", 1)
+	// 	|| ft_strnstr(x->str_split[x->i], "\'", 2))
+	// 	x->case_3 = 3;
+	// else if (ft_strnstr(x->str_split[x->i], "$", len)
+	// 	&& (ft_strnstr(x->str_split[x->i], "\'", len - 1)
+	// 		|| ft_strnstr(x->str_split[x->i], "\'", len - 2)))
+	// 	x->case_3 = 6;
+	// // x->var = ft_strchr(x->str_split[x->i], '$');
+	// // x->var++;
+	// // x->j = ft_strlen(x->str_split[x->i]);
+	// // if (x->str_split[x->i][x->j - 1] == '\'')
+	// // {
+	// // 	// x->var = ft_strchr(x->str_split[x->i], '$');
+	// // 	// x->var++;
+	// 	// remove_last_q_add_q(x);
+	// // }
+	// // else if (!(x->var[x->j - 1] >= 'A' && x->var[x->j - 1] <= 'Z'))
+	// 	// clean_var(x);
+	// if (x->case_3 != 4 && x->case_3 != 3 && x->case_3 != 6)
+	// 	simple_v(x->str_split[x->i], x);
+	// else if (x->case_3 == 3)
+	// 	begin_w_q_c3(x);
+	// else if (x->case_3 == 6)
+	// 	add_cmd_q_c3(x);
 
 void	case_1_helper(t_x *x)
 {

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/11 15:43:41 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:16:21 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,11 @@ char	*control_ex(t_x *x, char *str)
 	x->new_str = (char *)malloc(sizeof(char) * (x->size_for_malloc + 1000));
 	add_command(x);
 	check_for_dq_and_qd(x);
+	check_for_q_and_d(str, x);
 	x->i = 1;
 	if (x->case_3 == 1)
 		case_31_helper(x);
-	else if (x->case_1 == 1 && x->case_q != 1)
+	else if (x->case_1 == 1)
 		case_11_helper(x);
 	while (x->str_split[x->i])
 	{

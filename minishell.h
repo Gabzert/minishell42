@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/11 09:45:05 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:24:11 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct s_x
 	int		case_qdq;
 	int		case_q;
 	int		case_f_q;
+	int		case_j_q;
+	int		case_j_d;
+	int		begin;
+	int		end;
 	int		start;
 	int		bk;
 	char	*var;
@@ -221,5 +225,18 @@ void	case_11_helper(t_x *x);
 void	helper_1(t_x *x);
 void	helper_2(t_x *x);
 void	helper_3(t_x *x);
+
+/* ------------------------- variable_ex_process_8.c ------------------------ */
+void	helper_q_c_wa7ed(t_x *x);
+void	simple_v_wa7ed(char *var, t_x *x);
+void	check_for_q_and_d_helper_wa7d(t_x *x);
+void	check_for_q_and_d_helper_tnen(t_x *x);
+void	check_for_q_and_d(char *str, t_x *x);
+
+/* ------------------------- variable_ex_process_9.c ------------------------ */
+void	case_31_helper_wa7ed(t_x *x);
+void	case_11_helper_wa7ed(t_x *x);
+void	case_11_helper_tnen(t_x *x);
+void	case_11_helper_tlate(t_x *x);
 
 #endif

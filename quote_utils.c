@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/11 16:33:01 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:31:23 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ char	**split_cmd(char *line, t_flags fl)
 	}
 	if (fl.quote == false && fl.d_quote == false)
 		return (ft_split(line, ' '));
-	if (fl.quote == true)
+	if (fl.quote == true && ft_strnstr(line, "echo", 5) == NULL)
 		return (quotes_splitter(line, ' ', 39));
-	else if (fl.d_quote == true)
+	else if (fl.d_quote == true && ft_strnstr(line, "echo", 5) == NULL)
 		return (quotes_splitter(line, ' ', 34));
+	else
+		return (ft_split(line, ' '));
 	return (NULL);
 }

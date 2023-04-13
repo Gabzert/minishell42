@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/11 15:56:18 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:38:15 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 	}
 	else
 	{
-		if (x->case_qdq == 1 && x->case_f_q == 1)
-			flags.d_quote = false;
 		inputs = split_cmd(line, flags);
 		if (is_builtin(inputs, x, flags) == false)
 		{

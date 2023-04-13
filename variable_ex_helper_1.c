@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:47:34 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/07 14:24:19 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:23:03 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	init(t_x *x)
 	x->case_5 = 0;
 	x->case_qdq = 0;
 	x->case_f_q = 0;
+	x->case_j_q = 0;
+	x->case_j_d = 0;
+	x->begin = 0;
+	x->end = 0;
 	x->case_q = 0;
 	x->start = 0;
 	x->var = NULL;
@@ -75,20 +79,16 @@ void	simple_v(char *var, t_x *x)
 		else
 		{
 			if (simple_v_helper(new, x) == 0)
+			{
+				if (x->case_3 == 1 && var[ft_strlen(var) - 1] == '\'')
+					new_join(x, "\1' ");
 				return ;
+			}
 		}
 		free(new);
 	}
 	else
-	{
-		if (getenv(var))
-			new_join(x, getenv(var));
-		else if (var[0] == '\"' && ft_strlen(var) == 1)
-			return ;
-		else
-			new_join(x, var);
-		new_join(x, " ");
-	}
+		simple_v_wa7ed(var, x);
 }
 
 void	not_v(char *str, t_x *x)

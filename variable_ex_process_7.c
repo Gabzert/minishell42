@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:44:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/11 16:08:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:21:32 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,37 @@
 
 void	case_31_helper(t_x *x)
 {
-	int	len;
+	char	*new;
 
 	while (x->str_split[x->i])
 	{
-		len = ft_strlen(x->str_split[x->i]);
-		if (ft_strnstr(x->str_split[x->i], "\'", len)
-			&& (!(ft_strnstr(x->str_split[x->i], "$", len))))
+		x->len = ft_strlen(x->str_split[x->i]);
+		if (ft_strnstr(x->str_split[x->i], "\'", x->len)
+			&& (!(ft_strnstr(x->str_split[x->i], "$", x->len))))
 			add_q_s(x);
-		else if (ft_strnstr(x->str_split[x->i], "$", len))
+		else if (ft_strnstr(x->str_split[x->i], "$", x->len))
 			case_3_helper(x);
+		else if (ft_strnstr(x->str_split[x->i], "\"", x->len) == NULL
+			&& ft_strlen(x->str_split[x->i]) != 1)
+			case_31_helper_wa7ed(x);
+		else if (ft_strnstr(x->str_split[x->i], "\"", 1)
+			&& ft_strlen(x->str_split[x->i]) != 1)
+		{
+			new = ft_strtrim(x->str_split[x->i], "\"");
+			new_join(x, new);
+			new_join(x, " ");
+			free(new);
+		}
 		x->i++;
 	}
 }
 
 void	case_11_helper(t_x *x)
 {
-	int	len;
-
-	len = ft_strlen(x->str_split[x->i]);
-	while (x->str_split[x->i] && (!((ft_strnstr(x->str_split[x->i], "\"", len))
-				|| (ft_strnstr(x->str_split[x->i], "\'", len)))))
+	x->len = ft_strlen(x->str_split[x->i]);
+	while (x->str_split[x->i]
+		&& (!((ft_strnstr(x->str_split[x->i], "\"", x->len))
+				|| (ft_strnstr(x->str_split[x->i], "\'", x->len)))))
 	{
 		if (ft_strnstr(x->str_split[x->i], "$", 1))
 			case_1_helper(x);
@@ -42,15 +52,18 @@ void	case_11_helper(t_x *x)
 	}
 	while (x->str_split[x->i])
 	{
-		len = ft_strlen(x->str_split[x->i]);
-		if (ft_strnstr(x->str_split[x->i], "\"", len)
-			&& (!(ft_strnstr(x->str_split[x->i], "$", len))))
-		{
-			new_join(x, "\1\"");
-			new_join(x, " ");
-		}
-		else if (ft_strnstr(x->str_split[x->i], "$", len))
+		x->len = ft_strlen(x->str_split[x->i]);
+		if (ft_strnstr(x->str_split[x->i], "\"", x->len)
+			&& (!(ft_strnstr(x->str_split[x->i], "$", x->len))))
+			case_11_helper_tnen(x);
+		else if (ft_strnstr(x->str_split[x->i], "$", x->len))
 			case_1_helper_0(x);
+		else if (ft_strnstr(x->str_split[x->i], "\'", x->len) == NULL
+			&& ft_strlen(x->str_split[x->i]) != 1)
+			case_11_helper_tlate(x);
+		else if (ft_strnstr(x->str_split[x->i], "\'", 1)
+			&& ft_strlen(x->str_split[x->i]) != 1)
+			case_11_helper_wa7ed(x);
 		x->i++;
 	}
 }
