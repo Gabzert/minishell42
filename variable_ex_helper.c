@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 10:12:16 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/12 17:24:05 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:30:35 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	begin_with_quote(t_x *x, char *var)
 	new = ft_strtrim(var, "\'$");
 	if (getenv(new))
 	{
-		new_join(x, "\1'");
+		new_join(x, "\"\'");
 		new_join(x, getenv(new));
 		new_join(x, " ");
 	}

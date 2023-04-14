@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/13 17:24:11 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:45:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,13 +230,19 @@ void	helper_3(t_x *x);
 void	helper_q_c_wa7ed(t_x *x);
 void	simple_v_wa7ed(char *var, t_x *x);
 void	check_for_q_and_d_helper_wa7d(t_x *x);
-void	check_for_q_and_d_helper_tnen(t_x *x);
+void	*check_for_q_and_d_helper_tnen(t_x *x);
 void	check_for_q_and_d(char *str, t_x *x);
 
 /* ------------------------- variable_ex_process_9.c ------------------------ */
+void	simple_v_5ra(char *var, t_x *x);
 void	case_31_helper_wa7ed(t_x *x);
 void	case_11_helper_wa7ed(t_x *x);
 void	case_11_helper_tnen(t_x *x);
 void	case_11_helper_tlate(t_x *x);
+
+/* ------------------------- variable_ex_process_10.c ----------------------- */
+void	simple_v_5ra_1(char *var, t_x *x);
+void	simple_v_5ra_2(char *var, t_x *x);
+void	helper_q_c_helper(t_x *x);
 
 #endif

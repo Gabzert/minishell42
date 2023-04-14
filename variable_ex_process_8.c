@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:10:02 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/13 17:25:03 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:47:00 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,21 @@ void	simple_v_wa7ed(char *var, t_x *x)
 	if (getenv(var))
 		new_join(x, getenv(var));
 	else if (var[0] == '\"' && ft_strlen(var) == 1)
-		return ;
+		new_join(x, "\"");
 	else
 	{
-		new = ft_strtrim(var, "\"");
-		new_join(x, new);
-		free(new);
+		if (var[0] == '\"' && var[ft_strlen(var) - 1] == '\"')
+			simple_v_5ra(var, x);
+		else if (ft_strnstr(var, "\"", 1))
+			simple_v_5ra_1(var, x);
+		else if (var[ft_strlen(var) - 1] == '\"')
+			simple_v_5ra_2(var, x);
+		else
+		{
+			new = ft_strtrim(var, "\"");
+			new_join(x, new);
+			free(new);
+		}
 	}
 	new_join(x, " ");
 }
@@ -66,7 +75,7 @@ void	check_for_q_and_d_helper_wa7d(t_x *x)
 		x->case_j_d = 1;
 }
 
-void	check_for_q_and_d_helper_tnen(t_x *x)
+void	*check_for_q_and_d_helper_tnen(t_x *x)
 {
 	x->len = ft_strlen(x->str_split[x->begin]);
 	if (ft_strnstr(x->str_split[x->begin], "\'", x->len))
@@ -74,7 +83,8 @@ void	check_for_q_and_d_helper_tnen(t_x *x)
 	else if (ft_strnstr(x->str_split[x->begin], "\"", x->len))
 		x->case_j_d = 1;
 	if (x->case_j_q == 1 || x->case_j_d == 1)
-		return ;
+		return (NULL);
+	return ((void *) 1);
 }
 
 void	check_for_q_and_d(char *str, t_x *x)
@@ -84,7 +94,8 @@ void	check_for_q_and_d(char *str, t_x *x)
 		|| x->case_1 == 1 || x->case_3 == 1 || x->case_f_q == 1)
 		return ;
 	while (x->str_split[++x->begin])
-		check_for_q_and_d_helper_tnen(x);
+		if (check_for_q_and_d_helper_tnen(x) == NULL)
+			break ;
 	x->end = x->begin;
 	if (x->str_split[x->end] && x->str_split[x->end + 1])
 	{

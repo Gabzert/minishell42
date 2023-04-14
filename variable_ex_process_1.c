@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:24:46 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/13 23:17:17 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:25:22 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	add_cmd_q_c3(t_x *x)
 	else
 	{
 		new_join(x, x->cmd);
-		new_join(x, "' ");
+		new_join(x, "\'\" ");
 		x->case_3 = 0;
 	}
 }

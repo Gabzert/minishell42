@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:44:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/13 17:21:32 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:44:41 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	case_31_helper(t_x *x)
 {
-	char	*new;
-
 	while (x->str_split[x->i])
 	{
 		x->len = ft_strlen(x->str_split[x->i]);
@@ -30,11 +28,11 @@ void	case_31_helper(t_x *x)
 		else if (ft_strnstr(x->str_split[x->i], "\"", 1)
 			&& ft_strlen(x->str_split[x->i]) != 1)
 		{
-			new = ft_strtrim(x->str_split[x->i], "\"");
-			new_join(x, new);
+			new_join(x, x->str_split[x->i]);
 			new_join(x, " ");
-			free(new);
 		}
+		else if (x->str_split[x->i][0] == '\"' && x->len == 1)
+			new_join(x, "\" ");
 		x->i++;
 	}
 }

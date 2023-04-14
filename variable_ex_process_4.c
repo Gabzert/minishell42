@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:37:57 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/13 16:58:58 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:31:56 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,7 @@ void	helper_q_c(t_x *x)
 	if (ft_strnstr(x->str_split[x->i], "\'", 1)
 		&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 1] == '\''
 		&& ft_strlen(x->str_split[x->i]) > 1)
-	{
-		x->len = ft_strlen(x->str_split[x->i]);
-		not_v(x->str_split[x->i], x);
-		if (x->str_split[x->i][0] == '\''
-			&& ft_strnstr(x->str_split[x->i], "$", x->len)
-				&& x->str_split[x->i][x->len - 1] == '\'')
-			x->case_4 = 0;
-		else if (x->case_4 == 0)
-			x->case_4 = 1;
-		else if (x->case_4 == 1)
-			x->case_4 = 0;
-	}
+		helper_q_c_helper(x);
 	else if (ft_strnstr(x->str_split[x->i], "$", 2)
 		&& (ft_strnstr(x->str_split[x->i], "\'", 1)
 			|| x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 1] == '\''))
@@ -106,6 +95,13 @@ void	helper_q_c(t_x *x)
 	else if (ft_strnstr(x->str_split[x->i], "\'", 1) == NULL
 		&& ft_strnstr(x->str_split[x->i], "$", 1))
 		helper_q_c_wa7ed(x);
+	else if (x->case_j_q == 1 && x->str_split[x->i][0] == '\''
+			&& ft_strlen(x->str_split[x->i]) > 1)
+		not_v(x->str_split[x->i], x);
+	else if (x->case_j_q == 1
+		&& x->str_split[x->i][ft_strlen(x->str_split[x->i]) - 1] == '\''
+			&& ft_strlen(x->str_split[x->i]) > 1)
+		not_v(x->str_split[x->i], x);
 }
 
 void	add_cmd_with_fq_or_with_flq(t_x *x)
