@@ -1,45 +1,45 @@
 minishell~$ echo ""$USER""
-loco 
+nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ''$USER''
-loco 
+nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER$USER
-locoloco 
+nazarnazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER $USER $USER $USER $USER
-loco loco loco loco loco 
+nazar nazar nazar nazar nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER"
-loco 
+nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "$USER" $USER
-loco loco loco 
+nazar nazar nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "$USER $USER" $USER
-loco loco loco loco 
+nazar nazar nazar nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER "
- loco  
+ nazar  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER $USER "
- loco loco  
+ nazar nazar  
 minishell~$ 
 ---
 minishell~$ 
@@ -49,12 +49,12 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER '$USER' $USER
-loco $USER loco 
+nazar $USER nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '$USER $USER' $USER
-loco $USER $USER loco 
+nazar $USER $USER nazar 
 minishell~$ 
 ---
 minishell~$ 
@@ -64,97 +64,97 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER '
-loco $USER 
+nazar $USER 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER ' $USER
-loco $USER loco 
+nazar $USER nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER $USER '
-loco $USER $USER 
+nazar $USER $USER 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "'$USER'"
-'loco' 
+'nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER'"
-loco 'loco' 
+nazar 'nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER $USER'" $USER
-loco 'loco loco' loco 
+nazar 'nazar nazar' nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "' $USER '"
-loco ' loco ' 
+nazar ' nazar ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "' $USER'"
-loco ' loco' 
+nazar ' nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER '"
-loco 'loco ' 
+nazar 'nazar ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "' $USER $USER '"
-' loco loco ' 
+' nazar nazar ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "' $USER $USER'"
-' loco loco' 
+' nazar nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "'$USER $USER '"
-'loco loco ' 
+'nazar nazar ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER ' "
-loco  ' loco '  
+nazar  ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER' "
-loco  ' loco' 
+nazar  ' nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " '$USER ' "
-loco   'loco '   
+nazar   'nazar '   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER $USER ' "
-loco  ' loco loco '  
+nazar  ' nazar nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER $USER' "
-loco  ' loco loco' 
+nazar  ' nazar nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " '$USER $USER ' "
-loco   'loco loco '   
+nazar   'nazar nazar '   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER "
- loco  
+ nazar  
 minishell~$ 
 ---
 minishell~$ 
@@ -164,87 +164,87 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER"'
-loco "$USER" 
+nazar "$USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER "'
-loco " $USER " 
+nazar " $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER "'
-loco "$USER " 
+nazar "$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER"'
-loco " $USER" 
+nazar " $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER $USER "'
-loco " $USER $USER " 
+nazar " $USER $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER $USER"'
-loco " $USER $USER" 
+nazar " $USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER $USER"'
-loco "$USER $USER" 
+nazar "$USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER$USER "'
-loco " $USER$USER " 
+nazar " $USER$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER" '
-loco "$USER" 
+nazar "$USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER " '
-loco "$USER " 
+nazar "$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER" '
-loco " $USER" 
+nazar " $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER $USER " '
-loco " $USER $USER " 
+nazar " $USER $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER $USER" '
-loco " $USER $USER" 
+nazar " $USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER $USER" '
-loco "$USER $USER" 
+nazar "$USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER $USER " '
-loco "$USER $USER " 
+nazar "$USER $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER$USER " '
-loco " $USER$USER " 
+nazar " $USER$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER$USER" '
-loco "$USER$USER" 
+nazar "$USER$USER" 
 minishell~$ 
 ---
 minishell~$ 
@@ -254,7 +254,7 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo "$USER'$USER'"
-loco'loco' 
+nazar'nazar' 
 minishell~$ 
 ---
 minishell~$ 
@@ -294,7 +294,7 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER
-loco 
+nazar 
 minishell~$ 
 ---
 minishell~$ 
@@ -309,27 +309,27 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo ""$USER""
-loco 
+nazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER"$USER""
-locoloco 
+nazarnazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $USER " "
- loco  loco   
+ nazar  nazar   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $USER " $USER "
- loco  loco  loco  
+ nazar  nazar  nazar  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $hi" $USER"
- loco  loco 
+ nazar  nazar 
 minishell~$ 
 ---
 minishell~$ 
@@ -339,12 +339,12 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo "$USER ' $USER' $hi"
-loco ' loco' 
+nazar ' nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "hello $USER hello"
-hello loco hello 
+hello nazar hello 
 minishell~$ 
 ---
 minishell~$ 
@@ -359,72 +359,72 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo " test ' $USER ' "
- test ' loco '  
+ test ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test ' $USER ' "
- ' loco '  
+ ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' "
- loco ' loco '  
+ nazar ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "test ' $USER ' "
-test ' loco '  
+test ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test' $USER ' "
- ' loco '  
+ ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER '$USER ' "
- loco  'loco '   
+ nazar  'nazar '   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "test ' $USER' "
-test ' loco' 
+test ' nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test' $USER' "
- ' loco' 
+ ' nazar' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER '$USER '"
- loco  'loco '" 
+ nazar  'nazar '" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " test ' $USER ' hello "
- test ' loco ' hello  
+ test ' nazar ' hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test ' $USER '  hekki "
- ' loco ' hekki  
+ ' nazar ' hekki  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' hello "
- loco ' loco ' hello  
+ nazar ' nazar ' hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' $hello "
- loco ' loco '  
+ nazar ' nazar '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' $USER "
- loco ' loco ' loco  
+ nazar ' nazar ' nazar  
 minishell~$ 
 ---
 minishell~$ 
@@ -499,10 +499,10 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER"$USER"$USER
-locolocoloco 
+nazarnazarnazar 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER'$USER'$USER
-loco $USER loco 
+nazar $USER nazar 
 minishell~$ 

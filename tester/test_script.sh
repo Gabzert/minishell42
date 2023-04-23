@@ -2,7 +2,7 @@
 
 # Variables
 MAKE_CMD="make"        # Make command
-TARGET="../main"    # Output binary file
+TARGET="../minishell"    # Output binary file
 INPUTS_FILE="inputs.txt"
 EXPECTED_OUTPUTS_FILE="expected_outputs.txt"
 OUTPUTS_FILE="outputs.txt" # Single file for output
