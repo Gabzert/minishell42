@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:42:56 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/14 14:22:31 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/20 20:08:54 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void	add_q_s(t_x *x)
 		&& ft_strlen(x->str_split[x->i]) == 2)
 	{
 		new_join(x, "\"\'");
+		new_join(x, " ");
+	}
+	else if (ft_strlen(x->str_split[x->i]) > 1 && x->str_split[x->i][1] == '\'')
+	{
+		new_join(x, x->str_split[x->i]);
 		new_join(x, " ");
 	}
 	else

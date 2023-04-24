@@ -1,0 +1,203 @@
+echo ""$USER""
+---
+echo ''$USER''
+---
+echo $USER$USER
+---
+echo $USER $USER $USER $USER $USER
+---
+echo "$USER"
+---
+echo $USER "$USER" $USER
+---
+echo $USER "$USER $USER" $USER
+---
+echo " $USER "
+---
+echo " $USER $USER "
+---
+echo '$USER'
+---
+echo $USER '$USER' $USER
+---
+echo $USER '$USER $USER' $USER
+---
+echo ' $USER '
+---
+echo $USER ' $USER '
+---
+echo $USER ' $USER ' $USER
+---
+echo $USER ' $USER $USER '
+---
+echo "'$USER'"
+---
+echo $USER "'$USER'"
+---
+echo $USER "'$USER $USER'" $USER
+---
+echo $USER "' $USER '"
+---
+echo $USER "' $USER'"
+---
+echo $USER "'$USER '"
+---
+echo "' $USER $USER '"
+---
+echo "' $USER $USER'"
+---
+echo "'$USER $USER '"
+---
+echo $USER " ' $USER ' "
+---
+echo $USER " ' $USER' "
+---
+echo $USER " '$USER ' "
+---
+echo $USER " ' $USER $USER ' "
+---
+echo $USER " ' $USER $USER' "
+---
+echo $USER " '$USER $USER ' "
+---
+echo " $USER "
+---
+echo '"$USER"'
+---
+echo $USER '"$USER"'
+---
+echo $USER '" $USER "'
+---
+echo $USER '"$USER "'
+---
+echo $USER '" $USER"'
+---
+echo $USER '" $USER $USER "'
+---
+echo $USER '" $USER $USER"'
+---
+echo $USER '"$USER $USER"'
+---
+echo $USER '" $USER$USER "'
+---
+echo $USER ' "$USER" '
+---
+echo $USER ' "$USER " '
+---
+echo $USER ' " $USER" '
+---
+echo $USER ' " $USER $USER " '
+---
+echo $USER ' " $USER $USER" '
+---
+echo $USER ' "$USER $USER" '
+---
+echo $USER ' "$USER $USER " '
+---
+echo $USER ' " $USER$USER " '
+---
+echo $USER ' "$USER$USER" '
+---
+echo '$USER"$USER"'
+---
+echo "$USER'$USER'"
+---
+echo "hello"
+---
+echo " hello "
+---
+echo " $HI"
+---
+echo '   hello ìì '
+---
+echo 'ciao' 
+---
+echo ' ciao '
+---
+echo $hello
+---
+echo $USER
+---
+echo "$HI"
+---
+echo ""$JI""
+---
+echo ""$USER""
+---
+echo "$USER"$USER""
+---
+echo " $USER " $USER " "
+---
+echo " $USER " $USER " $USER "
+---
+echo " $USER " $hi" $USER"
+---
+echo '$USER " $USER"'
+---
+echo "$USER ' $USER' $hi"
+---
+echo "hello $USER hello"
+---
+echo "hello $HI HIHI"
+---
+echo ' hello $USER HIHI '
+---
+echo " test ' $USER ' "
+---
+echo " $test ' $USER ' "
+---
+echo " $USER ' $USER ' "
+---
+echo "test ' $USER ' "
+---
+echo " $test' $USER ' "
+---
+echo " $USER '$USER ' "
+---
+echo "test ' $USER' "
+---
+echo " $test' $USER' "
+---
+echo " $USER '$USER '"
+---
+echo " test ' $USER ' hello "
+---
+echo " $test ' $USER '  hekki "
+---
+echo " $USER ' $USER ' hello "
+---
+echo " $USER ' $USER ' $hello "
+---
+echo " $USER ' $USER ' $USER "
+---
+echo ' test " $USER " '
+---
+echo ' $test " $USER " '
+---
+echo ' $USER " $USER " '
+---
+echo 'test " $USER " '
+---
+echo ' $test" $USER " '
+---
+echo ' $USER "$USER " '
+---
+echo 'test " $USER" '
+---
+echo ' $test" $USER" '
+---
+echo ' $USER "$USER "'
+---
+echo ' test " $USER " hello '
+---
+echo ' $test " $USER "  hekki '
+---
+echo ' $USER " $USER " hello '
+---
+echo ' $USER " $USER " $hello '
+---
+echo ' $USER " $USER " $USER '
+---
+echo $USER"$USER"$USER
+---
+echo $USER'$USER'$USER

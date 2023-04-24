@@ -1,0 +1,508 @@
+minishell~$ echo ""$USER""
+nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ''$USER''
+nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER$USER
+nazarnazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER $USER $USER $USER $USER
+nazar nazar nazar nazar nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$USER"
+nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "$USER" $USER
+nazar nazar nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "$USER $USER" $USER
+nazar nazar nazar nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER "
+ nazar  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER $USER "
+ nazar nazar  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '$USER'
+$USER 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '$USER' $USER
+nazar $USER nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '$USER $USER' $USER
+nazar $USER $USER nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER '
+$USER 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' $USER '
+nazar $USER 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' $USER ' $USER
+nazar $USER nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' $USER $USER '
+nazar $USER $USER 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "'$USER'"
+'nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "'$USER'"
+nazar 'nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "'$USER $USER'" $USER
+nazar 'nazar nazar' nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "' $USER '"
+nazar ' nazar ' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "' $USER'"
+nazar ' nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER "'$USER '"
+nazar 'nazar ' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "' $USER $USER '"
+' nazar nazar ' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "' $USER $USER'"
+' nazar nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "'$USER $USER '"
+'nazar nazar ' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " ' $USER ' "
+nazar  ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " ' $USER' "
+nazar  ' nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " '$USER ' "
+nazar   'nazar '   
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " ' $USER $USER ' "
+nazar  ' nazar nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " ' $USER $USER' "
+nazar  ' nazar nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER " '$USER $USER ' "
+nazar   'nazar nazar '   
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER "
+ nazar  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '"$USER"'
+"$USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '"$USER"'
+nazar "$USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '" $USER "'
+nazar " $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '"$USER "'
+nazar "$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '" $USER"'
+nazar " $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '" $USER $USER "'
+nazar " $USER $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '" $USER $USER"'
+nazar " $USER $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '"$USER $USER"'
+nazar "$USER $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER '" $USER$USER "'
+nazar " $USER$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' "$USER" '
+nazar "$USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' "$USER " '
+nazar "$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' " $USER" '
+nazar " $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' " $USER $USER " '
+nazar " $USER $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' " $USER $USER" '
+nazar " $USER $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' "$USER $USER" '
+nazar "$USER $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' "$USER $USER " '
+nazar "$USER $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' " $USER$USER " '
+nazar " $USER$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER ' "$USER$USER" '
+nazar "$USER$USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '$USER"$USER"'
+$USER"$USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$USER'$USER'"
+nazar'nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "hello"
+hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " hello "
+ hello  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $HI"
+" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '   hello ìì '
+hello ìì 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo 'ciao' 
+ciao 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' ciao '
+ciao 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $hello
+
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER
+nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$HI"
+
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ""$JI""
+
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ""$USER""
+nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$USER"$USER""
+nazarnazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER " $USER " "
+ nazar  nazar   
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER " $USER " $USER "
+ nazar  nazar  nazar  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER " $hi" $USER"
+ nazar  nazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '$USER " $USER"'
+$USER " $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$USER ' $USER' $hi"
+nazar ' nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "hello $USER hello"
+hello nazar hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "hello $HI HIHI"
+hello HIHI 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' hello $USER HIHI '
+hello $USER HIHI 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " test ' $USER ' "
+ test ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $test ' $USER ' "
+ ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER ' $USER ' "
+ nazar ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "test ' $USER ' "
+test ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $test' $USER ' "
+ ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER '$USER ' "
+ nazar  'nazar '   
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "test ' $USER' "
+test ' nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $test' $USER' "
+ ' nazar' 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER '$USER '"
+ nazar  'nazar '" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " test ' $USER ' hello "
+ test ' nazar ' hello  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $test ' $USER '  hekki "
+ ' nazar ' hekki  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER ' $USER ' hello "
+ nazar ' nazar ' hello  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER ' $USER ' $hello "
+ nazar ' nazar '  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo " $USER ' $USER ' $USER "
+ nazar ' nazar ' nazar  
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' test " $USER " '
+test " $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $test " $USER " '
+$test " $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER " $USER " '
+$USER " $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo 'test " $USER " '
+test " $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $test" $USER " '
+$test" $USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER "$USER " '
+$USER "$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo 'test " $USER" '
+test " $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $test" $USER" '
+$test" $USER" 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER "$USER "'
+$USER "$USER " 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' test " $USER " hello '
+test " $USER " hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $test " $USER "  hekki '
+$test " $USER " hekki 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER " $USER " hello '
+$USER " $USER " hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER " $USER " $hello '
+$USER " $USER " $hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo ' $USER " $USER " $USER '
+$USER " $USER " $USER 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER"$USER"$USER
+nazarnazarnazar 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $USER'$USER'$USER
+nazar $USER nazar 
+minishell~$ 
