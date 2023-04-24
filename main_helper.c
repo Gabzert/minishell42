@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:49:04 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/11 15:56:07 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:31:59 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,12 @@ void	free_x_1(t_x **x)
 	int	i;
 
 	i = -1;
-	if ((*x)->new_split)
-		while ((*x)->new_split[++i])
-			free((*x)->new_split[i]);
-	free((*x)->new_split);
-	i = -1;
 	if ((*x)->envp)
 		while ((*x)->envp[++i])
 			free((*x)->envp[i]);
 	free((*x)->envp);
 	if ((*x)->var)
 		free((*x)->var);
-	if ((*x)->cmd)
-		free((*x)->cmd);
 	if ((*x)->new_str)
 		free((*x)->new_str);
 	free((*x));
@@ -44,11 +37,6 @@ void	free_x(t_x **x)
 		while ((*x)->str_split[++i])
 			free((*x)->str_split[i]);
 	free((*x)->str_split);
-	i = -1;
-	if ((*x)->new_split)
-		while ((*x)->new_split[++i])
-			free((*x)->new_split[i]);
-	free((*x)->new_split);
 	i = -1;
 	if ((*x)->envp)
 		while ((*x)->envp[++i])

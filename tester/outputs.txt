@@ -1,45 +1,45 @@
 minishell~$ echo ""$USER""
-nazar 
+ naal-jen"" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ''$USER''
-nazar 
+ naal-jen'' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER$USER
-nazarnazar 
+naal-jennaal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER $USER $USER $USER $USER
-nazar nazar nazar nazar nazar 
+naal-jen naal-jen naal-jen naal-jen naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER"
-nazar 
+naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "$USER" $USER
-nazar nazar nazar 
+naal-jen naal-jen naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "$USER $USER" $USER
-nazar nazar nazar nazar 
+naal-jen naal-jen naal-jen naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER "
- nazar  
+ naal-jen  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER $USER "
- nazar nazar  
+ naal-jen naal-jen  
 minishell~$ 
 ---
 minishell~$ 
@@ -49,202 +49,202 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER '$USER' $USER
-nazar $USER nazar 
+naal-jen $USER naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '$USER $USER' $USER
-nazar $USER $USER nazar 
+naal-jen $USER $USER naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER '
-$USER 
+ $USER  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER '
-nazar $USER 
+naal-jen  $USER  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER ' $USER
-nazar $USER nazar 
+naal-jen  $USER  naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' $USER $USER '
-nazar $USER $USER 
+naal-jen  $USER $USER  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "'$USER'"
-'nazar' 
+'naal-jen' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER'"
-nazar 'nazar' 
+naal-jen 'naal-jen' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER $USER'" $USER
-nazar 'nazar nazar' nazar 
+naal-jen 'naal-jen naal-jen' naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "' $USER '"
-nazar ' nazar ' 
+naal-jen ' naal-jen ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "' $USER'"
-nazar ' nazar' 
+naal-jen ' naal-jen' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER "'$USER '"
-nazar 'nazar ' 
+naal-jen 'naal-jen ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "' $USER $USER '"
-' nazar nazar ' 
+' naal-jen naal-jen ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "' $USER $USER'"
-' nazar nazar' 
+' naal-jen naal-jen' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "'$USER $USER '"
-'nazar nazar ' 
+'naal-jen naal-jen ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER ' "
-nazar  ' nazar '  
+naal-jen  ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER' "
-nazar  ' nazar' 
+naal-jen  ' naal-jen'  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " '$USER ' "
-nazar   'nazar '   
+naal-jen  'naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER $USER ' "
-nazar  ' nazar nazar '  
+naal-jen  ' naal-jen naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " ' $USER $USER' "
-nazar  ' nazar nazar' 
+naal-jen  ' naal-jen naal-jen'  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER " '$USER $USER ' "
-nazar   'nazar nazar '   
+naal-jen  'naal-jen naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER "
- nazar  
+ naal-jen  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo '"$USER"'
-"$USER" 
+"$USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER"'
-nazar "$USER" 
+naal-jen "$USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER "'
-nazar " $USER " 
+naal-jen " $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER "'
-nazar "$USER " 
+naal-jen "$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER"'
-nazar " $USER" 
+naal-jen " $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER $USER "'
-nazar " $USER $USER " 
+naal-jen " $USER $USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER $USER"'
-nazar " $USER $USER" 
+naal-jen " $USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '"$USER $USER"'
-nazar "$USER $USER" 
+naal-jen "$USER $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER '" $USER$USER "'
-nazar " $USER$USER " 
+naal-jen " $USER$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER" '
-nazar "$USER" 
+naal-jen  "$USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER " '
-nazar "$USER " 
+naal-jen  "$USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER" '
-nazar " $USER" 
+naal-jen  " $USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER $USER " '
-nazar " $USER $USER " 
+naal-jen  " $USER $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER $USER" '
-nazar " $USER $USER" 
+naal-jen  " $USER $USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER $USER" '
-nazar "$USER $USER" 
+naal-jen  "$USER $USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER $USER " '
-nazar "$USER $USER " 
+naal-jen  "$USER $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' " $USER$USER " '
-nazar " $USER$USER " 
+naal-jen  " $USER$USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER ' "$USER$USER" '
-nazar "$USER$USER" 
+naal-jen  "$USER$USER"  
 minishell~$ 
 ---
 minishell~$ 
@@ -254,7 +254,7 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo "$USER'$USER'"
-nazar'nazar' 
+naal-jen'naal-jen' 
 minishell~$ 
 ---
 minishell~$ 
@@ -269,12 +269,12 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo " $HI"
-" 
+   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo '   hello ìì '
-hello ìì 
+   hello ìì  
 minishell~$ 
 ---
 minishell~$ 
@@ -284,7 +284,7 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo ' ciao '
-ciao 
+ ciao  
 minishell~$ 
 ---
 minishell~$ 
@@ -294,215 +294,215 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER
-nazar 
+naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$HI"
-
+  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ""$JI""
-
+  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ""$USER""
-nazar 
+ naal-jen"" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER"$USER""
-nazarnazar 
+naal-jen naal-jen"" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $USER " "
- nazar  nazar   
+ naal-jen  naal-jen   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $USER " $USER "
- nazar  nazar  nazar  
+ naal-jen  naal-jen  naal-jen  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER " $hi" $USER"
- nazar  nazar 
+ naal-jen   naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo '$USER " $USER"'
-$USER " $USER" 
+$USER " $USER" 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER ' $USER' $hi"
-nazar ' nazar' 
+naal-jen ' naal-jen'   
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "hello $USER hello"
-hello nazar hello 
+hello naal-jen hello 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "hello $HI HIHI"
-hello HIHI 
+hello   HIHI 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' hello $USER HIHI '
-hello $USER HIHI 
+ hello $USER HIHI  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " test ' $USER ' "
- test ' nazar '  
+ test ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test ' $USER ' "
- ' nazar '  
+   ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' "
- nazar ' nazar '  
+ naal-jen ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "test ' $USER ' "
-test ' nazar '  
+test ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test' $USER ' "
- ' nazar '  
+  ' naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER '$USER ' "
- nazar  'nazar '   
+ naal-jen 'naal-jen '  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "test ' $USER' "
-test ' nazar' 
+test ' naal-jen'  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test' $USER' "
- ' nazar' 
+  ' naal-jen'  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER '$USER '"
- nazar  'nazar '" 
+ naal-jen 'naal-jen ' 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " test ' $USER ' hello "
- test ' nazar ' hello  
+ test ' naal-jen ' hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $test ' $USER '  hekki "
- ' nazar ' hekki  
+   ' naal-jen '  hekki  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' hello "
- nazar ' nazar ' hello  
+ naal-jen ' naal-jen ' hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' $hello "
- nazar ' nazar '  
+ naal-jen ' naal-jen '    
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo " $USER ' $USER ' $USER "
- nazar ' nazar ' nazar  
+ naal-jen ' naal-jen ' naal-jen  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' test " $USER " '
-test " $USER " 
+ test " $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $test " $USER " '
-$test " $USER " 
+ $test " $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER " $USER " '
-$USER " $USER " 
+ $USER " $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo 'test " $USER " '
-test " $USER " 
+test " $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $test" $USER " '
-$test" $USER " 
+ $test" $USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER "$USER " '
-$USER "$USER " 
+ $USER "$USER "  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo 'test " $USER" '
-test " $USER" 
+test " $USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $test" $USER" '
-$test" $USER" 
+ $test" $USER"  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER "$USER "'
-$USER "$USER " 
+ $USER "$USER " 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' test " $USER " hello '
-test " $USER " hello 
+ test " $USER " hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $test " $USER "  hekki '
-$test " $USER " hekki 
+ $test " $USER "  hekki  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER " $USER " hello '
-$USER " $USER " hello 
+ $USER " $USER " hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER " $USER " $hello '
-$USER " $USER " $hello 
+ $USER " $USER " $hello  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ' $USER " $USER " $USER '
-$USER " $USER " $USER 
+ $USER " $USER " $USER  
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER"$USER"$USER
-nazarnazarnazar 
+naal-jen"naal-jen"naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER'$USER'$USER
-nazar $USER nazar 
+naal-jen'$USER'naal-jen 
 minishell~$ 

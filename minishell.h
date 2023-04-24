@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/14 13:45:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:28:59 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,14 @@ typedef struct s_size
 
 typedef struct s_x
 {
-	int		len;
-	int		size_for_malloc;
 	int		i;
 	int		j;
 	int		y;
-	int		case_1;
-	int		case_2;
-	int		case_3;
-	int		case_4;
-	int		case_5;
-	int		case_qdq;
 	int		case_q;
-	int		case_f_q;
-	int		case_j_q;
-	int		case_j_d;
-	int		begin;
-	int		end;
-	int		start;
-	int		bk;
+	int		case_dq;
 	char	*var;
-	char	*cmd;
 	char	*new_str;
 	char	**str_split;
-	char	**new_split;
 	char	**envp;
 }	t_x;
 
@@ -141,7 +125,6 @@ void	pwd_helper(void);
 int		full_size_helper(char *str, int i, int j);
 void	not_v_helper(char *str, t_x *x);
 void	add_q_s(t_x *x);
-
 void	envcpy(char **env, t_x **x);
 
 /* --------------------------------- main.c --------------------------------- */
@@ -157,92 +140,17 @@ void	main_helper(t_x *x, char ***env, t_flags flags);
 char	*exit_status(char *str);
 
 /* ------------------------------ variable_ex.c ----------------------------- */
-int		simple_v_helper(char *new, t_x *x);
-void	helper_4(t_x *x);
-void	helper_5(t_x *x);
-void	helper_6(t_x *x);
-char	*control_ex(t_x *x, char *str);
-
-/* --------------------- variable_ex_helper.c --------------------- */
-void	check_for_dq_and_qd_helper_2(t_x *x);
-void	begin_and_end_with_quote(char *cmd, t_x *x);
-void	begin_with_quote(t_x *x, char *var);
-void	end_with_quote(t_x *x, char *str);
-void	end_with_dquote(t_x *x, char *str);
-
-/* --------------------- variable_ex_helper_1.c --------------------- */
+void	new_join(t_x *x, char *str);
 void	init(t_x *x);
 int		full_size(char *str);
-void	simple_v(char *var, t_x *x);
-void	not_v(char *str, t_x *x);
-void	split_dollar(char *str, t_x *x);
+void	add_command(char *str, t_x *x);
+char	*control_ex(t_x *x, char *str);
 
-/* ------------------------- variable_ex_process_1.c ------------------------ */
-void	new_join(t_x *x, char *str);
-void	add_command(t_x *x);
-void	check_for_dq_and_qd_helper(t_x *x);
-void	check_for_dq_and_qd(t_x *x);
-void	add_cmd_q_c3(t_x *x);
-
-/* ------------------------- variable_ex_process_2.c ------------------------ */
-void	begin_w_q_c3(t_x *x);
-void	clean_var(t_x *x);
-void	remove_last_q_add_q(t_x *x);
-void	case_3_helper(t_x *x);
-void	case_1_helper(t_x *x);
-
-/* ------------------------- variable_ex_process_3.c ------------------------ */
-void	add_var(t_x *x);
-void	add_q_var_c3(t_x *x);
-void	remove_lase_dq_add_dq(t_x *x);
-void	case_1_helper_0(t_x *x);
-void	helper_dq_2(t_x *x);
-
-/* ------------------------- variable_ex_process_4.c ------------------------ */
-void	helper_dq_1(t_x *x);
-void	helper_dq_d(t_x *x);
-void	helper_d(t_x *x);
-void	helper_q_c(t_x *x);
-void	add_cmd_with_fq_or_with_flq(t_x *x);
-
-/* ------------------------- variable_ex_process_5.c ------------------------ */
-void	case_1_and_dollar_and_quote(t_x *x);
-void	clear_case_1_and_dollar(t_x *x);
-void	dq_with_var(t_x *x);
-void	quote(t_x *x);
-void	identify_start_dq_q(t_x *x);
-
-/* ------------------------- variable_ex_process_6.c ------------------------ */
-void	identify_end_dq_q(t_x *x);
-void	identify_start_q_dq(t_x *x);
-void	identify_end_q_dq(t_x *x);
-void	identify(t_x *x);
-void	helper_dq_var(t_x *x);
-
-/* ------------------------- variable_ex_process_7.c ------------------------ */
-void	case_31_helper(t_x *x);
-void	case_11_helper(t_x *x);
-void	helper_1(t_x *x);
-void	helper_2(t_x *x);
-void	helper_3(t_x *x);
-
-/* ------------------------- variable_ex_process_8.c ------------------------ */
-void	helper_q_c_wa7ed(t_x *x);
-void	simple_v_wa7ed(char *var, t_x *x);
-void	check_for_q_and_d_helper_wa7d(t_x *x);
-void	*check_for_q_and_d_helper_tnen(t_x *x);
-void	check_for_q_and_d(char *str, t_x *x);
-
-/* ------------------------- variable_ex_process_9.c ------------------------ */
-void	simple_v_5ra(char *var, t_x *x);
-void	case_31_helper_wa7ed(t_x *x);
-void	case_11_helper_wa7ed(t_x *x);
-void	case_11_helper_tnen(t_x *x);
-void	case_11_helper_tlate(t_x *x);
-
-/* ------------------------- variable_ex_process_10.c ----------------------- */
-void	simple_v_5ra_1(char *var, t_x *x);
-void	simple_v_5ra_2(char *var, t_x *x);
-void	helper_q_c_helper(t_x *x);
+/* ----------------------------- variable_ex_1.c ---------------------------- */
+void	sis_case_dq(int n, t_x *x);
+void	sis_case_q(int n, t_x *x);
+void	simple_variable(char *str, t_x *x);
+void	helper_ex(char *str, t_x *x);
+void	helper_no_echo(t_x *x);
 
 #endif

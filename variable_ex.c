@@ -6,115 +6,122 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/13 16:16:21 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:31:03 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	simple_v_helper(char *new, t_x *x)
+void	new_join(t_x *x, char *str)
 {
-	if (getenv(new))
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (x->new_str[i] != '\0')
+		i++;
+	while (str[j] != '\0')
 	{
-		new_join(x, getenv(new));
-		new_join(x, " ");
+		x->new_str[i] = str[j];
+		i++;
+		j++;
 	}
-	else
-	{
-		free(new);
-		return (0);
-	}
-	return (1);
+	x->new_str[i] = '\0';
 }
 
-void	helper_4(t_x *x)
+void	init(t_x *x)
 {
-	while (x->str_split[x->i][x->j])
-	{
-		helper_1(x);
-		if (x->bk == 1)
-			break ;
-		identify(x);
-		if (x->str_split[x->i][x->j] == '\"' && x->case_2 != 1)
-			helper_2(x);
-		else if (x->str_split[x->i][x->j] == '\'')
-			helper_3(x);
-		if (x->str_split[x->i] == NULL)
-			x->bk = 2;
-		if (x->bk == 1 || x->bk == 2)
-			break ;
-		x->j++;
-	}
-}
-
-void	helper_5(t_x *x)
-{
-	helper_4(x);
-	if (x->bk == 1)
-		x->bk = 0;
-	if (x->bk == 2)
-		return ;
+	x->i = 0;
 	x->j = 0;
-	if (x->str_split[x->i] && x->case_1
-		&& ft_strnstr(x->str_split[x->i], "$", ft_strlen(x->str_split[x->i])))
-	{
-		clear_case_1_and_dollar(x);
-		if (ft_strnstr(x->var, "\'", ft_strlen(x->var)))
-		{
-			case_1_and_dollar_and_quote(x);
-			x->bk = 1;
-			return ;
-		}
-		add_cmd_with_fq_or_with_flq(x);
-	}
+	x->y = 0;
+	x->case_q = 0;
+	x->case_dq = 0;
+	x->var = NULL;
+	x->str_split = NULL;
+	x->new_str = NULL;
 }
 
-void	helper_6(t_x *x)
+int	full_size(char *str)
 {
-	if (ft_strnstr(x->str_split[x->i], "\"", ft_strlen(x->str_split[x->i]))
-		&& ft_strnstr(x->str_split[x->i], "\'", ft_strlen(x->str_split[x->i])))
+	t_size	size;
+
+	size.i = -1;
+	size.size_cmd = 0;
+	size.size_full = ft_strlen(str);
+	while (str[++size.i])
 	{
-		helper_5(x);
-		if (x->bk == 2)
-			return ;
-		if (x->bk == 1)
-			return ;
+		if (str[size.i] == '$')
+		{
+			size.j = full_size_helper(str, size.i, size.j);
+			size.var = ft_substr(str, size.i + 1, size.j - size.i);
+			size.size_full -= ft_strlen(size.var) + 1;
+			if (getenv(size.var))
+				size.size_cmd += ft_strlen(getenv(size.var));
+			else
+				size.size_full += ft_strlen(size.var) + 1;
+			size.i = size.j - 1;
+			size.j = 0;
+			free(size.var);
+		}
+		if ((!(str[size.i] || str[size.i + 1])))
+			break ;
 	}
-	else if (x->str_split[x->i]
-		&& ft_strnstr(x->str_split[x->i], "\'", ft_strlen(x->str_split[x->i])))
-		helper_q_c(x);
-	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "$", 1))
-		helper_d(x);
-	else if (x->str_split[x->i] && ft_strnstr(x->str_split[x->i], "\"", 1)
-		&& ft_strnstr(x->str_split[x->i], "$", 2))
-		simple_v(x->str_split[x->i], x);
-	else if (x->case_q == 1)
-		simple_v(x->str_split[x->i], x);
-	else if (x->str_split[x->i])
-		not_v(x->str_split[x->i], x);
+	size.size_cmd += size.size_full;
+	return (size.size_cmd + 2);
+}
+
+void	add_command(char *str, t_x *x)
+{
+	x->str_split = ft_split(str, ' ');
+	if (ft_strnstr(x->str_split[x->i], "$", ft_strlen(x->str_split[x->i])))
+	{
+		helper_no_echo(x);
+		return ;
+	}
+	while (x->str_split[0][x->i])
+	{
+		if (x->str_split[0][x->i] == '\"' && x->case_dq == 0 && x->case_q != 1)
+			x->case_dq = 1;
+		else if (x->str_split[0][x->i] == '\"' && x->case_dq == 1)
+			x->case_dq = 0;
+		else if (x->str_split[0][x->i] == '\'' && x->case_q == 0
+			&& x->case_dq != 1)
+			x->case_q = 1;
+		else if (x->str_split[0][x->i] == '\'' && x->case_q == 1)
+			x->case_q = 0;
+		else if (x->str_split[0][x->i] == '\'' && x->case_dq == 1)
+			new_join(x, "'");
+		else
+			helper_ex(x->str_split[0], x);
+		x->i++;
+	}
 }
 
 char	*control_ex(t_x *x, char *str)
 {
 	init(x);
-	x->size_for_malloc = full_size(str);
-	x->str_split = ft_split(str, ' ');
-	x->new_str = (char *)malloc(sizeof(char) * (x->size_for_malloc + 1000));
-	add_command(x);
-	check_for_dq_and_qd(x);
-	check_for_q_and_d(str, x);
-	x->i = 1;
-	if (x->case_3 == 1)
-		case_31_helper(x);
-	else if (x->case_1 == 1)
-		case_11_helper(x);
-	while (x->str_split[x->i])
+	x->new_str = (char *)ft_calloc((full_size(str) + 1000), sizeof(char));
+	add_command(str, x);
+	x->i = ft_strlen(x->str_split[0]);
+	while (str[x->i])
 	{
-		helper_6(x);
-		if (x->bk == 2)
-			return (x->new_str);
-		if (x->bk == 1 || x->str_split[x->i] == NULL)
-			break ;
+		if (str[x->i] == '\"' && x->case_dq == 0 && x->case_q != 1)
+			sis_case_dq(1, x);
+		else if (str[x->i] == '\"' && x->case_dq == 1)
+			sis_case_dq(0, x);
+		else if (str[x->i] == '\'' && x->case_q == 0 && x->case_dq != 1)
+			sis_case_q(1, x);
+		else if (str[x->i] == '\'' && x->case_q == 1)
+			sis_case_q(0, x);
+		else if (str[x->i] == '$' && x->case_q == 0)
+			simple_variable(str, x);
+		else if (str[x->i] == ' ')
+			new_join(x, " ");
+		else if (str[x->i] == '\'' && x->case_dq == 1)
+			new_join(x, "'");
+		else
+			helper_ex(str, x);
 		x->i++;
 	}
 	return (x->new_str);
