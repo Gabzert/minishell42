@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/11 16:21:54 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:28:44 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,26 @@ int	split_size(char **split)
 
 void	flag_finder(char *input, t_flags *flags)
 {
-	if (ft_strnstr(input, "<<", ft_strlen(input)))
-		flags->write_in = true;
-	if (ft_strnstr(input, ">>", ft_strlen(input)))
-		flags->append_out = true;
-	while (*input)
+	int	i;
+
+	i = 0;
+	while (input[i])
 	{
-		if (*input == '<' && flags->write_in == false)
+		if (input[i] == 39)
+			i += (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 39)));
+		if (input[i] == 34)
+			i += (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 34)));
+		if (ft_strnstr(&input[i], "<<", 2))
+			flags->write_in = true;
+		if (ft_strnstr(&input[i], ">>", 2))
+			flags->append_out = true;
+		if (input[i] == '<' && flags->write_in == false)
 			flags->re_in = true;
-		if (*input == '>' && flags->append_out == false)
+		if (input[i] == '>' && flags->append_out == false)
 			flags->re_out = true;
-		if (*input == '|')
+		if (input[i] == '|')
 			flags->pipe = true;
-		input++;
+		i++;
 	}
 }
 
