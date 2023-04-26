@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/14 11:43:18 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:56:44 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-static int	split_len(char *s, char c, char q)
-{
-	int	ret;
-
-	ret = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			ret++;
-			if (*s == q)
-			{
-				s++;
-				while (*s && *s != q)
-					s++;
-			}
-			else
-				while (*s && *s != c)
-					s++;
-		}
-		else
-			s++;
-	}
-	return (ret);
-}
-
+/*
 char	*read_quoted(char **line, char q)
 {
 	char	*s;
@@ -72,10 +45,105 @@ static char	**quotes_splitter(char *line, char c, char q)
 				ret[i++] = read_quoted(&line, q);
 			else
 			{
-				while (*line && *line != c && ++len)
+				while (*line && *line != c && *line != q && ++len)
 					line++;
 				ret[i++] = ft_substr(line - len, 0, len);
 			}
+		}
+		else
+			line++;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+*/
+
+#include "minishell.h"
+
+static int	split_len(char *s, char c, char q)
+{
+	int	ret;
+
+	ret = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			ret++;
+			if (*s == q)
+			{
+				s++;
+				while (*s && *s != q)
+					s++;
+			}
+			else
+				while (*s && *s != c)
+					s++;
+		}
+		else
+			s++;
+	}
+	return (ret);
+}
+
+static int	read_quoted(char **line, char q)
+{
+	int		l;
+
+	l = 1;
+	(*line)++;
+	while (**line && **line != q)
+	{
+		l++;
+		(*line)++;
+	}
+	return (l);
+}
+
+char	*remove_quote(char *line, int len, char q)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (line[i] && i < len)
+	{
+		if (line[i] != q)
+		{
+			str[j] = line[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = 0;
+	return (str);
+}
+
+static char	**quotes_splitter(char *line, char c, char q)
+{
+	int		i;
+	int		len;
+	char	**ret;
+
+	i = 0;
+	ret = malloc(sizeof(char *) * (split_len(line, c, q) + 1));
+	while (*line)
+	{
+		if (*line != c)
+		{
+			len = 0;
+			while (*line && *line != c && ++len)
+			{
+				if (*line == q)
+					len += read_quoted(&line, q);
+				line++;
+			}
+			ret[i++] = remove_quote(line - len, len, q);
 		}
 		else
 			line++;
