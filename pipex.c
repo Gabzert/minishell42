@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 12:31:33 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:11:45 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	pipex(int size, char **inputs, t_x *x, t_flags flag)
 	pipe.pid1 = fork();
 	if (pipe.pid1 == 0)
 		run_child_first(pipe, inputs[0], x, flag);
-	waitpid(pipe.pid1, NULL, 0);
+	waitpid(pipe.pid1, NULL, WNOHANG);
 	if (flag.write_in == true)
 		unlink(".heredoc");
 	if (size > 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 12:34:37 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:29:15 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ void	simple_variable(char *str, t_x *x);
 void	helper_ex(char *str, t_x *x);
 void	helper_no_echo(t_x *x);
 
-/* ----------------------- one_function_f_norminette.c ---------------------- */
+/* ------------------------------ variable_ex_2 ----------------------------- */
 void	add_command_space_helper(char *str, t_x *x);
+void	exit_status_simple(t_x *x);
 
 #endif

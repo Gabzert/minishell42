@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:25:01 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/26 12:27:33 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:28:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	simple_variable(char *str, t_x *x)
 		new_join(x, getenv(x->var));
 	else if (x->var[0] == '$' && ft_strlen(x->var) == 1)
 		new_join(x, x->var);
+	else if (x->var[0] == '?' && ft_strlen(x->var) == 1)
+		new_join(x, ft_itoa(g_sig.g_exit));
+	else if (x->var[0] == '?' && ft_strlen(x->var) > 1)
+		exit_status_simple(x);
 	else
 		new_join(x, " ");
 	x->i += x->j - 1;
