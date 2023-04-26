@@ -201,3 +201,29 @@ echo ' $USER " $USER " $USER '
 echo $USER"$USER"$USER
 ---
 echo $USER'$USER'$USER
+---
+    echo  hello
+---
+$hi
+---
+    $hi
+---
+    $USER
+---
+$
+---
+echo $
+---
+echo "$"
+---
+echo '$'
+---
+    $USER hi
+---
+    $USER $hi
+---
+echo $ hello $USER
+---
+echo $ $
+---
+echo $hi $USER hello $hi

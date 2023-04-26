@@ -7,7 +7,7 @@ INPUTS_FILE="inputs.txt"
 EXPECTED_OUTPUTS_FILE="expected_outputs.txt"
 OUTPUTS_FILE="outputs.txt" # Single file for output
 DELIMITER="---"
-TEST_COUNT=102
+TEST_COUNT=115
 
 
 # Remove the outputs file if it exists

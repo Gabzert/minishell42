@@ -1,10 +1,10 @@
 minishell~$ echo ""$USER""
- naal-jen"" 
+naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ''$USER''
- naal-jen'' 
+naal-jen 
 minishell~$ 
 ---
 minishell~$ 
@@ -304,17 +304,17 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo ""$JI""
-  
+
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo ""$USER""
- naal-jen"" 
+naal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo "$USER"$USER""
-naal-jen naal-jen"" 
+naal-jennaal-jen 
 minishell~$ 
 ---
 minishell~$ 
@@ -499,10 +499,69 @@ minishell~$
 ---
 minishell~$ 
 minishell~$ echo $USER"$USER"$USER
-naal-jen"naal-jen"naal-jen 
+naal-jennaal-jennaal-jen 
 minishell~$ 
 ---
 minishell~$ 
 minishell~$ echo $USER'$USER'$USER
-naal-jen'$USER'naal-jen 
+naal-jen$USERnaal-jen 
+minishell~$ 
+---
+minishell~$ 
+minishell~$     echo  hello
+hello 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ $hi
+minishell~$ 
+---
+minishell~$ 
+minishell~$     $hi
+minishell~$ 
+---
+minishell~$ 
+minishell~$     $USER
+minishell~$ 
+---
+minishell~$ 
+minishell~$ $
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $
+$ 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo "$"
+$ 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo '$'
+$ 
+minishell~$ 
+---
+minishell~$ 
+minishell~$     $USER hi
+minishell~$ 
+---
+minishell~$ 
+minishell~$     $USER $hi
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $ hello $USER
+$ hello naal-jen 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $ $
+$ $ 
+minishell~$ 
+---
+minishell~$ 
+minishell~$ echo $hi $USER hello $hi
+naal-jen hello 
 minishell~$ 

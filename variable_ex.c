@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:55:54 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/24 13:31:03 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:18:31 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	add_command(char *str, t_x *x)
 	if (ft_strnstr(x->str_split[x->i], "$", ft_strlen(x->str_split[x->i])))
 	{
 		helper_no_echo(x);
+		add_command_space_helper(str, x);
 		return ;
 	}
 	while (x->str_split[0][x->i])
@@ -96,6 +97,7 @@ void	add_command(char *str, t_x *x)
 			helper_ex(x->str_split[0], x);
 		x->i++;
 	}
+	add_command_space_helper(str, x);
 }
 
 char	*control_ex(t_x *x, char *str)
@@ -103,7 +105,7 @@ char	*control_ex(t_x *x, char *str)
 	init(x);
 	x->new_str = (char *)ft_calloc((full_size(str) + 1000), sizeof(char));
 	add_command(str, x);
-	x->i = ft_strlen(x->str_split[0]);
+	x->i = ft_strlen(x->str_split[0]) + x->j;
 	while (str[x->i])
 	{
 		if (str[x->i] == '\"' && x->case_dq == 0 && x->case_q != 1)

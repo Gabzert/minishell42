@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/24 13:28:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:18:54 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,8 @@ void	sis_case_q(int n, t_x *x);
 void	simple_variable(char *str, t_x *x);
 void	helper_ex(char *str, t_x *x);
 void	helper_no_echo(t_x *x);
+
+/* ----------------------- one_function_f_norminette.c ---------------------- */
+void	add_command_space_helper(char *str, t_x *x);
 
 #endif
