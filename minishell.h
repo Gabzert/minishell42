@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 12:18:54 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:34:37 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	change_inout(char **input, int *diff, int i_o);
 char	**extract_command(char **inputs, int diff);
 int		locate_cmd(char **inputs);
 
-void	pipex(int size, char **inputs, char ***env, t_flags flag);
+void	pipex(int size, char **inputs, t_x *x, t_flags flag);
 void	pipex_init(t_pipex *p, int size);
 
 /*

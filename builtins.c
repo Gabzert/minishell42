@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/25 10:17:28 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 11:21:37 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	echo(char **inputs)
 	while (inputs[i] != NULL)
 	{
 		if (inputs[i][0])
-			printf("%s ", inputs[i]);
+			printf("%s", inputs[i]);
+		if (inputs[i + 1] != NULL)
+			printf(" ");
 		g_sig.g_exit = 0;
 		i++;
 	}

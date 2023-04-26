@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/13 15:38:15 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 11:56:55 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 	if (flags.pipe == true)
 	{
 		inputs = ft_split(line, '|');
-		pipex(split_size(inputs), inputs, &x->envp, flags);
+		pipex(split_size(inputs), inputs, x, flags);
 		free_split(inputs);
 	}
 	else

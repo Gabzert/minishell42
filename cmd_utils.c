@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/11 09:43:15 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:44:35 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	is_builtin_helper(char *str, int n)
 	else
 		n = chdir(str);
 	if (n < 0)
-		printf("minishell: cd: %s: No such file or directory\n", str);
+		perror("");
 	return (n);
 }
 
@@ -113,9 +113,10 @@ bool	is_builtin(char **inputs, t_x *x, t_flags flag)
 		unset(inputs, &x);
 	else if (ft_strcmp(inputs[0], "exit") == 0)
 	{
+		g_sig.g_exit = ft_atoi(inputs[1]);
 		free_split(inputs);
 		free_x(&x);
-		exit(0);
+		exit(g_sig.g_exit);
 	}
 	else
 		return (false);
