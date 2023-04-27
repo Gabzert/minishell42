@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 12:44:35 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:59:09 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ char	*find_cmd(char *cmd, char **env)
 	while (--i >= 0)
 		free(path_list[i]);
 	free(path_list);
-	write(2, "command not found : ", 20);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, "\n", 1);
+	perror(" ");
 	return (NULL);
 }
 
@@ -98,7 +96,11 @@ int	is_builtin_helper(char *str, int n)
 bool	is_builtin(char **inputs, t_x *x, t_flags flag)
 {
 	if (is_any(inputs) == true)
-		inputs = handle_redirect(inputs, flag);
+	{
+		inputs = handle_redirect(inputs, flag, false);
+		if (!inputs)
+			return (true);
+	}
 	if (ft_strcmp(inputs[0], "cd") == 0)
 		is_builtin_helper_1(inputs);
 	else if (ft_strcmp(inputs[0], "pwd") == 0)
@@ -112,12 +114,7 @@ bool	is_builtin(char **inputs, t_x *x, t_flags flag)
 	else if (ft_strcmp(inputs[0], "unset") == 0)
 		unset(inputs, &x);
 	else if (ft_strcmp(inputs[0], "exit") == 0)
-	{
-		g_sig.g_exit = ft_atoi(inputs[1]);
-		free_split(inputs);
-		free_x(&x);
-		exit(g_sig.g_exit);
-	}
+		ft_exit(inputs, &x);
 	else
 		return (false);
 	free_split(inputs);

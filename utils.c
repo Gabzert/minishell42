@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/15 11:28:44 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:15:39 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	flag_finder(char *input, t_flags *flags)
 	while (input[i])
 	{
 		if (input[i] == 39)
-			i += (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 39)));
+			i = (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 39)));
 		if (input[i] == 34)
-			i += (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 34)));
+			i = (ft_strlen(input) - ft_strlen(ft_strchr(input + i + 1, 34)));
 		if (ft_strnstr(&input[i], "<<", 2))
 			flags->write_in = true;
 		if (ft_strnstr(&input[i], ">>", 2))

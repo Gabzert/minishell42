@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:42:56 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/20 20:08:54 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:15:48 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	is_builtin_helper_1(char **inputs)
 	int	n;
 
 	n = 0;
+	if (inputs[2])
+	{
+		perror(" ");
+		g_sig.g_exit = 1;
+		return ;
+	}
 	if (inputs[1] == NULL)
 		n = is_builtin_helper("~", n);
 	else

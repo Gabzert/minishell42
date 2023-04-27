@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/26 14:24:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:10:17 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,23 @@ char	*exit_status(char *str)
 	return (str);
 }
 
-int	locate_cmd(char **inputs)
+void	locate_cmd(char **inputs, int *i)
 {
-	int	i;
-
-	i = 0;
-	while (inputs[i])
+	while (1)
 	{
-		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
-			|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0
-			|| ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
-			|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
-			i += 2;
-		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i]))
-			|| ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i]))
-			|| ft_strnstr(inputs[i], ">", ft_strlen(inputs[i]))
-			|| ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
-			i++;
+		if (ft_strncmp(inputs[*i], "<", ft_strlen(inputs[*i])) == 0
+			|| ft_strncmp(inputs[*i], "<<", ft_strlen(inputs[*i])) == 0
+			|| ft_strncmp(inputs[*i], ">", ft_strlen(inputs[*i])) == 0
+			|| ft_strncmp(inputs[*i], ">>", ft_strlen(inputs[*i])) == 0)
+			*i += 2;
+		else if (ft_strnstr(inputs[*i], "<", ft_strlen(inputs[*i]))
+			|| ft_strnstr(inputs[*i], "<<", ft_strlen(inputs[*i]))
+			|| ft_strnstr(inputs[*i], ">", ft_strlen(inputs[*i]))
+			|| ft_strnstr(inputs[*i], ">>", ft_strlen(inputs[*i])))
+			(*i)++;
 		else
-			return (i);
+			break ;
 	}
-	return (i);
 }
 
 void	envcpy(char **env, t_x **x)
@@ -60,14 +56,21 @@ void	envcpy(char **env, t_x **x)
 
 bool	is_any(char **inputs)
 {
-	if (ft_strcmp(inputs[0], "cd") == 0 || ft_strcmp(inputs[0], "pwd") == 0
-		|| ft_strcmp(inputs[0], "echo") == 0 || ft_strcmp(inputs[0], "env") == 0
-		|| ft_strcmp(inputs[0], "export") == 0
-		|| ft_strcmp(inputs[0], "unset") == 0
-		|| ft_strcmp(inputs[0], "exit") == 0)
-		return (true);
-	else
-		return (false);
+	int	i;
+
+	i = 0;
+	while (inputs[i])
+	{
+		if (ft_strcmp(inputs[i], "cd") == 0 || ft_strcmp(inputs[i], "pwd") == 0
+			|| ft_strcmp(inputs[i], "echo") == 0
+			|| ft_strcmp(inputs[i], "env") == 0
+			|| ft_strcmp(inputs[i], "export") == 0
+			|| ft_strcmp(inputs[i], "unset") == 0
+			|| ft_strcmp(inputs[i], "exit") == 0)
+			return (true);
+		i++;
+	}
+	return (false);
 }
 
 void	reset_io(int fdin, int fdout)

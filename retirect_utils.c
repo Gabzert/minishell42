@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   retirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/01 14:31:31 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:35:02 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_input(char **inputs, int i, int *fd, int *diff)
+static void	find_input(char **inputs, int i, int *fd, int *diff)
 {
 	if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
 		|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
@@ -38,7 +38,7 @@ void	find_input(char **inputs, int i, int *fd, int *diff)
 	}
 }
 
-void	find_output(char **inputs, int i, int *fd, int *diff)
+static void	find_output(char **inputs, int i, int *fd, int *diff)
 {
 	if (ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
 		|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
@@ -64,7 +64,7 @@ void	find_output(char **inputs, int i, int *fd, int *diff)
 	}
 }
 
-void	change_inout(char **input, int *diff, int i_o)
+static int	change_inout(char **input, int *diff, int i_o)
 {
 	int		fd;
 	int		i;
@@ -80,15 +80,13 @@ void	change_inout(char **input, int *diff, int i_o)
 		i++;
 	}
 	if (fd == -1)
-	{
-		perror("errore lettura file");
-		exit (0);
-	}
+		return (1);
 	if (i_o == IN)
 		dup2(fd, STDIN_FILENO);
 	else
 		dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (0);
 }
 
 char	**extract_command(char **inputs, int diff)
@@ -101,29 +99,44 @@ char	**extract_command(char **inputs, int diff)
 	i = -1;
 	j = 0;
 	c_size = split_size(inputs) - diff;
-	j = locate_cmd(inputs);
 	new = malloc ((c_size + 1) * sizeof(char *));
-	while (++i < c_size)
+	while (++i < split_size(inputs))
 	{
-		new[i] = ft_strdup(inputs[j]);
-		j++;
+		locate_cmd(inputs, &i);
+		if (i < split_size(inputs))
+		{
+			new[j] = ft_strdup(inputs[i]);
+			j++;
+		}
 	}
-	new[i] = NULL;
 	free_split(inputs);
+	new[j] = NULL;
 	return (new);
 }
 
-char	**handle_redirect(char **input, t_flags f)
+char	**handle_redirect(char **input, t_flags f, bool in_child)
 {
 	int	diff;
+	int	check;
 
 	diff = 0;
 	if (f.append_out == false && f.write_in == false
 		&& f.re_in == false && f.re_out == false)
 		return (input);
 	if (f.re_in == true || f.write_in == true)
-		change_inout(input, &diff, IN);
+		check = change_inout(input, &diff, IN);
 	if (f.re_out == true || f.append_out == true)
-		change_inout(input, &diff, OUT);
+		check = change_inout(input, &diff, OUT);
+	if (check == 1)
+	{
+		perror(" ");
+		if (in_child)
+			exit (1);
+		else
+		{
+			g_sig.g_exit = 1;
+			return (NULL);
+		}
+	}
 	return (extract_command(input, diff));
 }

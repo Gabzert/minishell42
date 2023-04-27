@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 14:29:15 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:30:22 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	flag_finder(char *input, t_flags *flags);
 void	flag_init(t_flags *f);
 char	**split_cmd(char *line, t_flags fl);
 
+void	pipex(int size, char **inputs, t_x *x, t_flags flag);
+void	pipex_init(t_pipex *p, int size);
 /*
 **	FREE UTILS
 */
@@ -99,23 +101,22 @@ void	free_split(char **a);
 /*
 **	REDIRECT UTILS
 */
-char	**handle_redirect(char **input, t_flags f);
-void	change_inout(char **input, int *diff, int i_o);
+char	**handle_redirect(char **input, t_flags f, bool in_child);
 char	**extract_command(char **inputs, int diff);
-int		locate_cmd(char **inputs);
+void	locate_cmd(char **inputs, int *i);	
 
-void	pipex(int size, char **inputs, t_x *x, t_flags flag);
-void	pipex_init(t_pipex *p, int size);
 
 /*
 **	BUILTINS
 */
-int		is_builtin_helper(char *str, int n);
-bool	is_builtin(char **inputs, t_x *x, t_flags flag);
 void	echo(char **inputs);
 void	l_env(char **env);
 void	export(char **inputs, t_x **x);
 void	unset(char **inputs, t_x **x);
+void	ft_exit(char **inputs, t_x **x);
+
+int		is_builtin_helper(char *str, int n);
+bool	is_builtin(char **inputs, t_x *x, t_flags flag);
 void	reset_io(int fdin, int fdout);
 bool	is_any(char **inputs);
 

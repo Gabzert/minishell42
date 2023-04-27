@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/26 11:21:37 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:56:31 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,52 +53,30 @@ void	l_env(char **env)
 	}
 }
 
-static bool	find_in_split(char ***arr, char *str)
+void	ft_exit(char **inputs, t_x **x)
 {
-	char	**input;
-	int		i;
+	int	i;
 
 	i = -1;
-	input = ft_split(str, '=');
-	while ((*arr)[++i])
+	if (inputs[2])
+	{	
+		write(2, "too many arguments\n", 20);
+		exit(1);
+	}
+	while (inputs[1][++i])
 	{
-		if (ft_strncmp((*arr)[i], input[0], ft_strlen(input[0])) == 0)
+		if (ft_isalpha(inputs[1][i]))
 		{
-			free((*arr)[i]);
-			(*arr)[i] = ft_strdup(str);
-			free_split(input);
-			return (true);
+			write(2, "numeric argument required\n", 28);
+			exit(2);
 		}
 	}
-	free_split(input);
-	return (false);
+	g_sig.g_exit = ft_atoi(inputs[1]);
+	free_split(inputs);
+	free_x(x);
+	exit(g_sig.g_exit);
 }
 
-void	export(char **inputs, t_x **x)
-{
-	char	**new_env;
-	int		i;
-
-	i = -1;
-	if (inputs[1])
-	{
-		if (find_in_split(&(*x)->envp, inputs[1]) == false)
-		{
-			new_env = malloc((split_size((*x)->envp) + 2) * sizeof(char *));
-			while ((*x)->envp[++i])
-				new_env[i] = (*x)->envp[i];
-			new_env[i] = ft_strdup(inputs[1]);
-			new_env[i + 1] = NULL;
-			free((*x)->envp);
-			(*x)->envp = new_env;
-		}
-	}
-	else
-	{
-		while ((*x)->envp[++i])
-			ft_printf("declare -x %s\n", (*x)->envp[i]);
-	}
-}
 
 void	unset(char **inputs, t_x **x)
 {

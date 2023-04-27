@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 14:11:45 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:46:42 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,10 @@ static void	check_builtin(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	inputs = split_cmd(line, flag);
 	if (is_any(inputs) == true)
 	{
-		if (pipe.i == 0)
-		{
-			if (!ft_strchr(line, '>'))
-				dup2(pipe.fd[pipe.i][1], 1);
-		}
-		else if (pipe.i == pipe.fd_count)
-		{
-			if (!ft_strchr(line, '<'))
-				dup2(pipe.fd[pipe.i][0], 0);
-		}
+		if (pipe.i == 0 && !ft_strchr(line, '>'))
+			dup2(pipe.fd[pipe.i][1], 1);
+		else if (pipe.i == pipe.fd_count && !ft_strchr(line, '<'))
+			dup2(pipe.fd[pipe.i][0], 0);
 		else
 		{
 			if (!ft_strchr(line, '<'))
@@ -37,7 +31,9 @@ static void	check_builtin(t_pipex pipe, char *line, t_x *x, t_flags flag)
 				dup2(pipe.fd[pipe.i + 1][1], 1);
 		}
 		is_builtin(inputs, x, flag);
-		free_child(inputs, &pipe);
+		close_pipes(pipe.fd, pipe.fd_count - 1);
+		free_pipes(pipe.fd, split_size(inputs) - 1);
+		exit(0);
 	}
 }
 
@@ -48,7 +44,7 @@ static void	run_child_first(t_pipex pipe, char *line, t_x *x, t_flags flag)
 
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
-	input = handle_redirect(input, flag);
+	input = handle_redirect(input, flag, true);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], x->envp);
 	else
@@ -72,7 +68,7 @@ static void	run_child_middle(t_pipex pipe, char *line, t_x *x, t_flags flag)
 
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
-	input = handle_redirect(input, flag);
+	input = handle_redirect(input, flag, true);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], x->envp);
 	else
@@ -95,7 +91,7 @@ static void	run_child_last(t_pipex pipe, char *line, t_x *x, t_flags flag)
 
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
-	input = handle_redirect(input, flag);
+	input = handle_redirect(input, flag, true);
 	if (access(input[0], X_OK) != 0)
 		cmd = find_cmd(input[0], x->envp);
 	else

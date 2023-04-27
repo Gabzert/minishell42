@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 11:56:55 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:46:12 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	analize_help(char **inputs, char ***env, t_flags flags, t_x *x)
 	pid = fork();
 	if (pid == 0)
 	{
-		inputs = handle_redirect(inputs, flags);
+		inputs = handle_redirect(inputs, flags, true);
 		execute(inputs, *env, x);
 	}
 	waitpid(pid, &status, 0);
