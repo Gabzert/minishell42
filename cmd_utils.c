@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 16:59:09 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/28 15:24:26 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ bool	is_builtin(char **inputs, t_x *x, t_flags flag)
 	else
 		return (false);
 	free_split(inputs);
-	reset_io(flag.stdin, flag.stdout);
+	//reset_io(flag.stdin, flag.stdout);
 	return (true);
 }

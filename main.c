@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 16:46:12 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/28 15:08:17 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 void	sigint_handler(int prova)
 {
 	(void) prova;
-	g_sig.g_exit = 130;
+	g_sig.g_exit = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_clear_history();
 	rl_on_new_line();

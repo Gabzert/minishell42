@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 11:20:08 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/27 15:35:02 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:44:24 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ static void	find_input(char **inputs, int i, int *fd, int *diff)
 	if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0
 		|| ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
 	{
-		if (*fd != 0)
-			close(*fd);
 		if (ft_strncmp(inputs[i], "<", ft_strlen(inputs[i])) == 0)
-			*fd = open(inputs[i + 1], O_RDONLY);
+			check_fd(fd, inputs[i + 1], IN, false);
 		else if (ft_strncmp(inputs[i], "<<", ft_strlen(inputs[i])) == 0)
 			take_input(inputs[i + 1], fd);
 		*diff += 2;
@@ -28,8 +26,6 @@ static void	find_input(char **inputs, int i, int *fd, int *diff)
 	else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i]))
 		|| ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
 	{
-		if (*fd != 0)
-			close(*fd);
 		if (ft_strnstr(inputs[i], "<<", ft_strlen(inputs[i])))
 			take_input(inputs[i] + 2, fd);
 		else if (ft_strnstr(inputs[i], "<", ft_strlen(inputs[i])))
@@ -43,23 +39,19 @@ static void	find_output(char **inputs, int i, int *fd, int *diff)
 	if (ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0
 		|| ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
 	{
-		if (*fd != 0)
-			close(*fd);
 		if (ft_strncmp(inputs[i], ">", ft_strlen(inputs[i])) == 0)
-			*fd = open(inputs[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			check_fd(fd, inputs[i + 1], OUT, false);
 		else if (ft_strncmp(inputs[i], ">>", ft_strlen(inputs[i])) == 0)
-			*fd = open(inputs[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+			check_fd(fd, inputs[i + 1], OUT, true);
 		*diff += 2;
 	}
 	else if (ft_strnstr(inputs[i], ">", ft_strlen(inputs[i]))
 		|| ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
 	{
-		if (*fd != 0)
-			close(*fd);
 		if (ft_strnstr(inputs[i], ">>", ft_strlen(inputs[i])))
-			*fd = open(inputs[i] + 2, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			check_fd(fd, inputs[i] + 2, OUT, true);
 		else if (ft_strnstr(inputs[i], ">", ft_strlen(inputs[i])))
-			*fd = open(inputs[i] + 1, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			check_fd(fd, inputs[i] + 1, OUT, false);
 		*diff += 1;
 	}
 }

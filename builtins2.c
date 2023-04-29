@@ -41,6 +41,8 @@ static bool	check_args(char *inputs)
 	i = 0;
 	if (ft_strchr(inputs, '='))
 	{
+		if (inputs[0] == '=')
+			return (false);
 		temp = ft_split(inputs, '=');
 		while (temp[0][++i])
 		{

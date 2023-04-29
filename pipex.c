@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 16:46:42 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:40:21 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static void	check_builtin(t_pipex pipe, char *line, t_x *x, t_flags flag)
 			if (!ft_strchr(line, '>'))
 				dup2(pipe.fd[pipe.i + 1][1], 1);
 		}
-		is_builtin(inputs, x, flag);
 		close_pipes(pipe.fd, pipe.fd_count - 1);
-		free_pipes(pipe.fd, split_size(inputs) - 1);
+		is_builtin(inputs, x, flag);
 		exit(0);
 	}
 }
@@ -89,6 +88,8 @@ static void	run_child_last(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	if (pipe.i == 0)
+		pipe.i = pipe.fd_count - 1;
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
 	input = handle_redirect(input, flag, true);

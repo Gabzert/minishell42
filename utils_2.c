@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/27 16:10:17 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:42:05 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,6 @@ char	*exit_status(char *str)
 		g_sig.g_exit = 0;
 	}
 	return (str);
-}
-
-void	locate_cmd(char **inputs, int *i)
-{
-	while (1)
-	{
-		if (ft_strncmp(inputs[*i], "<", ft_strlen(inputs[*i])) == 0
-			|| ft_strncmp(inputs[*i], "<<", ft_strlen(inputs[*i])) == 0
-			|| ft_strncmp(inputs[*i], ">", ft_strlen(inputs[*i])) == 0
-			|| ft_strncmp(inputs[*i], ">>", ft_strlen(inputs[*i])) == 0)
-			*i += 2;
-		else if (ft_strnstr(inputs[*i], "<", ft_strlen(inputs[*i]))
-			|| ft_strnstr(inputs[*i], "<<", ft_strlen(inputs[*i]))
-			|| ft_strnstr(inputs[*i], ">", ft_strlen(inputs[*i]))
-			|| ft_strnstr(inputs[*i], ">>", ft_strlen(inputs[*i])))
-			(*i)++;
-		else
-			break ;
-	}
 }
 
 void	envcpy(char **env, t_x **x)

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/04/26 15:56:31 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:48:06 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_exit(char **inputs, t_x **x)
 			exit(2);
 		}
 	}
+
 	g_sig.g_exit = ft_atoi(inputs[1]);
 	free_split(inputs);
 	free_x(x);
