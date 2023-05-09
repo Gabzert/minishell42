@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/29 10:40:21 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:51:18 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ static void	check_builtin(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	inputs = split_cmd(line, flag);
 	if (is_any(inputs) == true)
 	{
-		if (pipe.i == 0 && !ft_strchr(line, '>'))
-			dup2(pipe.fd[pipe.i][1], 1);
-		else if (pipe.i == pipe.fd_count && !ft_strchr(line, '<'))
-			dup2(pipe.fd[pipe.i][0], 0);
-		else
-		{
-			if (!ft_strchr(line, '<'))
-				dup2(pipe.fd[pipe.i][0], 0);
-			if (!ft_strchr(line, '>'))
-				dup2(pipe.fd[pipe.i + 1][1], 1);
-		}
 		close_pipes(pipe.fd, pipe.fd_count - 1);
 		is_builtin(inputs, x, flag);
 		exit(0);
@@ -41,6 +30,8 @@ static void	run_child_first(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	if (!ft_strchr(line, '>'))
+		dup2(pipe.fd[pipe.i][1], 1);
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
 	input = handle_redirect(input, flag, true);
@@ -50,8 +41,6 @@ static void	run_child_first(t_pipex pipe, char *line, t_x *x, t_flags flag)
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	if (!ft_strchr(line, '>'))
-		dup2(pipe.fd[pipe.i][1], 1);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, x->envp) == -1)
 	{
@@ -65,6 +54,10 @@ static void	run_child_middle(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	if (!ft_strchr(line, '<'))
+		dup2(pipe.fd[pipe.i][0], 0);
+	if (!ft_strchr(line, '>'))
+		dup2(pipe.fd[pipe.i + 1][1], 1);
 	check_builtin(pipe, line, x, flag);
 	input = split_cmd(line, flag);
 	input = handle_redirect(input, flag, true);
@@ -74,10 +67,6 @@ static void	run_child_middle(t_pipex pipe, char *line, t_x *x, t_flags flag)
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	if (!ft_strchr(line, '<'))
-		dup2(pipe.fd[pipe.i][0], 0);
-	if (!ft_strchr(line, '>'))
-		dup2(pipe.fd[pipe.i + 1][1], 1);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, x->envp) == -1)
 		free_child(input, &pipe);
@@ -88,9 +77,9 @@ static void	run_child_last(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
-	if (pipe.i == 0)
-		pipe.i = pipe.fd_count - 1;
 	check_builtin(pipe, line, x, flag);
+	if (!ft_strchr(line, '<'))
+		dup2(pipe.fd[pipe.i][0], 0);
 	input = split_cmd(line, flag);
 	input = handle_redirect(input, flag, true);
 	if (access(input[0], X_OK) != 0)
@@ -99,8 +88,6 @@ static void	run_child_last(t_pipex pipe, char *line, t_x *x, t_flags flag)
 		cmd = input[0];
 	if (cmd == NULL)
 		free_child(input, &pipe);
-	if (!ft_strchr(line, '<'))
-		dup2(pipe.fd[pipe.i][0], 0);
 	close_pipes(pipe.fd, pipe.fd_count - 1);
 	if (execve(cmd, input, x->envp) == -1)
 		free_child(input, &pipe);
