@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:24:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/28 14:42:05 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:43:32 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ char	*exit_status(char *str)
 	{
 		printf("%d: command not found\n", g_sig.g_exit);
 		g_sig.g_exit = 0;
-		// free(str);
-		// char *new_str = (char *)malloc(2 * sizeof(char));
-		// new_str[0] = '0';
-		// new_str[1] = '\0';
-		// exit(1);
 		return ("petter");
 	}
 	return (str);
