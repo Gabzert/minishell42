@@ -57,6 +57,14 @@ void	main_helper_1(t_x **x)
 	(*x)->var = NULL;
 }
 
+static void	main_helper_helper_helper(t_x *x, char *cmd)
+{
+	printf("\n");
+	free(cmd);
+	free_x(&x);
+	exit(EXIT_SUCCESS);
+}
+
 void	main_helper(t_x *x, char ***env, t_flags flags)
 {
 	char	*cmd;
@@ -64,12 +72,7 @@ void	main_helper(t_x *x, char ***env, t_flags flags)
 	g_sig.cmd_run = false;
 	cmd = readline("minishell~$ ");
 	if (cmd == NULL)
-	{
-		printf("\n");
-		free(cmd);
-		free_x(&x);
-		exit(EXIT_SUCCESS);
-	}
+		main_helper_helper_helper(x, cmd);
 	else if (*cmd != '\0')
 	{
 		add_history(cmd);
