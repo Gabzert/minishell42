@@ -18,6 +18,12 @@ char	*exit_status(char *str)
 	{
 		printf("%d: command not found\n", g_sig.g_exit);
 		g_sig.g_exit = 0;
+		// free(str);
+		// char *new_str = (char *)malloc(2 * sizeof(char));
+		// new_str[0] = '0';
+		// new_str[1] = '\0';
+		// exit(1);
+		return ("petter");
 	}
 	return (str);
 }

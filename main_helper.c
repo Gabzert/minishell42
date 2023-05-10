@@ -75,6 +75,8 @@ void	main_helper(t_x *x, char ***env, t_flags flags)
 		add_history(cmd);
 		g_sig.cmd_run = true;
 		cmd = exit_status(cmd);
+		if (ft_strncmp(cmd, "petter", 6) == 0)
+			return ;
 		cmd = control_ex(x, cmd);
 		main_helper_1(&x);
 		flag_init(&flags);
