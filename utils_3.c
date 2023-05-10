@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:18:28 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/10 16:36:10 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:45:49 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	check_fd(int *fd, char *filename, int i_o, bool append)
 {
-	if (access(filename, F_OK) == 0)
+	if (access(filename, F_OK) == 0 && i_o == IN)
 	{
-		if (access(filename, X_OK))
+		if ((access(filename, R_OK) == 0 && i_o == IN)
+			|| (access(filename, W_OK) == 0 && i_o == OUT))
 		{
 			if (*fd != 0)
 				close(*fd);
