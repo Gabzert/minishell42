@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:48:33 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/27 16:15:39 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:57:26 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	split_size(char **split)
 	return (i);
 }
 
-void	flag_finder(char *input, t_flags *flags)
+void	flag_finder(char *input, t_flags *flags, bool reset)
 {
 	int	i;
 
 	i = 0;
+	if (reset == true)
+		flag_init(flags);
 	while (input[i])
 	{
 		if (input[i] == 39)

@@ -45,28 +45,21 @@ static bool	check_args(char *inputs)
 			return (false);
 		temp = ft_split(inputs, '=');
 		while (temp[0][++i])
-		{
 			if (!ft_isalpha(temp[0][i]))
 				return (false);
-		}
 	}
 	else
-	{
 		while (inputs[++i])
-		{
 			if (!ft_isalpha(inputs[i]))
 				return (false);
-		}
-	}
 	return (true);
 }
 
 void	export(char **inputs, t_x **x)
 {
 	char	**new_env;
-	int		i;
 
-	i = -1;
+	(*x)->i = -1;
 	if (inputs[1])
 	{
 		if (!check_args(inputs[1]))
@@ -78,17 +71,15 @@ void	export(char **inputs, t_x **x)
 		if (find_in_split(&(*x)->envp, inputs[1]) == false)
 		{
 			new_env = malloc((split_size((*x)->envp) + 2) * sizeof(char *));
-			while ((*x)->envp[++i])
-				new_env[i] = (*x)->envp[i];
-			new_env[i] = ft_strdup(inputs[1]);
-			new_env[i + 1] = NULL;
+			while ((*x)->envp[++(*x)->i])
+				new_env[(*x)->i] = (*x)->envp[(*x)->i];
+			new_env[(*x)->i] = ft_strdup(inputs[1]);
+			new_env[(*x)->i + 1] = NULL;
 			free((*x)->envp);
 			(*x)->envp = new_env;
 		}
 	}
 	else
-	{
-		while ((*x)->envp[++i])
-			ft_printf("declare -x %s\n", (*x)->envp[i]);
-	}
+		while ((*x)->envp[++(*x)->i])
+			ft_printf("declare -x %s\n", (*x)->envp[(*x)->i]);
 }

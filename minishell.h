@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/28 14:41:57 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:40:55 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*find_path(char **env);
 char	*find_cmd(char *cmd, char **env);
 void	take_input(char *eof, int *file);
 int		split_size(char **split);
-void	flag_finder(char *input, t_flags *flags);
+void	flag_finder(char *input, t_flags *flags, bool reset);
 void	flag_init(t_flags *f);
 char	**split_cmd(char *line, t_flags fl);
 
@@ -105,7 +105,6 @@ char	**handle_redirect(char **input, t_flags f, bool in_child);
 char	**extract_command(char **inputs, int diff);
 void	locate_cmd(char **inputs, int *i);
 void	check_fd(int *fd, char *filename, int i_o, bool append);
-
 
 /*
 **	BUILTINS

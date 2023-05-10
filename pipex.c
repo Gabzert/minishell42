@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/09 17:51:18 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:58:58 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	run_child_first(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	flag_finder(line, &flag, true);
 	if (!ft_strchr(line, '>'))
 		dup2(pipe.fd[pipe.i][1], 1);
 	check_builtin(pipe, line, x, flag);
@@ -54,6 +55,7 @@ static void	run_child_middle(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	flag_finder(line, &flag, true);
 	if (!ft_strchr(line, '<'))
 		dup2(pipe.fd[pipe.i][0], 0);
 	if (!ft_strchr(line, '>'))
@@ -77,6 +79,7 @@ static void	run_child_last(t_pipex pipe, char *line, t_x *x, t_flags flag)
 	char	**input;
 	char	*cmd;
 
+	flag_finder(line, &flag, true);
 	check_builtin(pipe, line, x, flag);
 	if (!ft_strchr(line, '<'))
 		dup2(pipe.fd[pipe.i][0], 0);

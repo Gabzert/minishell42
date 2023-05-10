@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:49:04 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/26 13:51:38 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:58:14 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	main_helper(t_x *x, char ***env, t_flags flags)
 		cmd = control_ex(x, cmd);
 		main_helper_1(&x);
 		flag_init(&flags);
-		flag_finder(cmd, &flags);
+		flag_finder(cmd, &flags, false);
 		analize_command(cmd, env, flags, x);
 		free(cmd);
 		x->new_str = NULL;
