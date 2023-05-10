@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:45 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/10 09:58:58 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:07:08 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	check_builtin(t_pipex pipe, char *line, t_x *x, t_flags flag)
 		is_builtin(inputs, x, flag);
 		exit(0);
 	}
+	free_split(inputs);
 }
 
 static void	run_child_first(t_pipex pipe, char *line, t_x *x, t_flags flag)

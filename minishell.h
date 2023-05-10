@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/10 10:40:55 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:22:30 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	free_split(char **a);
 char	**handle_redirect(char **input, t_flags f, bool in_child);
 char	**extract_command(char **inputs, int diff);
 void	locate_cmd(char **inputs, int *i);
-void	check_fd(int *fd, char *filename, int i_o, bool append);
+int		check_fd(int *fd, char *filename, int i_o, bool append);
 
 /*
 **	BUILTINS

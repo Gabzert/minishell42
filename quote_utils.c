@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:42 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/26 10:56:44 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:54:15 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static char	**quotes_splitter(char *line, char c, char q)
 	char	**ret;
 
 	i = 0;
-	ret = malloc(sizeof(char *) * (split_len(line, c, q) + 1));
+	ret = malloc(sizeof(char *) * (split_len(line, c, q) + 2));
 	while (*line)
 	{
 		if (*line != c)

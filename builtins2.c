@@ -45,8 +45,14 @@ static bool	check_args(char *inputs)
 			return (false);
 		temp = ft_split(inputs, '=');
 		while (temp[0][++i])
+		{
 			if (!ft_isalpha(temp[0][i]))
+			{
+				free_split(temp);
 				return (false);
+			}
+		}
+		free_split(temp);
 	}
 	else
 		while (inputs[++i])
