@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:49:04 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/05/10 09:58:14 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:34:20 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	main_helper_helper_helper(t_x *x, char *cmd)
 	exit(EXIT_SUCCESS);
 }
 
-void	main_helper(t_x *x, char ***env, t_flags flags)
+void	main_helper(t_x *x, t_flags flags)
 {
 	char	*cmd;
 
@@ -84,7 +84,7 @@ void	main_helper(t_x *x, char ***env, t_flags flags)
 		main_helper_1(&x);
 		flag_init(&flags);
 		flag_finder(cmd, &flags, false);
-		analize_command(cmd, env, flags, x);
+		analize_command(cmd, flags, x);
 		free(cmd);
 		x->new_str = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:42:56 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/04/27 09:15:48 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:04:47 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	is_builtin_helper_1(char **inputs)
 	int	n;
 
 	n = 0;
-	if (inputs[2])
+	if (split_size(inputs) > 2)
 	{
 		perror(" ");
 		g_sig.g_exit = 1;

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:45:45 by gabriele          #+#    #+#             */
-/*   Updated: 2023/05/10 10:40:40 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:59:21 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,23 @@ void	ft_exit(char **inputs, t_x **x)
 	int	i;
 
 	i = -1;
-	if (inputs[2])
+	if (split_size(inputs) > 2)
 	{	
 		write(2, "too many arguments\n", 20);
 		exit(1);
 	}
-	while (inputs[1][++i])
+	if (inputs[1])
 	{
-		if (ft_isalpha(inputs[1][i]))
+		while (inputs[1][++i])
 		{
-			write(2, "numeric argument required\n", 28);
-			exit(2);
+			if (ft_isalpha(inputs[1][i]))
+			{
+				write(2, "numeric argument required\n", 28);
+				exit(2);
+			}
 		}
+		g_sig.g_exit = ft_atoi(inputs[1]);
 	}
-	g_sig.g_exit = ft_atoi(inputs[1]);
 	free_split(inputs);
 	free_x(x);
 	exit(g_sig.g_exit);

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:42:19 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/10 14:22:30 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:35:02 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ void	add_q_s(t_x *x);
 void	envcpy(char **env, t_x **x);
 
 /* --------------------------------- main.c --------------------------------- */
-void	analize_command(char *line, char ***env, t_flags flags, t_x *x);
+void	analize_command(char *line, t_flags flags, t_x *x);
 
 /* ------------------------------ main_helper.c ----------------------------- */
 void	free_x_1(t_x **x);
 void	free_x(t_x **x);
 void	main_helper_1(t_x **x);
-void	main_helper(t_x *x, char ***env, t_flags flags);
+void	main_helper(t_x *x, t_flags flags);
 
 /* ------------------------------ exit_status.c ----------------------------- */
 char	*exit_status(char *str);

@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:47:41 by gfantech          #+#    #+#             */
-/*   Updated: 2023/05/10 09:36:11 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:07:26 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	is_builtin_helper(char *str, int n)
 	if (ft_strnstr(str, "~", ft_strlen(str)) && ft_strlen(str) == 1)
 	{
 		user = getenv("USER");
-		path = ft_strdup("/home/");
+		path = ft_strdup("/nfs/homes/");
 		fin = ft_strjoin(path, user);
 		n = chdir(fin);
 		free(path);

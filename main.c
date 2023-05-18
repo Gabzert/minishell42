@@ -6,7 +6,7 @@
 /*   By: gfantech <gfantech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:46:02 by gfantech          #+#    #+#             */
-/*   Updated: 2023/04/28 15:08:17 by gfantech         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:32:05 by gfantech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_sig	g_sig;
 
-void	execute(char **input, char **env, t_x *x)
+void	execute(char **input, t_x *x)
 {
 	char				*cmd;
 
@@ -22,7 +22,7 @@ void	execute(char **input, char **env, t_x *x)
 		return ;
 	if (access(input[0], X_OK) != 0)
 	{
-		cmd = find_cmd(input[0], env);
+		cmd = find_cmd(input[0], x->envp);
 		if (cmd == NULL)
 		{
 			free_split(input);
@@ -33,7 +33,7 @@ void	execute(char **input, char **env, t_x *x)
 	}
 	else
 		cmd = input[0];
-	if (execve(cmd, input, env) == -1)
+	if (execve(cmd, input, x->envp) == -1)
 	{
 		if (!(ft_strnstr(input[0], "$?", 2)))
 			perror("Esecusione fallita");
@@ -43,7 +43,7 @@ void	execute(char **input, char **env, t_x *x)
 	}
 }
 
-static void	analize_help(char **inputs, char ***env, t_flags flags, t_x *x)
+static void	analize_help(char **inputs, t_flags flags, t_x *x)
 {
 	int	pid;
 	int	status;
@@ -52,7 +52,7 @@ static void	analize_help(char **inputs, char ***env, t_flags flags, t_x *x)
 	if (pid == 0)
 	{
 		inputs = handle_redirect(inputs, flags, true);
-		execute(inputs, *env, x);
+		execute(inputs, x);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
@@ -68,7 +68,7 @@ static void	analize_help(char **inputs, char ***env, t_flags flags, t_x *x)
 		unlink(".heredoc");
 }
 
-void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
+void	analize_command(char *line, t_flags flags, t_x *x)
 {
 	char	**inputs;
 
@@ -89,7 +89,7 @@ void	analize_command(char *line, char ***env, t_flags flags, t_x *x)
 				free_split(inputs);
 				return ;
 			}
-			analize_help(inputs, env, flags, x);
+			analize_help(inputs, flags, x);
 			free_split(inputs);
 		}
 	}
@@ -123,6 +123,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	while (1)
-		main_helper(x, &env, flags);
+		main_helper(x, flags);
 	return (0);
 }
